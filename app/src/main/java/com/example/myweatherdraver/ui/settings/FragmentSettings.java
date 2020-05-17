@@ -1,6 +1,7 @@
-package com.example.myweatherdraver.ui.gallery;
+package com.example.myweatherdraver.ui.settings;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
+import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 public class FragmentSettings extends Fragment {
 
@@ -29,16 +32,11 @@ public class FragmentSettings extends Fragment {
     Spinner spinner;
     MainActivity act;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_setting, container, false);
         act = (MainActivity) getContext();
-
-
-
-
         sPress = root.findViewById(R.id.switchPress);
         sSpeed = root.findViewById(R.id.switchSpeed);
         sHumi = root.findViewById(R.id.switchHumi);
@@ -147,8 +145,6 @@ public class FragmentSettings extends Fragment {
                 }
             }
         });
-
-
         return root;
     }
 
@@ -187,6 +183,7 @@ public class FragmentSettings extends Fragment {
                         break;
                 }
                 Singleton.getSingleton().setCity(textCity.getText().toString());
+                Singleton.getSingleton().getListFav().add(new CityFavourites(Singleton.getSingleton().getCity()));
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
