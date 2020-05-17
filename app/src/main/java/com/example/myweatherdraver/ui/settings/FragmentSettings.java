@@ -1,7 +1,6 @@
 package com.example.myweatherdraver.ui.settings;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentSettings extends Fragment {
 
@@ -57,9 +56,8 @@ public class FragmentSettings extends Fragment {
         if(Singleton.getSingleton().getSwitchSpeed()) sSpeed.setChecked(true);
         else sSpeed.setChecked(false);
 
-
-
-
+        if(Singleton.getSingleton().getSwitchTheme()) sTheme.setChecked(true);
+        else sTheme.setChecked(false);
 
         sPress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +143,15 @@ public class FragmentSettings extends Fragment {
                 }
             }
         });
+
+        sTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sTheme.isChecked()) Singleton.getSingleton().setSwitchTheme(true);
+                else Singleton.getSingleton().setSwitchTheme(false);
+                getActivity().recreate();// пересоздать активити
+            }
+        });
         return root;
     }
 
@@ -183,11 +190,22 @@ public class FragmentSettings extends Fragment {
                         break;
                 }
                 Singleton.getSingleton().setCity(textCity.getText().toString());
-                Singleton.getSingleton().getListFav().add(new CityFavourites(Singleton.getSingleton().getCity()));
+                addFavourites(Singleton.getSingleton().getCity());
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+    }
+    private void addFavourites(String city){
+        List list = Singleton.getSingleton().getListFav();
+        boolean flag = false;
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).toString().equals(city)){
+                flag = true;
+                break;
+            }
+        }
+        if(!flag) list.add(new CityFavourites(Singleton.getSingleton().getCity()));
     }
 }

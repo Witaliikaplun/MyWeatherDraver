@@ -12,12 +12,21 @@ public final class Singleton {
     private int position;
     private String city;
     ArrayList<CityFavourites> listFav;
+    private boolean switchTheme;
     private static final Object obj = new Object();
 
     private Singleton(){
         switchPress = false;
         listFav = new ArrayList<>();
 
+    }
+
+    public boolean getSwitchTheme() {
+        return switchTheme;
+    }
+
+    public void setSwitchTheme(boolean switchTeme) {
+        this.switchTheme = switchTeme;
     }
 
     public void setListFav(ArrayList<CityFavourites> listFav) {

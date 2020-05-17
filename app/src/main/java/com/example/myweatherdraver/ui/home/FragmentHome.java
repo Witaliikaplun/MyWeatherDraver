@@ -43,7 +43,7 @@ public class FragmentHome extends Fragment {
         textUnitHumi = root.findViewById(R.id.textUnitHumi);
         textDescription = root.findViewById(R.id.textDescript);
 
-        act.getReq().init();
+        //act.getReq().init();
 
         textTemp.setText(act.getReq().getTemperature());
         textUnitSpeed.setText(act.getReq().getWindSpeed());

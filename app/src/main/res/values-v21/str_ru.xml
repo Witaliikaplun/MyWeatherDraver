@@ -38,6 +38,8 @@
     <string name="menu_gallery">Настройки</string>
     <string name="menu_slideshow">Избранное</string>
 
+    <string name="nav_header_title">Погода</string>
+
     <string-array name="arrayCity">
         <item>Краснодар</item>
         <item>Москва</item>

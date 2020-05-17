@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
+        if(Singleton.getSingleton().getSwitchTheme())setTheme(R.style.AppDarkTheme);
+        else setTheme(R.style.AppTheme);
+
         setSupportActionBar(toolbar);
 
         initFAB();
