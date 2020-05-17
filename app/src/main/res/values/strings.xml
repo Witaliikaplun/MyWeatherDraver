@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">MyWeatherDraver</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+
+
+    <string name="textView2" translatable="false">City</string>
+
+    <string name="image1" translatable="false">image1</string>
+    <string name="image2" translatable="false">image2</string>
+
+    <string name="image3" translatable="false">image3</string>
+    <string name="speed" translatable="false">m/s</string>
+    <string name="c">\u2109</string>
+    <string name="cityNname">Krasnodar</string>
+    <string name="switchtextSpeed">Wind speed</string>
+    <string name="switchtextPress">Pressure</string>
+    <string name="switchtextHumi">Humidity</string>
+
+    <string name="CRD">Krasnodar</string>
+    <string name="MSK">Moskow</string>
+    <string name="SPB">Saint Petersburg</string>
+    <string name="setBut">Settings</string>
+    <string name="setting">setting</string>
+    <string name="back">back</string>
+    <string name="brov">browser</string>
+
+
+    <string-array name="arrayCity">
+        <item>Krasnodar</item>
+        <item>Moskau</item>
+        <item>Saint Petersburg</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loginName">Login</string>
+    <string name="password">Password</string>
+    <string name="ok">Ok</string>
+    <string name="Cancel">cancel</string>
+    <string name="switch3">Switch theme</string>
+    <string name="textchengPress">show the pressure?</string>
+    <string name="textchengPress_2">remove the pressure?</string>
+    <string name="textshowHumi">show the humidity?</string>
+    <string name="textremiveHumi">remove the humidity?</string>
+
+    <string name="show_button">Show</string>
+    <string name="remove_but">Remove</string>
+
+    <string name="rem_speed">remove the speed?</string>
+    <string name="show_speed">show the speed?</string>
+    <string name="rem_pres">Remove</string>
+</resources>
