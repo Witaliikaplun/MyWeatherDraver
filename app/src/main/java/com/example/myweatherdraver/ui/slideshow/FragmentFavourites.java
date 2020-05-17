@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myweatherdraver.R;
 
-public class SlideshowFragment extends Fragment {
+public class FragmentFavourites extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

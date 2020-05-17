@@ -34,6 +34,10 @@
     <string name="show_speed">Показать скорость ветра?</string>
     <string name="rem_pres">Убрать</string>
 
+    <string name="menu_home">Главная</string>
+    <string name="menu_gallery">Настройки</string>
+    <string name="menu_slideshow">Избранное</string>
+
     <string-array name="arrayCity">
         <item>Краснодар</item>
         <item>Москва</item>
