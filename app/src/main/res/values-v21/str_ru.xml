@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">погода</string>
+
+
+    <string name="textView2" translatable="false">Город</string>
+    <string name="speed" translatable="false">м/с</string>
+    <string name="c">\u2103</string>
+    <string name="cityNname">Краснодар</string>
+    <string name="switchtextSpeed">Скорость ветра</string>
+    <string name="switchtextPress">Давление</string>
+    <string name="switchtextHumi">Влажность</string>
+
+    <string name="CRD">Краснодар</string>
+    <string name="MSK">Москва</string>
+    <string name="SPB">Санкт-Петербург</string>
+    <string name="setBut">Настройки</string>
+    <string name="setting">настройки</string>
+    <string name="back">назад</string>
+    <string name="brov">браузер</string>
+
+    <string name="loginName">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="ok">Ок</string>
+    <string name="Cancel">Отмена</string>
+    <string name="switch3">Переключить тему</string>
+    <string name="textchengPress">Показать давление?</string>
+    <string name="textchengPress_2">Убрать давление?</string>
+    <string name="textshowHumi">Показать влажность?</string>
+    <string name="textremiveHumi">Убрать влажность?</string>
+    <string name="show_button">Показать</string>
+    <string name="remove_but">Убрать</string>
+    <string name="rem_speed">Убрать скорость ветра?</string>
+    <string name="show_speed">Показать скорость ветра?</string>
+    <string name="rem_pres">Убрать</string>
+
+    <string name="menu_home">Главная</string>
+    <string name="menu_gallery">Настройки</string>
+    <string name="menu_slideshow">Избранное</string>
+
+    <string name="nav_header_title">Погода</string>
+
+    <string-array name="arrayCity">
+        <item>Краснодар</item>
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+    </string-array>
+</resources>

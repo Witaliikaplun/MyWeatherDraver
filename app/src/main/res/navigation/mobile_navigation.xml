@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.myweatherdraver.ui.home.HomeFragment"
+        android:name="com.example.myweatherdraver.ui.home.FragmentHome"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
 
@@ -31,13 +31,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.myweatherdraver.ui.gallery.GalleryFragment"
+        android:name="com.example.myweatherdraver.ui.settings.FragmentSettings"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.myweatherdraver.ui.slideshow.SlideshowFragment"
+        android:name="com.example.myweatherdraver.ui.favourites.FragmentFavourites"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_favourites" />
 </navigation>

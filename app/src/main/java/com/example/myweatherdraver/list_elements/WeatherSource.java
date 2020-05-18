@@ -2,7 +2,6 @@ package com.example.myweatherdraver.list_elements;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-
 import com.example.myweatherdraver.R;
 
 

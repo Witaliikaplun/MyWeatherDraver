@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.MainActivity;
+import com.example.myweatherdraver.Singleton;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ public class Request {
         public void init() {
             try {
 
-                final URL uri = new URL(request(1) + BuildConfig.WEATHER_API_KEY);
+                final URL uri = new URL(request(Singleton.getSingleton().getPosition()) + BuildConfig.WEATHER_API_KEY);
                 final Handler handler = new Handler();
                 new Thread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
