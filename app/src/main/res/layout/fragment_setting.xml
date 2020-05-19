@@ -85,6 +85,14 @@
             android:text="@string/switch3"
             android:textSize="25sp" />
 
+        <ToggleButton
+            android:id="@+id/tbCelsFareng"
+            android:layout_width="162dp"
+            android:layout_height="60dp"
+            android:checked="false"
+            android:foreground="@drawable/img1"
+            android:text="ToggleButton" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

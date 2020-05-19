@@ -3,20 +3,14 @@ package com.example.myweatherdraver.data;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
-
 import androidx.annotation.RequiresApi;
-
-
 import com.example.myweatherdraver.BuildConfig;
-import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.Singleton;
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.stream.Collectors;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class Request {
@@ -28,6 +22,7 @@ public class Request {
     private String humidity;
     private String windSpeed;
     private  String description;
+    private String id_city;
         public void init() {
             try {
 
@@ -43,8 +38,9 @@ public class Request {
                             urlConnection.setRequestMethod("GET");
                             urlConnection.setReadTimeout(10000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                            String result = getLines(in);
+                            final String result = getLines(in);
                             Gson gson = new Gson();
+
                             final WeatherRequest weatherRequest = gson.fromJson(result, WeatherRequest.class);
 
                             // Возвращаемся к основному потоку
@@ -52,6 +48,7 @@ public class Request {
                                 @Override
                                 public void run() {
                                     displayWeather(weatherRequest);
+                                    Log.d("rez", result);
                                 }
                             });
 
@@ -61,6 +58,7 @@ public class Request {
                             e.printStackTrace();
                         }
                     }
+
 
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     private String getLines(BufferedReader in) {
@@ -80,6 +78,9 @@ public class Request {
         humidity = String.format("%d", weatherRequest.getMain().getHumidity());
         windSpeed = String.format("%d", weatherRequest.getWind().getSpeed());
         description = String.format("%s", weatherRequest.getWeather()[0].getDescription());
+        id_city = String.format("%d", weatherRequest.getId());
+        //Log.d("rez", id_city);
+
     }
 
     public String request(int num) {
@@ -145,5 +146,9 @@ public class Request {
 
     public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    public String getId_city() {
+        return id_city;
     }
 }

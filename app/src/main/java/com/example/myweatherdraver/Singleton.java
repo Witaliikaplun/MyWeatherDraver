@@ -13,6 +13,10 @@ public final class Singleton {
     private String city;
     ArrayList<CityFavourites> listFav;
     private boolean switchTheme;
+    private boolean switchCF;
+
+
+
     private static final Object obj = new Object();
 
     private Singleton(){
@@ -75,6 +79,14 @@ public final class Singleton {
 
     public String getCity() {
         return city;
+    }
+
+    public void setSwitchCF(boolean switchCF) {
+        this.switchCF = switchCF;
+    }
+
+    public boolean getSwitchCF() {
+        return switchCF;
     }
 
     public static Singleton getSingleton(){

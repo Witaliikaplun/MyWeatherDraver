@@ -1,6 +1,7 @@
 package com.example.myweatherdraver.data;
 
 import com.example.myweatherdraver.list_elements.Weather;
+import com.google.gson.annotations.SerializedName;
 
 
 public class WeatherRequest {
@@ -10,6 +11,9 @@ public class WeatherRequest {
     private Wind wind;
     private Clouds clouds;
     private String name;
+
+    @SerializedName("id")
+    private int id;
 
     public Coord getCoord() {
         return coord;
@@ -57,5 +61,13 @@ public class WeatherRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
