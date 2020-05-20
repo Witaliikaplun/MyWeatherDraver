@@ -22,6 +22,7 @@ import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.list_elements.CityFavourites;
+import com.example.myweatherdraver.ui.DialogBuilderFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -35,6 +36,9 @@ public class FragmentSettings extends Fragment {
     private Switch sTheme;
     Spinner spinner;
     private ToggleButton tbCF;
+    private ToggleButton tb_m_km;
+    private ToggleButton tb_mm_gPa;
+    private DialogBuilderFragment dialogBuilderFragment;
     MainActivity act;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,6 +51,11 @@ public class FragmentSettings extends Fragment {
         sHumi = root.findViewById(R.id.switchHumi);
         sTheme = root.findViewById(R.id.switchTheme);
         tbCF = root.findViewById(R.id.tbCelsFareng);
+        tb_m_km = root.findViewById(R.id.tb_MS_KM);
+        tb_mm_gPa = root.findViewById(R.id.tb_Pres);
+
+        dialogBuilderFragment = new DialogBuilderFragment(tb_m_km);
+
         TextView textCity = root.findViewById(R.id.textView6);
 
         String[] arrayCity = getResources().getStringArray(R.array.arrayCity);
@@ -173,6 +182,15 @@ public class FragmentSettings extends Fragment {
                 initAlertdialog1();
             }
         });
+
+        tb_m_km.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tb_m_km.setChecked(false);
+                dialogBuilderFragment.show(((MainActivity) getContext()).getSupportFragmentManager(),
+                        "dialogBuilder");
+            }
+        });
         return root;
     }
 
@@ -189,12 +207,10 @@ public class FragmentSettings extends Fragment {
                 if(!Singleton.getSingleton().getSwitchCF()){
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img2));
                     Singleton.getSingleton().setSwitchCF(true);
-
                 }else {
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img1));
                     Singleton.getSingleton().setSwitchCF(false);
                 }
-
             }
         });
         builder.setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
@@ -230,33 +246,23 @@ public class FragmentSettings extends Fragment {
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPosition(0);
                         act.getReq().init();
-                        //addFavourites(Singleton.getSingleton().getCity());
                         break;
 
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPosition(1);
                         act.getReq().init();
-                        //addFavourites(Singleton.getSingleton().getCity());
                         break;
 
                     case 2:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPosition(2);
                         act.getReq().init();
-
-//                        while (act.getReq().getId_city() == null) {
-//
-//                        }
                         Log.d("rez", act.getReq().getId_city());
-                        //addFavourites(Singleton.getSingleton().getCity());
                         break;
                 }
                 Singleton.getSingleton().setCity(textCity.getText().toString());
                 addFavourites(Singleton.getSingleton().getCity());
-
-
-                //Log.d("iddd", act.getReq().getId_city());
             }
 
             @Override

@@ -14,6 +14,7 @@ public final class Singleton {
     ArrayList<CityFavourites> listFav;
     private boolean switchTheme;
     private boolean switchCF;
+    private boolean switchUnitsSpeed;
 
 
 
@@ -87,6 +88,14 @@ public final class Singleton {
 
     public boolean getSwitchCF() {
         return switchCF;
+    }
+
+    public boolean getSwitchUnitsSpeed() {
+        return switchUnitsSpeed;
+    }
+
+    public void setSwitchUnitsSpeed(boolean switchUnitsSpeed) {
+        this.switchUnitsSpeed = switchUnitsSpeed;
     }
 
     public static Singleton getSingleton(){
