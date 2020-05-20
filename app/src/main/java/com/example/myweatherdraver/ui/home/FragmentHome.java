@@ -30,6 +30,7 @@ public class FragmentHome extends Fragment {
     private TextView textUnitSpeed;
     private TextView textUnitHumi;
     private TextView textDescription;
+    private TextView tvUnitsT;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,8 +43,7 @@ public class FragmentHome extends Fragment {
         textUnitSpeed = root.findViewById(R.id.textUnitSpeed);
         textUnitHumi = root.findViewById(R.id.textUnitHumi);
         textDescription = root.findViewById(R.id.textDescript);
-
-        //act.getReq().init();
+        tvUnitsT = root.findViewById(R.id.tv_units);
 
         textTemp.setText(act.getReq().getTemperature());
         textUnitSpeed.setText(act.getReq().getWindSpeed());
@@ -51,6 +51,7 @@ public class FragmentHome extends Fragment {
         textUnitHumi.setText(act.getReq().getHumidity());
         textDescription.setText(act.getReq().getDescription());
         textCity.setText(Singleton.getSingleton().getCity());
+        tvUnitsT.setText((Singleton.getSingleton().getSwitchCF()) ? R.string.F : R.string.C);
 
         initRecycleWeather();
         viewTextPresSpeedHumi();

@@ -84,14 +84,32 @@
             android:layout_gravity="center"
             android:text="@string/switch3"
             android:textSize="25sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
-        <ToggleButton
-            android:id="@+id/tbCelsFareng"
-            android:layout_width="162dp"
-            android:layout_height="60dp"
-            android:checked="false"
-            android:foreground="@drawable/img1"
-            android:text="ToggleButton" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tv_tbText"
+                android:textSize="25sp"
+                android:layout_marginLeft="30dp"/>
+
+
+            <ToggleButton
+                android:id="@+id/tbCelsFareng"
+                android:layout_width="162dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0"
+                android:checked="false"
+                android:foreground="@drawable/img1"
+                android:text="ToggleButton" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

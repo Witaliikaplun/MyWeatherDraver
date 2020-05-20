@@ -169,16 +169,8 @@ public class FragmentSettings extends Fragment {
         tbCF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tbCF.isChecked()){
-//                    tbCF.setForeground(getResources().getDrawable(R.drawable.img2));
-//                    Singleton.getSingleton().setSwitchCF(true);
-
-                    initAlertdialog1();
-                }else {
-                    initAlertdialog1();
-//                    tbCF.setForeground(getResources().getDrawable(R.drawable.img1));
-//                    Singleton.getSingleton().setSwitchCF(false);
-                }
+                tbCF.setChecked(false);
+                initAlertdialog1();
             }
         });
         return root;
@@ -194,10 +186,10 @@ public class FragmentSettings extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(act, "нажали кнопку да",Toast.LENGTH_SHORT).show();
-                if(!tbCF.isChecked()){
+                if(!Singleton.getSingleton().getSwitchCF()){
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img2));
                     Singleton.getSingleton().setSwitchCF(true);
-                    
+
                 }else {
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img1));
                     Singleton.getSingleton().setSwitchCF(false);

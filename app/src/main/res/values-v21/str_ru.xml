@@ -5,7 +5,7 @@
 
     <string name="textView2" translatable="false">Город</string>
     <string name="speed" translatable="false">м/с</string>
-    <string name="c">\u2103</string>
+
     <string name="cityNname">Краснодар</string>
     <string name="switchtextSpeed">Скорость ветра</string>
     <string name="switchtextPress">Давление</string>

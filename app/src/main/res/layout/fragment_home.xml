@@ -55,10 +55,10 @@
                     android:textSize="50sp" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tv_units"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/c"
+                    android:text="@string/C"
                     android:textAlignment="center"
                     android:textColor="#2F2E2E"
                     android:textSize="30sp"
