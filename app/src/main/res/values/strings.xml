@@ -73,5 +73,6 @@
 
     <string name= "alert_dialog_2" >Alert Dialog с фрагментом</string>
     <string name= "message2">изменить шкалу давления</string>
+    <string name="messge3">Переключить шкалу?</string>
 
 </resources>

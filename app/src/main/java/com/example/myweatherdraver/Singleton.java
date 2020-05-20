@@ -15,6 +15,7 @@ public final class Singleton {
     private boolean switchTheme;
     private boolean switchCF;
     private boolean switchUnitsSpeed;
+    private boolean switchUnitsPres;
 
 
 
@@ -96,6 +97,14 @@ public final class Singleton {
 
     public void setSwitchUnitsSpeed(boolean switchUnitsSpeed) {
         this.switchUnitsSpeed = switchUnitsSpeed;
+    }
+
+    public boolean getSwitchUnitsPres() {
+        return switchUnitsPres;
+    }
+
+    public void setSwitchUnitsPres(boolean switchUnitsPres) {
+        this.switchUnitsPres = switchUnitsPres;
     }
 
     public static Singleton getSingleton(){

@@ -2,6 +2,7 @@ package com.example.myweatherdraver.ui.settings;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -23,6 +25,7 @@ import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.ui.DialogBuilderFragment;
+import com.example.myweatherdraver.ui.DialogCustomFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -39,6 +42,7 @@ public class FragmentSettings extends Fragment {
     private ToggleButton tb_m_km;
     private ToggleButton tb_mm_gPa;
     private DialogBuilderFragment dialogBuilderFragment;
+    private DialogCustomFragment dialogCustomFragment;
     MainActivity act;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,6 +59,7 @@ public class FragmentSettings extends Fragment {
         tb_mm_gPa = root.findViewById(R.id.tb_Pres);
 
         dialogBuilderFragment = new DialogBuilderFragment(tb_m_km);
+        dialogCustomFragment = new DialogCustomFragment(tb_mm_gPa);
 
         TextView textCity = root.findViewById(R.id.textView6);
 
@@ -75,13 +80,17 @@ public class FragmentSettings extends Fragment {
         if (Singleton.getSingleton().getSwitchTheme()) sTheme.setChecked(true);
         else sTheme.setChecked(false);
 
-        if(Singleton.getSingleton().getSwitchCF()){
-            tbCF.setChecked(true);
-            tbCF.setForeground(getResources().getDrawable(R.drawable.img2));
-        }else {
-            tbCF.setChecked(false);
-            tbCF.setForeground(getResources().getDrawable(R.drawable.img1));
-        }
+        initChekTB(tbCF, getResources().getDrawable(R.drawable.img1),
+                getResources().getDrawable(R.drawable.img2));
+
+        initChekTB(tb_m_km, getResources().getDrawable(R.drawable.img3),
+                getResources().getDrawable(R.drawable.img4));
+
+        initChekTB(tb_mm_gPa, getResources().getDrawable(R.drawable.img5),
+                getResources().getDrawable(R.drawable.img6));
+
+
+
 
 
         sPress.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +200,26 @@ public class FragmentSettings extends Fragment {
                         "dialogBuilder");
             }
         });
+
+        tb_mm_gPa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tb_mm_gPa.setChecked(false);
+                dialogCustomFragment.show(((MainActivity) getContext()).getSupportFragmentManager(),
+                        "dialogCustom");
+            }
+        });
         return root;
+    }
+
+    private void initChekTB(ToggleButton tb, Drawable img1, Drawable img2) {
+        if(Singleton.getSingleton().getSwitchCF()){
+            tb.setChecked(true);
+            tb.setForeground(img2);
+        }else {
+            tb.setChecked(false);
+            tb.setForeground(img1);
+        }
     }
 
     private void initAlertdialog1() {
