@@ -54,6 +54,27 @@ public class FragmentHome extends Fragment {
         tvUnitsPress = root.findViewById(R.id.tv_textUnitPress);
 
         try {
+            act.getReq().getT1().join();// почему основной поток не ждет здесь выполнения потока запроса?
+                                        //из-за этого не заполняются данные при старте приложения
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("rez", "convert");
+        convert();
+
+        textHumi.setText(act.getReq().getHumidity());
+        textDescription.setText(act.getReq().getDescription());
+        textCity.setText(Singleton.getSingleton().getCity());
+
+        setUnits();
+        initRecycleWeather();
+        viewTextPresSpeedHumi();
+
+        return root;
+    }
+
+    private void convert() {
+        try {
             textPres.setText(new DataConversion(Double.parseDouble(act.getReq().getPressure()),
                     Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
             Toast.makeText(act, act.getReq().getTemperature().toString(), Toast.LENGTH_LONG).show();
@@ -66,22 +87,14 @@ public class FragmentHome extends Fragment {
         } catch (NumberFormatException | NullPointerException ex) {
             ex.printStackTrace();
         }
+    }
 
-
-        textHumi.setText(act.getReq().getHumidity());
-        textDescription.setText(act.getReq().getDescription());
-        textCity.setText(Singleton.getSingleton().getCity());
+    private void setUnits() {
         tvUnitsT.setText((Singleton.getSingleton().getSwitchUnitsCF()) ? R.string.F : R.string.C);
         tvUnitSpeed.setText((Singleton.getSingleton().getSwitchUnitsSpeed()) ? R.string.unitsSpeed_km_h
                 : R.string.unitsSpeed_m_sec);
         tvUnitsPress.setText((Singleton.getSingleton().getSwitchUnitsPres()) ? R.string.unitsPress_gPa
                 : R.string.unitsPress_Hg);
-
-
-        initRecycleWeather();
-        viewTextPresSpeedHumi();
-
-        return root;
     }
 
     private void initRecycleWeather() {

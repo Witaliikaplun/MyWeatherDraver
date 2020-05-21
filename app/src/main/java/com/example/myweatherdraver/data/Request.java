@@ -23,12 +23,13 @@ public class Request {
     private String windSpeed;
     private  String description;
     private String id_city;
+    private Thread t1;
         public void init() {
             try {
 
                 final URL uri = new URL(request(Singleton.getSingleton().getPositionSpinner()) + BuildConfig.WEATHER_API_KEY);
                 final Handler handler = new Handler();
-                new Thread(new Runnable() {
+                t1 = new Thread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void run() {
@@ -52,19 +53,19 @@ public class Request {
                                 }
                             });
 
-
                         } catch (Exception e) {
                             Log.e(TAG, "Fail Connection", e);
                             e.printStackTrace();
                         }
                     }
 
-
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     private String getLines(BufferedReader in) {
                         return in.lines().collect(Collectors.joining("\n"));
                     }
-                }).start();
+                });
+                t1.start();
+
             } catch (Exception e) {
                 Log.e(TAG, "Fail URL", e);
                 e.printStackTrace();
@@ -79,7 +80,6 @@ public class Request {
         windSpeed = String.format("%d", weatherRequest.getWind().getSpeed());
         description = String.format("%s", weatherRequest.getWeather()[0].getDescription());
         id_city = String.format("%d", weatherRequest.getId());
-
     }
 
     public String request(int num) {
@@ -97,7 +97,6 @@ public class Request {
             }
             return reqest;
         }
-
 
     public String getCity() {
         return city;
@@ -149,5 +148,9 @@ public class Request {
 
     public String getId_city() {
         return id_city;
+    }
+
+    public Thread getT1() {
+        return t1;
     }
 }

@@ -28,15 +28,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
+        req = new Request();
+        req.init();
+
         if(Singleton.getSingleton().getSwitchTheme())setTheme(R.style.AppDarkTheme);
         else setTheme(R.style.AppTheme);
 
         setSupportActionBar(toolbar);
-
-        //initFAB();
         initDrawer();
-
-        req = new Request();
     }
 
     private void initDrawer() {

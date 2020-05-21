@@ -40,7 +40,6 @@ public class DialogCustomFragment extends DialogFragment {
                     tb.setForeground(getResources().getDrawable(R.drawable.img5));
                     Singleton.getSingleton().setSwitchUnitsPres(false);
                 }
-                Toast.makeText(getContext(), "нажата кнопка да", Toast.LENGTH_SHORT).show();
                 dismiss();          //закрываем диалог
             }
         });
@@ -48,12 +47,9 @@ public class DialogCustomFragment extends DialogFragment {
         b_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "нажата кнопка нет", Toast.LENGTH_SHORT).show();
                 dismiss();          //закрываем диалог
             }
         });
-
-
         return view;
     }
 }

@@ -6,11 +6,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 
@@ -32,7 +30,6 @@ public class DialogBuilderFragment extends DialogFragment {
         builder.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "нажали кнопку да",Toast.LENGTH_SHORT).show();
                 if(!Singleton.getSingleton().getSwitchUnitsSpeed()){
                     tb.setForeground(getResources().getDrawable(R.drawable.img4));
                     Singleton.getSingleton().setSwitchUnitsSpeed(true);
@@ -45,7 +42,6 @@ public class DialogBuilderFragment extends DialogFragment {
         builder.setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "нажали кнопку нет", Toast.LENGTH_SHORT).show();
             }
         });
         return builder.create();

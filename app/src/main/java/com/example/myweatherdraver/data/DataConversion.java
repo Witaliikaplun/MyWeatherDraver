@@ -23,11 +23,10 @@ public class DataConversion {
             case 1: //преобразование град. Цельсия в град Фаренгейты
                 paramOut = String.format("%.1f", (conwesActivate) ? 1.8 * paramIn + 32.0 : paramIn);
                 break;
-            case 2:
+            case 2: //преобразование м/с в км/ч
                 paramOut = String.format("%.1f", (conwesActivate) ? 3.6 * paramIn : paramIn);
                 break;
         }
-
         return paramOut;
     }
 }

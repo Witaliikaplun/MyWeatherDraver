@@ -270,18 +270,15 @@ public class FragmentSettings extends Fragment {
                         Singleton.getSingleton().setPositionSpinner(0);
                         act.getReq().init();
                         break;
-
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(1);
                         act.getReq().init();
                         break;
-
                     case 2:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(2);
                         act.getReq().init();
-                        Log.d("rez", act.getReq().getId_city());
                         break;
                 }
                 Singleton.getSingleton().setCity(textCity.getText().toString());

@@ -17,8 +17,6 @@ public final class Singleton {
     private boolean switchUnitsSpeed;
     private boolean switchUnitsPres;
 
-
-
     private static final Object obj = new Object();
 
     private Singleton(){
