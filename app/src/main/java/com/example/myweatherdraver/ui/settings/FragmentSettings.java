@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -81,17 +80,13 @@ public class FragmentSettings extends Fragment {
         else sTheme.setChecked(false);
 
         initChekTB(tbCF, getResources().getDrawable(R.drawable.img1),
-                getResources().getDrawable(R.drawable.img2));
+                getResources().getDrawable(R.drawable.img2), Singleton.getSingleton().getSwitchUnitsCF());
 
         initChekTB(tb_m_km, getResources().getDrawable(R.drawable.img3),
-                getResources().getDrawable(R.drawable.img4));
+                getResources().getDrawable(R.drawable.img4), Singleton.getSingleton().getSwitchUnitsSpeed());
 
         initChekTB(tb_mm_gPa, getResources().getDrawable(R.drawable.img5),
-                getResources().getDrawable(R.drawable.img6));
-
-
-
-
+                getResources().getDrawable(R.drawable.img6), Singleton.getSingleton().getSwitchUnitsPres());
 
         sPress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,8 +207,8 @@ public class FragmentSettings extends Fragment {
         return root;
     }
 
-    private void initChekTB(ToggleButton tb, Drawable img1, Drawable img2) {
-        if(Singleton.getSingleton().getSwitchCF()){
+    private void initChekTB(ToggleButton tb, Drawable img1, Drawable img2, boolean check) {
+        if(check){
             tb.setChecked(true);
             tb.setForeground(img2);
         }else {
@@ -232,12 +227,12 @@ public class FragmentSettings extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(act, "нажали кнопку да",Toast.LENGTH_SHORT).show();
-                if(!Singleton.getSingleton().getSwitchCF()){
+                if(!Singleton.getSingleton().getSwitchUnitsCF()){
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img2));
-                    Singleton.getSingleton().setSwitchCF(true);
+                    Singleton.getSingleton().setSwitchUnitsCF(true);
                 }else {
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img1));
-                    Singleton.getSingleton().setSwitchCF(false);
+                    Singleton.getSingleton().setSwitchUnitsCF(false);
                 }
             }
         });
@@ -260,7 +255,7 @@ public class FragmentSettings extends Fragment {
         // заголовок--------------------------------------------------
         spinner.setPrompt("Title");
         // выделяем элемент ------------------------------
-        spinner.setSelection(Singleton.getSingleton().getPosition());
+        spinner.setSelection(Singleton.getSingleton().getPositionSpinner());
 
         // устанавливаем обработчик нажатия---------------------------
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -272,19 +267,19 @@ public class FragmentSettings extends Fragment {
                 switch (position) {
                     case 0:
                         textCity.setText(arrayCity[position]);
-                        Singleton.getSingleton().setPosition(0);
+                        Singleton.getSingleton().setPositionSpinner(0);
                         act.getReq().init();
                         break;
 
                     case 1:
                         textCity.setText(arrayCity[position]);
-                        Singleton.getSingleton().setPosition(1);
+                        Singleton.getSingleton().setPositionSpinner(1);
                         act.getReq().init();
                         break;
 
                     case 2:
                         textCity.setText(arrayCity[position]);
-                        Singleton.getSingleton().setPosition(2);
+                        Singleton.getSingleton().setPositionSpinner(2);
                         act.getReq().init();
                         Log.d("rez", act.getReq().getId_city());
                         break;

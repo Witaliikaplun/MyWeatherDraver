@@ -26,7 +26,7 @@ public class Request {
         public void init() {
             try {
 
-                final URL uri = new URL(request(Singleton.getSingleton().getPosition()) + BuildConfig.WEATHER_API_KEY);
+                final URL uri = new URL(request(Singleton.getSingleton().getPositionSpinner()) + BuildConfig.WEATHER_API_KEY);
                 final Handler handler = new Handler();
                 new Thread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -79,7 +79,6 @@ public class Request {
         windSpeed = String.format("%d", weatherRequest.getWind().getSpeed());
         description = String.format("%s", weatherRequest.getWeather()[0].getDescription());
         id_city = String.format("%d", weatherRequest.getId());
-        //Log.d("rez", id_city);
 
     }
 

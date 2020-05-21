@@ -23,6 +23,12 @@
     <string name="speed" translatable="false">m/s</string>
     <string name="F">\u2109</string>
     <string name="C">\u2103</string>
+    <string name="unitsSpeed_m_sec">m/s</string>
+    <string name="unitsSpeed_km_h">km/h</string>
+    <string name="unitsPress_Hg">mm Hg</string>
+    <string name="unitsPress_gPa">gPa</string>
+    <string name="unitsHumi">%</string>
+
     <string name="cityNname">Krasnodar</string>
     <string name="switchtextSpeed">Wind speed</string>
     <string name="switchtextPress">Pressure</string>
@@ -74,5 +80,6 @@
     <string name= "alert_dialog_2" >Alert Dialog с фрагментом</string>
     <string name= "message2">изменить шкалу давления</string>
     <string name="messge3">Переключить шкалу?</string>
+    
 
 </resources>

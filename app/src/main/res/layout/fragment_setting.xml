@@ -111,8 +111,8 @@
 
                 <ToggleButton
                     android:id="@+id/tbCelsFareng"
-                    android:layout_width="143dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="0"
                     android:checked="false"
@@ -130,8 +130,8 @@
 
                 <ToggleButton
                     android:id="@+id/tb_MS_KM"
-                    android:layout_width="143dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="0"
@@ -150,8 +150,8 @@
 
                 <ToggleButton
                     android:id="@+id/tb_Pres"
-                    android:layout_width="143dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="0"

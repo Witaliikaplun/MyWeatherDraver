@@ -82,7 +82,7 @@
 
                     <LinearLayout
                         android:id="@+id/layautSpeed"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:visibility="gone"
                         android:orientation="horizontal">
@@ -100,17 +100,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
+
                         <TextView
                             android:id="@+id/tv_units_speed"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="@string/unitsSpeed_m_sec"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layautHumi"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/imageHumi"
@@ -125,13 +128,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
+                        <TextView
+                            android:id="@+id/tv_textUnitHumi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/unitsHumi"/>
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layautPress"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/imagePres"
@@ -145,6 +155,12 @@
                             android:id="@+id/textUnitPress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_textUnitPress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/unitsPress_Hg"/>
                     </LinearLayout>
 
                 </LinearLayout>
