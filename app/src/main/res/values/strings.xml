@@ -21,7 +21,14 @@
 
     <string name="image3" translatable="false">image3</string>
     <string name="speed" translatable="false">m/s</string>
-    <string name="c">\u2109</string>
+    <string name="F">\u2109</string>
+    <string name="C">\u2103</string>
+    <string name="unitsSpeed_m_sec">m/s</string>
+    <string name="unitsSpeed_km_h">km/h</string>
+    <string name="unitsPress_Hg">mm Hg</string>
+    <string name="unitsPress_gPa">gPa</string>
+    <string name="unitsHumi">%</string>
+
     <string name="cityNname">Krasnodar</string>
     <string name="switchtextSpeed">Wind speed</string>
     <string name="switchtextPress">Pressure</string>
@@ -60,4 +67,19 @@
     <string name="rem_speed">remove the speed?</string>
     <string name="show_speed">show the speed?</string>
     <string name="rem_pres">Remove</string>
+
+    <string name= "alert_dialog_1" >Alert Dialog с двумя кнопками</string>
+    <string name= "message">изменить шкалу температуры?</string>
+    <string name= "button_yes">Да</string>
+    <string name= "button_no">Нет</string>
+
+    <string name="tv_tbText">Температура</string>
+    <string name="tv_tbTextspeed">Скорость ветра</string>
+    <string name="tv_tbTextPress">Давление</string>
+
+    <string name= "alert_dialog_2" >Alert Dialog с фрагментом</string>
+    <string name= "message2">изменить шкалу скорости</string>
+    <string name="messge3">Переключить шкалу?</string>
+    
+
 </resources>

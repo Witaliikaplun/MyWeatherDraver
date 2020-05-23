@@ -1,11 +1,13 @@
 package com.example.myweatherdraver.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
+import com.example.myweatherdraver.data.DataConversion;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
 import com.example.myweatherdraver.list_elements.WeatherSource;
 
@@ -26,10 +29,14 @@ public class FragmentHome extends Fragment {
     MainActivity act;
     private TextView textCity;
     private TextView textTemp;
-    private TextView textUnitPres;
-    private TextView textUnitSpeed;
-    private TextView textUnitHumi;
+    private TextView textPres;
+    private TextView textSpeed;
+    private TextView textHumi;
     private TextView textDescription;
+    private TextView tvUnitsT;
+    private TextView tvUnitSpeed;
+    private TextView tvUnitsPress;
+
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,28 +45,60 @@ public class FragmentHome extends Fragment {
         act = (MainActivity) getContext();
         textTemp = root.findViewById(R.id.textView3);
         textCity = root.findViewById(R.id.textCity);
-        textUnitPres = root.findViewById(R.id.textUnitPress);
-        textUnitSpeed = root.findViewById(R.id.textUnitSpeed);
-        textUnitHumi = root.findViewById(R.id.textUnitHumi);
+        textPres = root.findViewById(R.id.textUnitPress);
+        textSpeed = root.findViewById(R.id.textUnitSpeed);
+        textHumi = root.findViewById(R.id.textUnitHumi);
         textDescription = root.findViewById(R.id.textDescript);
+        tvUnitsT = root.findViewById(R.id.tv_units);
+        tvUnitSpeed = root.findViewById(R.id.tv_units_speed);
+        tvUnitsPress = root.findViewById(R.id.tv_textUnitPress);
 
-        //act.getReq().init();
+        try {
+            act.getReq().getT1().join();// почему основной поток не ждет здесь выполнения потока запроса?
+                                        //из-за этого не заполняются данные при старте приложения
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("rez", "convert");
+        convert();
 
-        textTemp.setText(act.getReq().getTemperature());
-        textUnitSpeed.setText(act.getReq().getWindSpeed());
-        textUnitPres.setText(act.getReq().getPressure());
-        textUnitHumi.setText(act.getReq().getHumidity());
+        textHumi.setText(act.getReq().getHumidity());
         textDescription.setText(act.getReq().getDescription());
         textCity.setText(Singleton.getSingleton().getCity());
 
+        setUnits();
         initRecycleWeather();
         viewTextPresSpeedHumi();
 
         return root;
     }
 
+    private void convert() {
+        try {
+            textPres.setText(new DataConversion(Double.parseDouble(act.getReq().getPressure()),
+                    Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
+            Toast.makeText(act, act.getReq().getTemperature().toString(), Toast.LENGTH_LONG).show();
+
+            textTemp.setText(new DataConversion(Double.parseDouble(act.getReq().getTemperature().replace(',', '.')),
+                    Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+
+            textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(act.getReq().getWindSpeed()),
+                    Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+        } catch (NumberFormatException | NullPointerException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void setUnits() {
+        tvUnitsT.setText((Singleton.getSingleton().getSwitchUnitsCF()) ? R.string.F : R.string.C);
+        tvUnitSpeed.setText((Singleton.getSingleton().getSwitchUnitsSpeed()) ? R.string.unitsSpeed_km_h
+                : R.string.unitsSpeed_m_sec);
+        tvUnitsPress.setText((Singleton.getSingleton().getSwitchUnitsPres()) ? R.string.unitsPress_gPa
+                : R.string.unitsPress_Hg);
+    }
+
     private void initRecycleWeather() {
-        recyclerView = (RecyclerView)root.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         WeatherSource ws = new WeatherSource(getResources());
         ArrayList listWeather = ws.build().getListWeather();
@@ -77,15 +116,13 @@ public class FragmentHome extends Fragment {
         LinearLayout layoutHumi = root.findViewById(R.id.layautHumi);
         LinearLayout layoutSpeed = root.findViewById(R.id.layautSpeed);
 
-        if(Singleton.getSingleton().getSwitchPress()) layoutPress.setVisibility(View.VISIBLE);
+        if (Singleton.getSingleton().getSwitchPress()) layoutPress.setVisibility(View.VISIBLE);
         else layoutPress.setVisibility(View.GONE);
 
-        if(Singleton.getSingleton().getSwitchHumil()) layoutHumi.setVisibility(View.VISIBLE);
+        if (Singleton.getSingleton().getSwitchHumil()) layoutHumi.setVisibility(View.VISIBLE);
         else layoutHumi.setVisibility(View.GONE);
 
-        if(Singleton.getSingleton().getSwitchSpeed()) layoutSpeed.setVisibility(View.VISIBLE);
+        if (Singleton.getSingleton().getSwitchSpeed()) layoutSpeed.setVisibility(View.VISIBLE);
         else layoutSpeed.setVisibility(View.GONE);
-
-
     }
 }

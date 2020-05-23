@@ -8,83 +8,168 @@
 
     <ImageView
         android:id="@+id/imageView4"
+        style="@style/imageStyle1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/s12002"
-        tools:visibility="visible"
-        style="@style/imageStyle1" />
+        tools:visibility="visible" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView6"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="50dp"
-                android:layout_weight="1"
-                android:text="@string/cityNname"
-                android:textAlignment="center"
-                android:textColor="#2F2E2E"
-                android:textSize="30dp" />
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/cityNname"
+                    android:textAlignment="center"
+                    android:textColor="#2F2E2E"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spiner"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+
+                android:textSize="100dp">
+
+            </Spinner>
+
+            <Switch
+                android:id="@+id/switchSpeed"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="@string/switchtextSpeed"
+                android:textSize="25sp" />
+
+            <Switch
+                android:id="@+id/switchHumi"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="@string/switchtextHumi"
+                android:textSize="25sp" />
+
+            <Switch
+                android:id="@+id/switchPress"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="@string/switchtextPress"
+                android:textSize="25sp" />
+
+            <Switch
+                android:id="@+id/switchTheme"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="@string/switch3"
+                android:textSize="25sp" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="2"
+                android:rowCount="3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="30dp"
+                    android:text="@string/tv_tbText"
+                    android:textSize="25sp" />
+
+                <ToggleButton
+                    android:id="@+id/tbCelsFareng"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0"
+                    android:checked="false"
+                    android:foreground="@drawable/img1"
+                    android:text="ToggleButton" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_tbTextspeed"
+                    android:textSize="25sp" />
+
+                <ToggleButton
+                    android:id="@+id/tb_MS_KM"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0"
+                    android:checked="false"
+                    android:foreground="@drawable/img3"
+                    android:text="ToggleButton" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_tbTextPress"
+                    android:textSize="25sp" />
+
+                <ToggleButton
+                    android:id="@+id/tb_Pres"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0"
+                    android:checked="false"
+                    android:foreground="@drawable/img5"
+                    android:text="ToggleButton" />
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <Spinner
-            android:id="@+id/spiner"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-
-            android:textSize="100dp">
-
-        </Spinner>
-
-        <Switch
-            android:id="@+id/switchSpeed"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:text="@string/switchtextSpeed"
-            android:textSize="25sp" />
-
-        <Switch
-            android:id="@+id/switchHumi"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:text="@string/switchtextHumi"
-            android:textSize="25sp" />
-
-        <Switch
-            android:id="@+id/switchPress"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:text="@string/switchtextPress"
-            android:textSize="25sp" />
-
-        <Switch
-            android:id="@+id/switchTheme"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:text="@string/switch3"
-            android:textSize="25sp" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

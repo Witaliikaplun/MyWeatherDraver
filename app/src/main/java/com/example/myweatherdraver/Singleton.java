@@ -9,10 +9,14 @@ public final class Singleton {
     private boolean switchPress;
     private boolean switchHumil;
     private boolean switchSpeed;
-    private int position;
+    private int positionSpinner;
     private String city;
     ArrayList<CityFavourites> listFav;
     private boolean switchTheme;
+    private boolean switchUnitsCF;
+    private boolean switchUnitsSpeed;
+    private boolean switchUnitsPres;
+
     private static final Object obj = new Object();
 
     private Singleton(){
@@ -61,12 +65,12 @@ public final class Singleton {
         this.switchSpeed = switchPress;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setPositionSpinner(int positionSpinner) {
+        this.positionSpinner = positionSpinner;
     }
 
-    public int getPosition() {
-        return position;
+    public int getPositionSpinner() {
+        return positionSpinner;
     }
 
     public void setCity(String city) {
@@ -75,6 +79,30 @@ public final class Singleton {
 
     public String getCity() {
         return city;
+    }
+
+    public void setSwitchUnitsCF(boolean switchUnitsCF) {
+        this.switchUnitsCF = switchUnitsCF;
+    }
+
+    public boolean getSwitchUnitsCF() {
+        return switchUnitsCF;
+    }
+
+    public boolean getSwitchUnitsSpeed() {
+        return switchUnitsSpeed;
+    }
+
+    public void setSwitchUnitsSpeed(boolean switchUnitsSpeed) {
+        this.switchUnitsSpeed = switchUnitsSpeed;
+    }
+
+    public boolean getSwitchUnitsPres() {
+        return switchUnitsPres;
+    }
+
+    public void setSwitchUnitsPres(boolean switchUnitsPres) {
+        this.switchUnitsPres = switchUnitsPres;
     }
 
     public static Singleton getSingleton(){

@@ -26,6 +26,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityFavViewHol
     @Override
     public void onBindViewHolder(@NonNull CityFavViewHolder holder, int position) {
         holder.cityFav.setText(listFav.get(position).getCity());
+        holder.citiFavTemp.setText(listFav.get(position).getTemperature());
     }
 
     @Override
@@ -35,9 +36,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityFavViewHol
 
     public class CityFavViewHolder extends RecyclerView.ViewHolder {
         TextView cityFav;
+        TextView citiFavTemp;
         public CityFavViewHolder(@NonNull View itemView) {
             super(itemView);
             cityFav = (TextView) itemView.findViewById(R.id.cityFav);
+            citiFavTemp = (TextView) itemView.findViewById(R.id.cityFavtemp);
         }
     }
 }

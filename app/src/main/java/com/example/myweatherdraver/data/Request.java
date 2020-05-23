@@ -3,20 +3,14 @@ package com.example.myweatherdraver.data;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
-
 import androidx.annotation.RequiresApi;
-
-
 import com.example.myweatherdraver.BuildConfig;
-import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.Singleton;
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.stream.Collectors;
-
 import javax.net.ssl.HttpsURLConnection;
 
 public class Request {
@@ -28,12 +22,14 @@ public class Request {
     private String humidity;
     private String windSpeed;
     private  String description;
+    private String id_city;
+    private Thread t1;
         public void init() {
             try {
 
-                final URL uri = new URL(request(Singleton.getSingleton().getPosition()) + BuildConfig.WEATHER_API_KEY);
+                final URL uri = new URL(request(Singleton.getSingleton().getPositionSpinner()) + BuildConfig.WEATHER_API_KEY);
                 final Handler handler = new Handler();
-                new Thread(new Runnable() {
+                t1 = new Thread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void run() {
@@ -43,8 +39,9 @@ public class Request {
                             urlConnection.setRequestMethod("GET");
                             urlConnection.setReadTimeout(10000);
                             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                            String result = getLines(in);
+                            final String result = getLines(in);
                             Gson gson = new Gson();
+
                             final WeatherRequest weatherRequest = gson.fromJson(result, WeatherRequest.class);
 
                             // Возвращаемся к основному потоку
@@ -52,9 +49,9 @@ public class Request {
                                 @Override
                                 public void run() {
                                     displayWeather(weatherRequest);
+                                    Log.d("rez", result);
                                 }
                             });
-
 
                         } catch (Exception e) {
                             Log.e(TAG, "Fail Connection", e);
@@ -66,7 +63,9 @@ public class Request {
                     private String getLines(BufferedReader in) {
                         return in.lines().collect(Collectors.joining("\n"));
                     }
-                }).start();
+                });
+                t1.start();
+
             } catch (Exception e) {
                 Log.e(TAG, "Fail URL", e);
                 e.printStackTrace();
@@ -80,6 +79,7 @@ public class Request {
         humidity = String.format("%d", weatherRequest.getMain().getHumidity());
         windSpeed = String.format("%d", weatherRequest.getWind().getSpeed());
         description = String.format("%s", weatherRequest.getWeather()[0].getDescription());
+        id_city = String.format("%d", weatherRequest.getId());
     }
 
     public String request(int num) {
@@ -97,7 +97,6 @@ public class Request {
             }
             return reqest;
         }
-
 
     public String getCity() {
         return city;
@@ -145,5 +144,13 @@ public class Request {
 
     public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    public String getId_city() {
+        return id_city;
+    }
+
+    public Thread getT1() {
+        return t1;
     }
 }
