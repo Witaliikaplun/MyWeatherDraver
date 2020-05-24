@@ -3,8 +3,11 @@ package com.example.myweatherdraver.data;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import com.example.myweatherdraver.BuildConfig;
+import com.example.myweatherdraver.MainActivity;
+import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -24,9 +27,13 @@ public class Request {
     private  String description;
     private String id_city;
     private Thread t1;
+    MainActivity act;
+
+    public Request(MainActivity act){
+        this.act = act;
+    }
         public void init() {
             try {
-
                 final URL uri = new URL(request(Singleton.getSingleton().getPositionSpinner()) + BuildConfig.WEATHER_API_KEY);
                 final Handler handler = new Handler();
                 t1 = new Thread(new Runnable() {
@@ -41,24 +48,14 @@ public class Request {
                             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                             final String result = getLines(in);
                             Gson gson = new Gson();
-
                             final WeatherRequest weatherRequest = gson.fromJson(result, WeatherRequest.class);
-
-                            // Возвращаемся к основному потоку
-                            handler.post( new Runnable() {
-                                @Override
-                                public void run() {
-                                    displayWeather(weatherRequest);
-                                    Log.d("rez", result);
-                                }
-                            });
-
+                            displayWeather(weatherRequest);
+                            updateParam();
                         } catch (Exception e) {
                             Log.e(TAG, "Fail Connection", e);
                             e.printStackTrace();
                         }
                     }
-
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     private String getLines(BufferedReader in) {
                         return in.lines().collect(Collectors.joining("\n"));
@@ -82,6 +79,24 @@ public class Request {
         id_city = String.format("%d", weatherRequest.getId());
     }
 
+    private void updateParam(){
+        TextView textPress = act.findViewById(R.id.textUnitPress);
+        TextView textTemp = act.findViewById(R.id.tv_Temperature);
+        TextView textSpeed = act.findViewById(R.id.textUnitSpeed);
+        try {
+             textPress.setText(new DataConversion(Double.parseDouble(pressure),
+                    Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
+
+            textTemp.setText(new DataConversion(Double.parseDouble(temperature.replace(',', '.')),
+                    Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+
+            textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(windSpeed),
+                    Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+        } catch (NumberFormatException | NullPointerException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public String request(int num) {
             String reqest = "";
             switch (num) {
@@ -102,55 +117,28 @@ public class Request {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
-    }
-
     public String getPressure() {
         return pressure;
-    }
-
-    public void setPressure(String pressure) {
-        this.pressure = pressure;
     }
 
     public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(String humidity) {
-        this.humidity = humidity;
-    }
-
     public String getWindSpeed() {
         return windSpeed;
-    }
-
-    public void setWindSpeed(String windSpeed) {
-        this.windSpeed = windSpeed;
     }
 
     public String getId_city() {
         return id_city;
     }
 
-    public Thread getT1() {
-        return t1;
-    }
 }

@@ -3,6 +3,7 @@ package com.example.myweatherdraver.data;
 public class DataConversion {
     private double paramIn;
     private String paramOut;
+    private String paramOutThread;
     private boolean conwesActivate;
     private int mode;
     //0-преобразование давления
@@ -28,5 +29,33 @@ public class DataConversion {
                 break;
         }
         return paramOut;
+    }
+
+    public String conversionThread() {
+        Thread th1;
+
+        th1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                switch (mode) {
+                    case 0: //преобразованеие мм. рт. ст. в гекто Паскали
+                        paramOutThread = String.format("%.1f", (conwesActivate) ? 1.33322 * paramIn : paramIn);
+                        break;
+                    case 1: //преобразование град. Цельсия в град Фаренгейты
+                        paramOutThread = String.format("%.1f", (conwesActivate) ? 1.8 * paramIn + 32.0 : paramIn);
+                        break;
+                    case 2: //преобразование м/с в км/ч
+                        paramOutThread = String.format("%.1f", (conwesActivate) ? 3.6 * paramIn : paramIn);
+                        break;
+                }
+            }
+        });
+        th1.start();
+        try {
+            th1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return paramOutThread;
     }
 }

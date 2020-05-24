@@ -30,8 +30,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 public class FragmentSettings extends Fragment {
-
-
     private Switch sPress;
     private Switch sSpeed;
     private Switch sHumi;
