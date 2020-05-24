@@ -141,4 +141,7 @@ public class Request {
         return id_city;
     }
 
+    public Thread getT1() {
+        return t1;
+    }
 }

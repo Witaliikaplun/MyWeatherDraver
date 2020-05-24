@@ -1,5 +1,8 @@
 package com.example.myweatherdraver.data;
 
+
+import android.os.Handler;
+
 public class DataConversion {
     private double paramIn;
     private String paramOut;
@@ -33,7 +36,6 @@ public class DataConversion {
 
     public String conversionThread() {
         Thread th1;
-
         th1 = new Thread(new Runnable() {
             @Override
             public void run() {
