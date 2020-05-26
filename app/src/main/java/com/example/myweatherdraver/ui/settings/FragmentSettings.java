@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
@@ -30,8 +27,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 public class FragmentSettings extends Fragment {
-
-
     private Switch sPress;
     private Switch sSpeed;
     private Switch sHumi;
@@ -284,7 +279,6 @@ public class FragmentSettings extends Fragment {
                 Singleton.getSingleton().setCity(textCity.getText().toString());
                 addFavourites(Singleton.getSingleton().getCity());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -299,6 +293,12 @@ public class FragmentSettings extends Fragment {
                 flag = true;
                 break;
             }
+        }
+        try {
+            act.getReq().getT1().join();    //ждем когда поток запроса отработает,
+                                            // чтобы загрузить актуальные данные
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         if (!flag)
             list.add(new CityFavourites(Singleton.getSingleton().getCity(), act.getReq().getTemperature()));

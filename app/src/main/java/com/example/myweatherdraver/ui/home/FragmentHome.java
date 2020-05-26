@@ -1,13 +1,11 @@
 package com.example.myweatherdraver.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -41,26 +39,20 @@ public class FragmentHome extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         root = inflater.inflate(R.layout.fragment_home, container, false);
         act = (MainActivity) getContext();
-        textTemp = root.findViewById(R.id.textView3);
+        textTemp = root.findViewById(R.id.tv_Temperature);
         textCity = root.findViewById(R.id.textCity);
         textPres = root.findViewById(R.id.textUnitPress);
         textSpeed = root.findViewById(R.id.textUnitSpeed);
         textHumi = root.findViewById(R.id.textUnitHumi);
         textDescription = root.findViewById(R.id.textDescript);
-        tvUnitsT = root.findViewById(R.id.tv_units);
+        tvUnitsT = root.findViewById(R.id.tv_unitsTemperature);
         tvUnitSpeed = root.findViewById(R.id.tv_units_speed);
         tvUnitsPress = root.findViewById(R.id.tv_textUnitPress);
 
-        try {
-            act.getReq().getT1().join();// почему основной поток не ждет здесь выполнения потока запроса?
-                                        //из-за этого не заполняются данные при старте приложения
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.d("rez", "convert");
-        convert();
+        update();
 
         textHumi.setText(act.getReq().getHumidity());
         textDescription.setText(act.getReq().getDescription());
@@ -69,21 +61,19 @@ public class FragmentHome extends Fragment {
         setUnits();
         initRecycleWeather();
         viewTextPresSpeedHumi();
-
         return root;
     }
 
-    private void convert() {
+    private void update() {
         try {
             textPres.setText(new DataConversion(Double.parseDouble(act.getReq().getPressure()),
-                    Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
-            Toast.makeText(act, act.getReq().getTemperature().toString(), Toast.LENGTH_LONG).show();
+                    Singleton.getSingleton().getSwitchUnitsPres(), 0).conversionThread());
 
             textTemp.setText(new DataConversion(Double.parseDouble(act.getReq().getTemperature().replace(',', '.')),
-                    Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+                    Singleton.getSingleton().getSwitchUnitsCF(), 1).conversionThread());
 
             textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(act.getReq().getWindSpeed()),
-                    Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+                    Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversionThread()));
         } catch (NumberFormatException | NullPointerException ex) {
             ex.printStackTrace();
         }
