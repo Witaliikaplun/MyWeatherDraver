@@ -1,12 +1,8 @@
 package com.example.myweatherdraver;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 
-import com.example.myweatherdraver.data.Request;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -20,13 +16,14 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        if(Singleton.getSingleton().getSwitchTheme())setTheme(R.style.AppDarkTheme);
+        if (Singleton.getSingleton().getSwitchTheme()) setTheme(R.style.AppDarkTheme);
         else setTheme(R.style.AppTheme);
 
         setSupportActionBar(toolbar);

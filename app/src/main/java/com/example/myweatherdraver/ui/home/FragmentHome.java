@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
@@ -20,10 +22,13 @@ import com.example.myweatherdraver.data.DataConversion;
 import com.example.myweatherdraver.data.IOpenWeather;
 import com.example.myweatherdraver.data.NetworkService;
 import com.example.myweatherdraver.data.WeatherRequest;
+import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
 import com.example.myweatherdraver.list_elements.WeatherSource;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +53,7 @@ public class FragmentHome extends Fragment {
         return root;
     }
 
-    private void reqRetrofitAndUpdateParam(String city, String keyApi){
+    private void reqRetrofitAndUpdateParam(String city, String keyApi) {
         iOpenWeather.loadWeather(city, "metric", keyApi).enqueue(new Callback<WeatherRequest>() {
             @Override
             public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
@@ -58,7 +63,10 @@ public class FragmentHome extends Fragment {
                 TextView textCity = act.findViewById(R.id.textCity);
                 TextView textHumi = act.findViewById(R.id.tv_textUnitHumi);
                 TextView textDescription = act.findViewById(R.id.textDescript);
-                if(response.body() != null && response.isSuccessful()){
+                List list = Singleton.getSingleton().getListFav();
+
+
+                if (response.body() != null && response.isSuccessful()) {
                     String temperature = String.format("%.1f", response.body().getMain().getTemp());
                     String pressure = String.format("%d", response.body().getMain().getPressure());
                     String humidity = String.format("%d", response.body().getMain().getHumidity());
@@ -70,6 +78,9 @@ public class FragmentHome extends Fragment {
                     String[] arayCity = getResources().getStringArray(R.array.arrayCity);
                     textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
 
+                    addCityFavourites(list, new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
+
+                            temperature), arayCity[Singleton.getSingleton().getPositionSpinner()]);
                     try {
                         textPress.setText(new DataConversion(Double.parseDouble(pressure),
                                 Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
@@ -92,6 +103,18 @@ public class FragmentHome extends Fragment {
 
             }
         });
+    }
+
+    private void addCityFavourites(List list, CityFavourites e, String anObject) {
+        boolean flag = false;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).toString().equals(anObject)) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag)
+            list.add(e);
     }
 
     private void setUnits() {
@@ -134,4 +157,6 @@ public class FragmentHome extends Fragment {
         if (Singleton.getSingleton().getSwitchSpeed()) layoutSpeed.setVisibility(View.VISIBLE);
         else layoutSpeed.setVisibility(View.GONE);
     }
+
+
 }

@@ -10,7 +10,6 @@ public final class Singleton {
     private boolean switchHumil;
     private boolean switchSpeed;
     private int positionSpinner;
-    private String city;
     private String cityForRequest;
     ArrayList<CityFavourites> listFav;
     private boolean switchTheme;
@@ -20,8 +19,7 @@ public final class Singleton {
 
     private Singleton(){
         switchPress = false;
-        city = "Москва";
-        cityForRequest = "Moskau";
+        cityForRequest = "Krasnodar";
         listFav = new ArrayList<>();
     }
 
@@ -33,9 +31,6 @@ public final class Singleton {
         this.switchTheme = switchTeme;
     }
 
-    public void setListFav(ArrayList<CityFavourites> listFav) {
-        this.listFav = listFav;
-    }
 
     public ArrayList<CityFavourites> getListFav() {
         return listFav;
@@ -71,14 +66,6 @@ public final class Singleton {
 
     public int getPositionSpinner() {
         return positionSpinner;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCity() {
-        return city;
     }
 
     public void setSwitchUnitsCF(boolean switchUnitsCF) {
