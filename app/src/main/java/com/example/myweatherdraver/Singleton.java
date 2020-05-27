@@ -11,18 +11,18 @@ public final class Singleton {
     private boolean switchSpeed;
     private int positionSpinner;
     private String city;
+    private String cityForRequest;
     ArrayList<CityFavourites> listFav;
     private boolean switchTheme;
     private boolean switchUnitsCF;
     private boolean switchUnitsSpeed;
     private boolean switchUnitsPres;
 
-    private static final Object obj = new Object();
-
     private Singleton(){
         switchPress = false;
+        city = "Москва";
+        cityForRequest = "Moskau";
         listFav = new ArrayList<>();
-
     }
 
     public boolean getSwitchTheme() {
@@ -110,5 +110,13 @@ public final class Singleton {
                 instance = new Singleton();
         }
         return instance;
+    }
+
+    public void setCityForRequest(String cityForRequest) {
+        this.cityForRequest = cityForRequest;
+    }
+
+    public String getCityForRequest() {
+        return cityForRequest;
     }
 }

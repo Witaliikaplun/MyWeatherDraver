@@ -187,7 +187,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:shadowColor="#FFFFFF"
-            android:text="@string/cityNname"
             android:textAlignment="center"
             android:textColor="#2F2E2E"
             android:textSize="45sp" />

@@ -1,40 +1,37 @@
 package com.example.myweatherdraver.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.data.DataConversion;
+import com.example.myweatherdraver.data.IOpenWeather;
+import com.example.myweatherdraver.data.NetworkService;
+import com.example.myweatherdraver.data.WeatherRequest;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
 import com.example.myweatherdraver.list_elements.WeatherSource;
 
 import java.util.ArrayList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
     RecyclerView recyclerView;
     MainActivity act;
-    private TextView textCity;
-    private TextView textTemp;
-    private TextView textPres;
-    private TextView textSpeed;
-    private TextView textHumi;
-    private TextView textDescription;
-    private TextView tvUnitsT;
-    private TextView tvUnitSpeed;
-    private TextView tvUnitsPress;
-
+    IOpenWeather iOpenWeather;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,44 +39,66 @@ public class FragmentHome extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
         act = (MainActivity) getContext();
-        textTemp = root.findViewById(R.id.tv_Temperature);
-        textCity = root.findViewById(R.id.textCity);
-        textPres = root.findViewById(R.id.textUnitPress);
-        textSpeed = root.findViewById(R.id.textUnitSpeed);
-        textHumi = root.findViewById(R.id.textUnitHumi);
-        textDescription = root.findViewById(R.id.textDescript);
-        tvUnitsT = root.findViewById(R.id.tv_unitsTemperature);
-        tvUnitSpeed = root.findViewById(R.id.tv_units_speed);
-        tvUnitsPress = root.findViewById(R.id.tv_textUnitPress);
-
-        update();
-
-        textHumi.setText(act.getReq().getHumidity());
-        textDescription.setText(act.getReq().getDescription());
-        textCity.setText(Singleton.getSingleton().getCity());
+        iOpenWeather = NetworkService.getInstance().getiOpenWeather();
 
         setUnits();
         initRecycleWeather();
         viewTextPresSpeedHumi();
+        reqRetrofitAndUpdateParam(Singleton.getSingleton().getCityForRequest(), BuildConfig.WEATHER_API_KEY);
         return root;
     }
 
-    private void update() {
-        try {
-            textPres.setText(new DataConversion(Double.parseDouble(act.getReq().getPressure()),
-                    Singleton.getSingleton().getSwitchUnitsPres(), 0).conversionThread());
+    private void reqRetrofitAndUpdateParam(String city, String keyApi){
+        iOpenWeather.loadWeather(city, "metric", keyApi).enqueue(new Callback<WeatherRequest>() {
+            @Override
+            public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
+                TextView textPress = act.findViewById(R.id.textUnitPress);
+                TextView textTemp = act.findViewById(R.id.tv_Temperature);
+                TextView textSpeed = act.findViewById(R.id.textUnitSpeed);
+                TextView textCity = act.findViewById(R.id.textCity);
+                TextView textHumi = act.findViewById(R.id.tv_textUnitHumi);
+                TextView textDescription = act.findViewById(R.id.textDescript);
+                if(response.body() != null && response.isSuccessful()){
+                    String temperature = String.format("%.1f", response.body().getMain().getTemp());
+                    String pressure = String.format("%d", response.body().getMain().getPressure());
+                    String humidity = String.format("%d", response.body().getMain().getHumidity());
+                    String windSpeed = String.format("%d", response.body().getWind().getSpeed());
+                    String description = String.format("%s", response.body().getWeather()[0].getDescription());
 
-            textTemp.setText(new DataConversion(Double.parseDouble(act.getReq().getTemperature().replace(',', '.')),
-                    Singleton.getSingleton().getSwitchUnitsCF(), 1).conversionThread());
+                    textHumi.setText(humidity);
+                    textDescription.setText(description);
+                    String[] arayCity = getResources().getStringArray(R.array.arrayCity);
+                    textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
 
-            textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(act.getReq().getWindSpeed()),
-                    Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversionThread()));
-        } catch (NumberFormatException | NullPointerException ex) {
-            ex.printStackTrace();
-        }
+                    try {
+                        textPress.setText(new DataConversion(Double.parseDouble(pressure),
+                                Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
+
+                        textTemp.setText(new DataConversion(Double.parseDouble(temperature.replace(',', '.')),
+                                Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+
+                        textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(windSpeed),
+                                Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+
+                    } catch (NumberFormatException | NullPointerException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherRequest> call, Throwable t) {
+
+
+            }
+        });
     }
 
     private void setUnits() {
+        TextView tvUnitsT = root.findViewById(R.id.tv_unitsTemperature);
+        TextView tvUnitSpeed = root.findViewById(R.id.tv_units_speed);
+        TextView tvUnitsPress = root.findViewById(R.id.tv_textUnitPress);
+
         tvUnitsT.setText((Singleton.getSingleton().getSwitchUnitsCF()) ? R.string.F : R.string.C);
         tvUnitSpeed.setText((Singleton.getSingleton().getSwitchUnitsSpeed()) ? R.string.unitsSpeed_km_h
                 : R.string.unitsSpeed_m_sec);
