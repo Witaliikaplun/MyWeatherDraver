@@ -271,7 +271,7 @@ public class FragmentSettings extends Fragment {
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(1);
-                        Singleton.getSingleton().setCityForRequest("Moskau");
+                        Singleton.getSingleton().setCityForRequest("Moscow");
                         break;
                     case 2:
                         textCity.setText(arrayCity[position]);

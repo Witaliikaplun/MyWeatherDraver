@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.example.myweatherdraver.data.WeatherRequest;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
 import com.example.myweatherdraver.list_elements.WeatherSource;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,8 @@ public class FragmentHome extends Fragment {
     RecyclerView recyclerView;
     MainActivity act;
     IOpenWeather iOpenWeather;
+    TextView textDescription;
+    ImageView imageView;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,17 +48,27 @@ public class FragmentHome extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
         act = (MainActivity) getContext();
+        imageView = root.findViewById(R.id.imageView2);
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
 
         setUnits();
         initRecycleWeather();
         viewTextPresSpeedHumi();
         reqRetrofitAndUpdateParam(Singleton.getSingleton().getCityForRequest(), BuildConfig.WEATHER_API_KEY);
+
+        try {
+            Picasso.get().load("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60")
+                    .fit()  //подогнать изображение под целевую imageView
+                    .into(imageView);
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
+
         return root;
     }
 
     private void reqRetrofitAndUpdateParam(String city, String keyApi) {
-        iOpenWeather.loadWeather(city, "metric", keyApi).enqueue(new Callback<WeatherRequest>() {
+        iOpenWeather.loadWeather(city, "metric", "ru", keyApi).enqueue(new Callback<WeatherRequest>() {
             @Override
             public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
                 TextView textPress = act.findViewById(R.id.textUnitPress);
@@ -62,7 +76,7 @@ public class FragmentHome extends Fragment {
                 TextView textSpeed = act.findViewById(R.id.textUnitSpeed);
                 TextView textCity = act.findViewById(R.id.textCity);
                 TextView textHumi = act.findViewById(R.id.tv_textUnitHumi);
-                TextView textDescription = act.findViewById(R.id.textDescript);
+                textDescription = act.findViewById(R.id.textDescript);
                 List list = Singleton.getSingleton().getListFav();
 
 
@@ -72,6 +86,8 @@ public class FragmentHome extends Fragment {
                     String humidity = String.format("%d", response.body().getMain().getHumidity());
                     String windSpeed = String.format("%d", response.body().getWind().getSpeed());
                     String description = String.format("%s", response.body().getWeather()[0].getDescription());
+                    String img = String.format("%s", response.body().getWeather()[0].getImg());
+                    Log.d("img", img);
 
                     textHumi.setText(humidity);
                     textDescription.setText(description);
@@ -99,7 +115,6 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<WeatherRequest> call, Throwable t) {
-
 
             }
         });

@@ -1,7 +1,9 @@
 package com.example.myweatherdraver.list_elements;
 
 public class Weather {
+
     private int img;
+
     private String description;
 
     public Weather(int img, String description) {
