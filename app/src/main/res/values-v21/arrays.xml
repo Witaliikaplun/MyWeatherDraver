@@ -13,14 +13,24 @@
     </string-array>
 
     <array name="pictures">
-        <item>@drawable/pic1</item>
-        <item>@drawable/pic2</item>
-        <item>@drawable/pic3</item>
-        <item>@drawable/pic1</item>
-        <item>@drawable/pic2</item>
-        <item>@drawable/pic3</item>
-        <item>@drawable/pic1</item>
-        <item>@drawable/pic2</item>
-        <item>@drawable/pic3</item>
+        <item>@drawable/i01d</item>
+        <item>@drawable/i02d</item>
+        <item>@drawable/i03d</item>
+        <item>@drawable/i04d</item>
+        <item>@drawable/i09d</item>
+        <item>@drawable/i10d</item>
+        <item>@drawable/i11d</item>
+        <item>@drawable/i13d</item>
+        <item>@drawable/i50d</item>
+
+        <item>@drawable/i01n</item>
+        <item>@drawable/i02n</item>
+        <item>@drawable/i03n</item>
+        <item>@drawable/i04n</item>
+        <item>@drawable/i09n</item>
+        <item>@drawable/i10n</item>
+        <item>@drawable/i11n</item>
+        <item>@drawable/i13n</item>
+        <item>@drawable/i50n</item>
     </array>
 </resources>

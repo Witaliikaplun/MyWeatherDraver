@@ -72,8 +72,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:contentDescription="@string/image2"
-                    app:srcCompat="@drawable/sunny_sunshine_weather_2778" />
+                    android:contentDescription="@string/image2"/>
 
                 <LinearLayout
 

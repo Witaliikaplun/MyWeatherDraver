@@ -1,12 +1,14 @@
 package com.example.myweatherdraver.list_elements;
 
-public class Weather {
+import com.google.gson.annotations.SerializedName;
 
+public class WeatherForRecicle {
+    //@SerializedName("icon")
     private int img;
 
     private String description;
 
-    public Weather(int img, String description) {
+    public WeatherForRecicle(int img, String description) {
         this.img = img;
         this.description = description;
     }

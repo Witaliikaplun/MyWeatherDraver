@@ -41,6 +41,7 @@ public class FragmentHome extends Fragment {
     IOpenWeather iOpenWeather;
     TextView textDescription;
     ImageView imageView;
+    ImageView imageIcon;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -49,6 +50,8 @@ public class FragmentHome extends Fragment {
         root = inflater.inflate(R.layout.fragment_home, container, false);
         act = (MainActivity) getContext();
         imageView = root.findViewById(R.id.imageView2);
+        imageIcon = root.findViewById(R.id.imageView3);
+
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
 
         setUnits();
@@ -56,15 +59,19 @@ public class FragmentHome extends Fragment {
         viewTextPresSpeedHumi();
         reqRetrofitAndUpdateParam(Singleton.getSingleton().getCityForRequest(), BuildConfig.WEATHER_API_KEY);
 
+        setImage("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60", imageView);
+
+        return root;
+    }
+
+    private void setImage(String pach, ImageView iv) {
         try {
-            Picasso.get().load("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60")
+            Picasso.get().load(pach)
                     .fit()  //подогнать изображение под целевую imageView
-                    .into(imageView);
+                    .into(iv);
         }catch (IllegalArgumentException e){
             e.printStackTrace();
         }
-
-        return root;
     }
 
     private void reqRetrofitAndUpdateParam(String city, String keyApi) {
@@ -79,15 +86,15 @@ public class FragmentHome extends Fragment {
                 textDescription = act.findViewById(R.id.textDescript);
                 List list = Singleton.getSingleton().getListFav();
 
-
                 if (response.body() != null && response.isSuccessful()) {
                     String temperature = String.format("%.1f", response.body().getMain().getTemp());
                     String pressure = String.format("%d", response.body().getMain().getPressure());
                     String humidity = String.format("%d", response.body().getMain().getHumidity());
                     String windSpeed = String.format("%d", response.body().getWind().getSpeed());
                     String description = String.format("%s", response.body().getWeather()[0].getDescription());
-                    String img = String.format("%s", response.body().getWeather()[0].getImg());
-                    Log.d("img", img);
+                    String img =   response.body().getWeather()[0].getImg();
+
+                    setImage("http://openweathermap.org/img/wn/" + img + "@2x.png", imageIcon);
 
                     textHumi.setText(humidity);
                     textDescription.setText(description);
@@ -115,7 +122,7 @@ public class FragmentHome extends Fragment {
 
             @Override
             public void onFailure(Call<WeatherRequest> call, Throwable t) {
-
+                Log.d("img", "error");
             }
         });
     }

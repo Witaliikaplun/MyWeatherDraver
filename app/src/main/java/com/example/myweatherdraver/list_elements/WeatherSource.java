@@ -8,7 +8,7 @@ import com.example.myweatherdraver.R;
 import java.util.ArrayList;
 
 public class WeatherSource {
-    private ArrayList<Weather> listWeather;
+    private ArrayList<WeatherForRecicle> listWeather;
     private Resources resources;
 
     public WeatherSource(Resources resources) {
@@ -19,8 +19,8 @@ public class WeatherSource {
     public WeatherSource build(){
         String[] descriptions = resources.getStringArray(R.array.items);
         int[] pictures = getImageArray();
-        for (int i = 0; i < pictures.length; i++) {
-            listWeather.add(new Weather(pictures[i], descriptions[i]));
+        for (int i = 0; i < descriptions.length; i++) {
+            listWeather.add(new WeatherForRecicle(pictures[i], descriptions[i]));
         }
         return this;
     }
@@ -34,7 +34,7 @@ public class WeatherSource {
         return answer;
     }
 
-    public ArrayList<Weather> getListWeather() {
+    public ArrayList<WeatherForRecicle> getListWeather() {
         return listWeather;
     }
 }
