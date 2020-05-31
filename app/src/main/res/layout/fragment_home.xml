@@ -67,12 +67,13 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imageTWeath"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:contentDescription="@string/image2"/>
+                    android:contentDescription="@string/image2"
+                    android:foreground="@drawable/i02d" />
 
                 <LinearLayout
 

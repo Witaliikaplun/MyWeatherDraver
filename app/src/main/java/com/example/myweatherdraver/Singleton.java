@@ -16,6 +16,7 @@ public final class Singleton {
     private boolean switchUnitsCF;
     private boolean switchUnitsSpeed;
     private boolean switchUnitsPres;
+    private String imageResponse;
 
     private Singleton(){
         switchPress = false;
@@ -82,6 +83,14 @@ public final class Singleton {
 
     public void setSwitchUnitsSpeed(boolean switchUnitsSpeed) {
         this.switchUnitsSpeed = switchUnitsSpeed;
+    }
+
+    public void setImageResponse(String imageResponse) {
+        this.imageResponse = imageResponse;
+    }
+
+    public String getImageResponse() {
+        return imageResponse;
     }
 
     public boolean getSwitchUnitsPres() {

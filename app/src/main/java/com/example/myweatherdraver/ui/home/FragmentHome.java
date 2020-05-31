@@ -1,7 +1,6 @@
 package com.example.myweatherdraver.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.data.DataConversion;
 import com.example.myweatherdraver.data.IOpenWeather;
 import com.example.myweatherdraver.data.NetworkService;
-import com.example.myweatherdraver.data.WeatherRequest;
+import com.example.myweatherdraver.data.RequestRetrofit;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
 import com.example.myweatherdraver.list_elements.WeatherSource;
@@ -31,14 +29,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class FragmentHome extends Fragment {
     RecyclerView recyclerView;
     MainActivity act;
     IOpenWeather iOpenWeather;
+    RequestRetrofit requestRetrofit;
     TextView textDescription;
     ImageView imageView;
     ImageView imageIcon;
@@ -50,14 +45,16 @@ public class FragmentHome extends Fragment {
         root = inflater.inflate(R.layout.fragment_home, container, false);
         act = (MainActivity) getContext();
         imageView = root.findViewById(R.id.imageView2);
-        imageIcon = root.findViewById(R.id.imageView3);
+        imageIcon = root.findViewById(R.id.imageTWeath);
 
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
+        requestRetrofit = new RequestRetrofit(iOpenWeather, this);
+        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
+        requestRetrofit.request();
 
         setUnits();
         initRecycleWeather();
         viewTextPresSpeedHumi();
-        reqRetrofitAndUpdateParam(Singleton.getSingleton().getCityForRequest(), BuildConfig.WEATHER_API_KEY);
 
         setImage("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60", imageView);
 
@@ -69,73 +66,60 @@ public class FragmentHome extends Fragment {
             Picasso.get().load(pach)
                     .fit()  //подогнать изображение под целевую imageView
                     .into(iv);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
     }
 
-    private void reqRetrofitAndUpdateParam(String city, String keyApi) {
-        iOpenWeather.loadWeather(city, "metric", "ru", keyApi).enqueue(new Callback<WeatherRequest>() {
-            @Override
-            public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
-                TextView textPress = act.findViewById(R.id.textUnitPress);
-                TextView textTemp = act.findViewById(R.id.tv_Temperature);
-                TextView textSpeed = act.findViewById(R.id.textUnitSpeed);
-                TextView textCity = act.findViewById(R.id.textCity);
-                TextView textHumi = act.findViewById(R.id.tv_textUnitHumi);
-                textDescription = act.findViewById(R.id.textDescript);
-                List list = Singleton.getSingleton().getListFav();
+    public void requestAndUpdate() {
+        TextView textPress;
+        TextView textTemp;
+        TextView textSpeed;
+        TextView textCity;
+        TextView textHumi;
+        List list;
 
-                if (response.body() != null && response.isSuccessful()) {
-                    String temperature = String.format("%.1f", response.body().getMain().getTemp());
-                    String pressure = String.format("%d", response.body().getMain().getPressure());
-                    String humidity = String.format("%d", response.body().getMain().getHumidity());
-                    String windSpeed = String.format("%d", response.body().getWind().getSpeed());
-                    String description = String.format("%s", response.body().getWeather()[0].getDescription());
-                    String img =   response.body().getWeather()[0].getImg();
 
-                    setImage("http://openweathermap.org/img/wn/" + img + "@2x.png", imageIcon);
 
-                    textHumi.setText(humidity);
-                    textDescription.setText(description);
-                    String[] arayCity = getResources().getStringArray(R.array.arrayCity);
-                    textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
+        try {
+            textPress = act.findViewById(R.id.textUnitPress);
+            textTemp = act.findViewById(R.id.tv_Temperature);
+            textSpeed = act.findViewById(R.id.textUnitSpeed);
+            textCity = act.findViewById(R.id.textCity);
+            textHumi = act.findViewById(R.id.tv_textUnitHumi);
+            textDescription = act.findViewById(R.id.textDescript);
+            list = Singleton.getSingleton().getListFav();
 
-                    addCityFavourites(list, new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
+            setImage("http://openweathermap.org/img/wn/" + requestRetrofit.getImg() + "@2x.png", imageIcon);
 
-                            temperature), arayCity[Singleton.getSingleton().getPositionSpinner()]);
-                    try {
-                        textPress.setText(new DataConversion(Double.parseDouble(pressure),
-                                Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
+            textHumi.setText(requestRetrofit.getHumidity());
+            textDescription.setText(requestRetrofit.getDescription());
+            String[] arayCity = getResources().getStringArray(R.array.arrayCity);
+            textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
 
-                        textTemp.setText(new DataConversion(Double.parseDouble(temperature.replace(',', '.')),
-                                Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+            addCityFavourites(list, new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
 
-                        textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(windSpeed),
-                                Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+                    requestRetrofit.getTemperature()), arayCity[Singleton.getSingleton().getPositionSpinner()]);
+            try {
+                textPress.setText(new DataConversion(Double.parseDouble(requestRetrofit.getPressure()),
+                        Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
 
-                    } catch (NumberFormatException | NullPointerException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+                textTemp.setText(new DataConversion(Double.parseDouble(requestRetrofit.getTemperature().replace(',', '.')),
+                        Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+
+                textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(requestRetrofit.getWindSpeed()),
+                        Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+
+            } catch (NumberFormatException | NullPointerException ex) {
+                ex.printStackTrace();
             }
+        } catch (RuntimeException ex) {
 
-            @Override
-            public void onFailure(Call<WeatherRequest> call, Throwable t) {
-                Log.d("img", "error");
-            }
-        });
+        }
     }
 
+
     private void addCityFavourites(List list, CityFavourites e, String anObject) {
-        boolean flag = false;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).toString().equals(anObject)) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag)
             list.add(e);
     }
 

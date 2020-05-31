@@ -3,7 +3,6 @@ package com.example.myweatherdraver.list_elements;
 import com.google.gson.annotations.SerializedName;
 
 public class WeatherForRecicle {
-    //@SerializedName("icon")
     private int img;
 
     private String description;
