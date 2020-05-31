@@ -10,19 +10,18 @@ public final class Singleton {
     private boolean switchHumil;
     private boolean switchSpeed;
     private int positionSpinner;
-    private String city;
+    private String cityForRequest;
     ArrayList<CityFavourites> listFav;
     private boolean switchTheme;
     private boolean switchUnitsCF;
     private boolean switchUnitsSpeed;
     private boolean switchUnitsPres;
-
-    private static final Object obj = new Object();
+    private String imageResponse;
 
     private Singleton(){
         switchPress = false;
+        cityForRequest = "Krasnodar";
         listFav = new ArrayList<>();
-
     }
 
     public boolean getSwitchTheme() {
@@ -33,9 +32,6 @@ public final class Singleton {
         this.switchTheme = switchTeme;
     }
 
-    public void setListFav(ArrayList<CityFavourites> listFav) {
-        this.listFav = listFav;
-    }
 
     public ArrayList<CityFavourites> getListFav() {
         return listFav;
@@ -73,14 +69,6 @@ public final class Singleton {
         return positionSpinner;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
     public void setSwitchUnitsCF(boolean switchUnitsCF) {
         this.switchUnitsCF = switchUnitsCF;
     }
@@ -97,6 +85,14 @@ public final class Singleton {
         this.switchUnitsSpeed = switchUnitsSpeed;
     }
 
+    public void setImageResponse(String imageResponse) {
+        this.imageResponse = imageResponse;
+    }
+
+    public String getImageResponse() {
+        return imageResponse;
+    }
+
     public boolean getSwitchUnitsPres() {
         return switchUnitsPres;
     }
@@ -110,5 +106,13 @@ public final class Singleton {
                 instance = new Singleton();
         }
         return instance;
+    }
+
+    public void setCityForRequest(String cityForRequest) {
+        this.cityForRequest = cityForRequest;
+    }
+
+    public String getCityForRequest() {
+        return cityForRequest;
     }
 }

@@ -14,17 +14,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
-import com.example.myweatherdraver.list_elements.CityFavourites;
+import com.example.myweatherdraver.data.IOpenWeather;
 import com.example.myweatherdraver.ui.DialogBuilderFragment;
 import com.example.myweatherdraver.ui.DialogCustomFragment;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
 
 public class FragmentSettings extends Fragment {
     private Switch sPress;
@@ -37,13 +37,16 @@ public class FragmentSettings extends Fragment {
     private ToggleButton tb_mm_gPa;
     private DialogBuilderFragment dialogBuilderFragment;
     private DialogCustomFragment dialogCustomFragment;
+    private IOpenWeather iOpenWeather;
     MainActivity act;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_setting, container, false);
         act = (MainActivity) getContext();
+
         sPress = root.findViewById(R.id.switchPress);
         sSpeed = root.findViewById(R.id.switchSpeed);
         sHumi = root.findViewById(R.id.switchHumi);
@@ -203,10 +206,10 @@ public class FragmentSettings extends Fragment {
     }
 
     private void initChekTB(ToggleButton tb, Drawable img1, Drawable img2, boolean check) {
-        if(check){
+        if (check) {
             tb.setChecked(true);
             tb.setForeground(img2);
-        }else {
+        } else {
             tb.setChecked(false);
             tb.setForeground(img1);
         }
@@ -221,11 +224,11 @@ public class FragmentSettings extends Fragment {
         builder.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(act, "нажали кнопку да",Toast.LENGTH_SHORT).show();
-                if(!Singleton.getSingleton().getSwitchUnitsCF()){
+                Toast.makeText(act, "нажали кнопку да", Toast.LENGTH_SHORT).show();
+                if (!Singleton.getSingleton().getSwitchUnitsCF()) {
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img2));
                     Singleton.getSingleton().setSwitchUnitsCF(true);
-                }else {
+                } else {
                     tbCF.setForeground(getResources().getDrawable(R.drawable.img1));
                     Singleton.getSingleton().setSwitchUnitsCF(false);
                 }
@@ -263,44 +266,25 @@ public class FragmentSettings extends Fragment {
                     case 0:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(0);
-                        act.getReq().init();
+                        Singleton.getSingleton().setCityForRequest("Krasnodar");
                         break;
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(1);
-                        act.getReq().init();
+                        Singleton.getSingleton().setCityForRequest("Moscow");
                         break;
                     case 2:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(2);
-                        act.getReq().init();
+                        Singleton.getSingleton().setCityForRequest("Saint Petersburg");
                         break;
                 }
-                Singleton.getSingleton().setCity(textCity.getText().toString());
-                addFavourites(Singleton.getSingleton().getCity());
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
     }
-
-    private void addFavourites(String city) {
-        List list = Singleton.getSingleton().getListFav();
-        boolean flag = false;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).toString().equals(city)) {
-                flag = true;
-                break;
-            }
-        }
-        try {
-            act.getReq().getT1().join();    //ждем когда поток запроса отработает,
-                                            // чтобы загрузить актуальные данные
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (!flag)
-            list.add(new CityFavourites(Singleton.getSingleton().getCity(), act.getReq().getTemperature()));
-    }
 }
+

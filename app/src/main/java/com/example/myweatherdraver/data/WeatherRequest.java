@@ -1,6 +1,6 @@
 package com.example.myweatherdraver.data;
 
-import com.example.myweatherdraver.list_elements.Weather;
+import com.example.myweatherdraver.list_elements.WeatherForRecicle;
 import com.google.gson.annotations.SerializedName;
 
 

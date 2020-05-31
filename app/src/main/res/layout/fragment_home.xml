@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="imagge"
         android:scaleType="center"
         android:visibility="visible"
@@ -67,13 +67,13 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imageTWeath"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:contentDescription="@string/image2"
-                    app:srcCompat="@drawable/sunny_sunshine_weather_2778" />
+                    android:foreground="@drawable/i02d" />
 
                 <LinearLayout
 
@@ -187,7 +187,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:shadowColor="#FFFFFF"
-            android:text="@string/cityNname"
             android:textAlignment="center"
             android:textColor="#2F2E2E"
             android:textSize="45sp" />

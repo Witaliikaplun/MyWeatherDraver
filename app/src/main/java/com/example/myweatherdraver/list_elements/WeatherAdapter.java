@@ -11,9 +11,9 @@ import com.example.myweatherdraver.R;
 import java.util.ArrayList;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
-    ArrayList<Weather> weathers;
+    ArrayList<WeatherForRecicle> weathers;
 
-    public WeatherAdapter(ArrayList<Weather> weathers) {
+    public WeatherAdapter(ArrayList<WeatherForRecicle> weathers) {
         this.weathers = weathers;
     }
 

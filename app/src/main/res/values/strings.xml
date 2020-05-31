@@ -80,6 +80,7 @@
     <string name= "alert_dialog_2" >Alert Dialog с фрагментом</string>
     <string name= "message2">изменить шкалу скорости</string>
     <string name="messge3">Переключить шкалу?</string>
-    
+    <string name="intError">Internet Error</string>
+
 
 </resources>
