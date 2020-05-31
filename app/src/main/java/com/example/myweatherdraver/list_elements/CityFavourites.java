@@ -3,18 +3,39 @@ package com.example.myweatherdraver.list_elements;
 
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.Locale;
 
+// @Entity - это признак табличного объекта, то есть объект будет сохраняться
+// в базе данных в виде строки
+// indices указывает на индексы в таблице
+@Entity(indices = {@Index(value = {"Date_Time", "City", "Temperature"})})
 public class CityFavourites {
-    private String city;
-    private String temperature;
+    @ColumnInfo(name = "City")
+    public String city;
+
+    @PrimaryKey(autoGenerate = true)
+    public long id;
+
+    @ColumnInfo(name = "Temperature")
+    public String temperature;
+
+    @Ignore
     private String time;
+
+    @Ignore
     private String dateText;
-    private String dateAndTime;
+
+    @ColumnInfo(name = "Date_Time")
+    public String dateAndTime;
 
     public CityFavourites(String city, String temperature) {
         this.city = city;
@@ -29,7 +50,6 @@ public class CityFavourites {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         time = timeFormat.format(currentDate);
         dateAndTime = dateText + " " + time;
-
     }
 
     public String getCity() {

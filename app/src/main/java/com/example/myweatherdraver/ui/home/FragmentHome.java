@@ -21,6 +21,9 @@ import com.example.myweatherdraver.data.DataConversion;
 import com.example.myweatherdraver.data.IOpenWeather;
 import com.example.myweatherdraver.data.NetworkService;
 import com.example.myweatherdraver.data.RequestRetrofit;
+import com.example.myweatherdraver.db.App;
+import com.example.myweatherdraver.db.CityFavSourceForDB;
+import com.example.myweatherdraver.db.ICityFavDAO;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
 import com.example.myweatherdraver.list_elements.WeatherSource;
@@ -37,6 +40,8 @@ public class FragmentHome extends Fragment {
     TextView textDescription;
     ImageView imageView;
     ImageView imageIcon;
+    CityFavSourceForDB cityFavSourceForDB;
+    List list;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,11 +51,15 @@ public class FragmentHome extends Fragment {
         act = (MainActivity) getContext();
         imageView = root.findViewById(R.id.imageView2);
         imageIcon = root.findViewById(R.id.imageTWeath);
+        list = Singleton.getSingleton().getListFav();
 
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
         requestRetrofit = new RequestRetrofit(iOpenWeather, this);
         requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
         requestRetrofit.request();
+
+        ICityFavDAO iCityFavDAO = App.getInstance().getICityFavDAO();
+        cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
 
         setUnits();
         initRecycleWeather();
@@ -77,7 +86,7 @@ public class FragmentHome extends Fragment {
         TextView textSpeed;
         TextView textCity;
         TextView textHumi;
-        List list;
+
 
 
 
@@ -88,7 +97,7 @@ public class FragmentHome extends Fragment {
             textCity = act.findViewById(R.id.textCity);
             textHumi = act.findViewById(R.id.tv_textUnitHumi);
             textDescription = act.findViewById(R.id.textDescript);
-            list = Singleton.getSingleton().getListFav();
+
 
             setImage("http://openweathermap.org/img/wn/" + requestRetrofit.getImg() + "@2x.png", imageIcon);
 
@@ -97,9 +106,9 @@ public class FragmentHome extends Fragment {
             String[] arayCity = getResources().getStringArray(R.array.arrayCity);
             textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
 
-            addCityFavourites(list, new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
+            addCityFavourites(new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
 
-                    requestRetrofit.getTemperature()), arayCity[Singleton.getSingleton().getPositionSpinner()]);
+                    requestRetrofit.getTemperature()));
             try {
                 textPress.setText(new DataConversion(Double.parseDouble(requestRetrofit.getPressure()),
                         Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
@@ -119,8 +128,10 @@ public class FragmentHome extends Fragment {
     }
 
 
-    private void addCityFavourites(List list, CityFavourites e, String anObject) {
-            list.add(e);
+    private void addCityFavourites(CityFavourites e) {
+            //list.add(e);
+        cityFavSourceForDB.addCity(e);
+
     }
 
     private void setUnits() {
