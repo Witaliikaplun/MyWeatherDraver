@@ -1,5 +1,6 @@
 package com.example.myweatherdraver;
 
+import com.example.myweatherdraver.db.CityFavSourceForDB;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public final class Singleton {
     private boolean switchUnitsSpeed;
     private boolean switchUnitsPres;
     private String imageResponse;
+    private CityFavSourceForDB cityFavSourceForDB;
+
+
 
     private Singleton(){
         switchPress = false;
@@ -114,5 +118,13 @@ public final class Singleton {
 
     public String getCityForRequest() {
         return cityForRequest;
+    }
+
+    public CityFavSourceForDB getCityFavSourceForDB() {
+        return cityFavSourceForDB;
+    }
+
+    public void setCityFavSourceForDB(CityFavSourceForDB cityFavSourceForDB) {
+        this.cityFavSourceForDB = cityFavSourceForDB;
     }
 }

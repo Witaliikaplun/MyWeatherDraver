@@ -60,6 +60,7 @@ public class FragmentHome extends Fragment {
 
         ICityFavDAO iCityFavDAO = App.getInstance().getICityFavDAO();
         cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
+        Singleton.getSingleton().setCityFavSourceForDB(cityFavSourceForDB);
 
         setUnits();
         initRecycleWeather();
@@ -107,7 +108,6 @@ public class FragmentHome extends Fragment {
             textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
 
             addCityFavourites(new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
-
                     requestRetrofit.getTemperature()));
             try {
                 textPress.setText(new DataConversion(Double.parseDouble(requestRetrofit.getPressure()),

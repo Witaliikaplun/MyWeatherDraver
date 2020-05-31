@@ -1,5 +1,7 @@
 package com.example.myweatherdraver.db;
 
+import android.util.Log;
+
 import com.example.myweatherdraver.list_elements.CityFavourites;
 
 import java.util.List;
@@ -35,6 +37,8 @@ public class CityFavSourceForDB {
         iCityFavDAO.insertCityFav(cityFavourites);
         // После изменения БД надо повторно прочесть данные из БД и загрузить в буфер
         loadCity();
+
+        Log.d("city", String.valueOf(listCity));
     }
 
 
