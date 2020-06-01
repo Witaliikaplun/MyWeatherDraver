@@ -42,6 +42,7 @@ public class RequestRetrofit {
                     description = String.format("%s", response.body().getWeather()[0].getDescription());
                     img = response.body().getWeather()[0].getImg();
                     fh.requestAndUpdate();
+
                 }
 
             }

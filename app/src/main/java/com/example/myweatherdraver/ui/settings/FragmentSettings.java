@@ -278,6 +278,7 @@ public class FragmentSettings extends Fragment {
                         Singleton.getSingleton().setPositionSpinner(2);
                         Singleton.getSingleton().setCityForRequest("Saint Petersburg");
                         break;
+                    default:
                 }
             }
 

@@ -31,7 +31,6 @@ public class FragmentFavourites extends Fragment {
     private void initRecycleFav(View root) {
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerViewFavourites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        //CityAdapter cityAdapter = new CityAdapter(Singleton.getSingleton().getListFav());
         CityAdapter cityAdapter = new CityAdapter(Singleton.getSingleton().getCityFavSourceForDB().getListCity());
         recyclerView.setAdapter(cityAdapter);
     }

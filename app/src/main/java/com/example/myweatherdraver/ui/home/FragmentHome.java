@@ -100,7 +100,7 @@ public class FragmentHome extends Fragment {
             textDescription = act.findViewById(R.id.textDescript);
 
 
-            setImage("http://openweathermap.org/img/wn/" + requestRetrofit.getImg() + "@2x.png", imageIcon);
+            setImage("https://openweathermap.org/img/wn/" + requestRetrofit.getImg() + "@2x.png", imageIcon);
 
             textHumi.setText(requestRetrofit.getHumidity());
             textDescription.setText(requestRetrofit.getDescription());

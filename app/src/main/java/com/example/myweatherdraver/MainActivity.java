@@ -1,10 +1,13 @@
 package com.example.myweatherdraver;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,6 +19,10 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private SharedPreferences sPref;
+    SharedPreferences.Editor editShare;
+    private final String SPINNER_POSITION = "spinner_position";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +30,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
+        sPref = getPreferences(MODE_PRIVATE);
+        editShare = sPref.edit();
+        Singleton.getSingleton().setPositionSpinner(sPref.getInt(SPINNER_POSITION, 0));
+        Toast.makeText(this, Integer.valueOf(Singleton.getSingleton().getPositionSpinner()).toString(),Toast.LENGTH_SHORT).show();
+
+
+
         if (Singleton.getSingleton().getSwitchTheme()) setTheme(R.style.AppDarkTheme);
         else setTheme(R.style.AppTheme);
 
         setSupportActionBar(toolbar);
         initDrawer();
+    }
+
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        editShare.putInt(SPINNER_POSITION, Singleton.getSingleton().getPositionSpinner());
+        editShare.apply();
+        Toast.makeText(this, Integer.valueOf(Singleton.getSingleton().getPositionSpinner()).toString(),Toast.LENGTH_SHORT).show();
+
     }
 
     private void initDrawer() {
