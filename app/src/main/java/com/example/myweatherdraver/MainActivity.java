@@ -30,11 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        sPref = getPreferences(MODE_PRIVATE);
-        editShare = sPref.edit();
-        Singleton.getSingleton().setPositionSpinner(sPref.getInt(SPINNER_POSITION, 0));
-        Toast.makeText(this, Integer.valueOf(Singleton.getSingleton().getPositionSpinner()).toString(),Toast.LENGTH_SHORT).show();
-
+        initSettings();
 
 
         if (Singleton.getSingleton().getSwitchTheme()) setTheme(R.style.AppDarkTheme);
@@ -44,15 +40,21 @@ public class MainActivity extends AppCompatActivity {
         initDrawer();
     }
 
+    private void initSettings() {
+        sPref = getPreferences(MODE_PRIVATE);
+        editShare = sPref.edit();
+        Singleton.getSingleton().setPositionSpinner(sPref.getInt(SPINNER_POSITION, 0));
+        Toast.makeText(this, Integer.valueOf(Singleton.getSingleton().getPositionSpinner()).toString(),Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override
     protected void onStop() {
         super.onStop();
+        //сохраняем выбранный город в Spinner
         editShare.putInt(SPINNER_POSITION, Singleton.getSingleton().getPositionSpinner());
         editShare.apply();
         Toast.makeText(this, Integer.valueOf(Singleton.getSingleton().getPositionSpinner()).toString(),Toast.LENGTH_SHORT).show();
-
     }
 
     private void initDrawer() {

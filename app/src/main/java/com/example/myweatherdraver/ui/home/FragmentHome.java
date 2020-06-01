@@ -36,7 +36,7 @@ public class FragmentHome extends Fragment {
     RecyclerView recyclerView;
     MainActivity act;
     IOpenWeather iOpenWeather;
-    RequestRetrofit requestRetrofit;
+    private RequestRetrofit requestRetrofit;
     TextView textDescription;
     ImageView imageView;
     ImageView imageIcon;
@@ -55,8 +55,10 @@ public class FragmentHome extends Fragment {
 
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
         requestRetrofit = new RequestRetrofit(iOpenWeather, this);
-        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
-        requestRetrofit.request();
+        getRequestRetrofit().setCity(Singleton.getSingleton().getCityForRequest());
+        Singleton.getSingleton().setRequestRetrofit(requestRetrofit);
+        if(!Singleton.getSingleton().isErsteScan()) getRequestRetrofit().request();
+
 
         ICityFavDAO iCityFavDAO = App.getInstance().getICityFavDAO();
         cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
@@ -88,9 +90,6 @@ public class FragmentHome extends Fragment {
         TextView textCity;
         TextView textHumi;
 
-
-
-
         try {
             textPress = act.findViewById(R.id.textUnitPress);
             textTemp = act.findViewById(R.id.tv_Temperature);
@@ -99,24 +98,23 @@ public class FragmentHome extends Fragment {
             textHumi = act.findViewById(R.id.tv_textUnitHumi);
             textDescription = act.findViewById(R.id.textDescript);
 
+            setImage("https://openweathermap.org/img/wn/" + getRequestRetrofit().getImg() + "@2x.png", imageIcon);
 
-            setImage("https://openweathermap.org/img/wn/" + requestRetrofit.getImg() + "@2x.png", imageIcon);
-
-            textHumi.setText(requestRetrofit.getHumidity());
-            textDescription.setText(requestRetrofit.getDescription());
+            textHumi.setText(getRequestRetrofit().getHumidity());
+            textDescription.setText(getRequestRetrofit().getDescription());
             String[] arayCity = getResources().getStringArray(R.array.arrayCity);
             textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
 
             addCityFavourites(new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
-                    requestRetrofit.getTemperature()));
+                    getRequestRetrofit().getTemperature()));
             try {
-                textPress.setText(new DataConversion(Double.parseDouble(requestRetrofit.getPressure()),
+                textPress.setText(new DataConversion(Double.parseDouble(getRequestRetrofit().getPressure()),
                         Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
 
-                textTemp.setText(new DataConversion(Double.parseDouble(requestRetrofit.getTemperature().replace(',', '.')),
+                textTemp.setText(new DataConversion(Double.parseDouble(getRequestRetrofit().getTemperature().replace(',', '.')),
                         Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
 
-                textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(requestRetrofit.getWindSpeed()),
+                textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(getRequestRetrofit().getWindSpeed()),
                         Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
 
             } catch (NumberFormatException | NullPointerException ex) {
@@ -127,11 +125,8 @@ public class FragmentHome extends Fragment {
         }
     }
 
-
     private void addCityFavourites(CityFavourites e) {
-            //list.add(e);
         cityFavSourceForDB.addCity(e);
-
     }
 
     private void setUnits() {
@@ -175,5 +170,8 @@ public class FragmentHome extends Fragment {
         else layoutSpeed.setVisibility(View.GONE);
     }
 
+    public RequestRetrofit getRequestRetrofit() {
+        return requestRetrofit;
+    }
 
 }
