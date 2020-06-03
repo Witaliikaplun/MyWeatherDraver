@@ -20,10 +20,6 @@ public class RequestRetrofit {
     private String description;
     private String img;
 
-
-
-
-
     public RequestRetrofit(IOpenWeather iOpenWeather, FragmentHome fh) {
         this.iOpenWeather = iOpenWeather;
         this.fh = fh;
@@ -43,7 +39,6 @@ public class RequestRetrofit {
                     img = response.body().getWeather()[0].getImg();
                     fh.requestAndUpdate();
                 }
-
             }
 
             @Override
@@ -51,8 +46,6 @@ public class RequestRetrofit {
                 Log.d("img", "error");
             }
         });
-
-
     }
 
     public String getTemperature() {
@@ -82,4 +75,5 @@ public class RequestRetrofit {
     public void setCity(String city) {
         this.city = city;
     }
+
 }

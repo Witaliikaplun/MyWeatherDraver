@@ -8,11 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myweatherdraver.R;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityFavViewHolder> {
-    ArrayList<CityFavourites> listFav;
+    List<CityFavourites> listFav;
 
-    public CityAdapter(ArrayList<CityFavourites> listFav) {
+    public CityAdapter(List<CityFavourites> listFav) {
         this.listFav = listFav;
     }
 

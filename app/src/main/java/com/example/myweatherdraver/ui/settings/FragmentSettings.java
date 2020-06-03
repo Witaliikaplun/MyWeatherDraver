@@ -22,8 +22,10 @@ import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.data.IOpenWeather;
+import com.example.myweatherdraver.data.RequestRetrofit;
 import com.example.myweatherdraver.ui.DialogBuilderFragment;
 import com.example.myweatherdraver.ui.DialogCustomFragment;
+import com.example.myweatherdraver.ui.home.FragmentHome;
 import com.google.android.material.snackbar.Snackbar;
 
 public class FragmentSettings extends Fragment {
@@ -38,6 +40,7 @@ public class FragmentSettings extends Fragment {
     private DialogBuilderFragment dialogBuilderFragment;
     private DialogCustomFragment dialogCustomFragment;
     private IOpenWeather iOpenWeather;
+    RequestRetrofit requestRetrofit;
     MainActivity act;
 
 
@@ -57,7 +60,7 @@ public class FragmentSettings extends Fragment {
 
         dialogBuilderFragment = new DialogBuilderFragment(tb_m_km);
         dialogCustomFragment = new DialogCustomFragment(tb_mm_gPa);
-
+        requestRetrofit = Singleton.getSingleton().getRequestRetrofit();
         TextView textCity = root.findViewById(R.id.textView6);
 
         String[] arrayCity = getResources().getStringArray(R.array.arrayCity);
@@ -267,17 +270,21 @@ public class FragmentSettings extends Fragment {
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(0);
                         Singleton.getSingleton().setCityForRequest("Krasnodar");
+                        requestRetrofit.request();
                         break;
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(1);
                         Singleton.getSingleton().setCityForRequest("Moscow");
+                        requestRetrofit.request();
                         break;
                     case 2:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(2);
                         Singleton.getSingleton().setCityForRequest("Saint Petersburg");
+                        requestRetrofit.request();
                         break;
+                    default:
                 }
             }
 
