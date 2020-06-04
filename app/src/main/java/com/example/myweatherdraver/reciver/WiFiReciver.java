@@ -16,13 +16,12 @@ public class WiFiReciver extends BroadcastReceiver {
     private int messageId = 20;
     @Override
     public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
         int extra = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,0);
 
             if(extra == WifiManager.WIFI_STATE_DISABLED) {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Broadcast Receiver")
+                        .setContentTitle(TITLE_WIFI_RECIVER)
                         .setContentText("Нет подключения к сети Wi-Fi");
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(messageId++, builder.build());
