@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver airplanReceiver;
     WiFiReciver wiFiReciver;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
