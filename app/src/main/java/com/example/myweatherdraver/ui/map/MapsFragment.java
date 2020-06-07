@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myweatherdraver.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,6 +34,8 @@ import static android.content.Context.LOCATION_SERVICE;
 public class MapsFragment extends Fragment {
     private static final int PERMISSION_REQUEST_CODE = 10;
     private GoogleMap mMap;
+    Button btnRequestAddress;
+    EditText editTextAddress;
 
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -47,7 +52,7 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        return inflater.inflate(R.layout.fragment_maps_my, container, false);
 
 
     }
@@ -55,6 +60,8 @@ public class MapsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        btnRequestAddress = view.findViewById(R.id.btn_requestWeather);
+        editTextAddress = view.findViewById(R.id.et_address);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -62,6 +69,13 @@ public class MapsFragment extends Fragment {
         }
 
         requestPemissions();
+
+        btnRequestAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "нажали кнопку", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void requestPemissions() {
@@ -118,14 +132,10 @@ public class MapsFragment extends Fragment {
                     double lat = location.getLatitude(); // Широта
                     String latitude = Double.toString(lat);
                     Log.d("map", latitude);
-                    //textLatitude.setText(latitude);
 
                     double lng = location.getLongitude(); // Долгота
                     String longitude = Double.toString(lng);
                     Log.d("map", longitude);
-                    //textLongitude.setText(longitude);
-
-                    String accuracy = Float.toString(location.getAccuracy());   // Точность
 
                     LatLng currentPosition = new LatLng(lat, lng);
                     mMap.addMarker(new MarkerOptions().position(currentPosition));
