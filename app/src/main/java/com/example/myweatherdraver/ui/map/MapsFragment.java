@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,8 +28,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -35,8 +39,8 @@ public class MapsFragment extends Fragment {
     private static final int PERMISSION_REQUEST_CODE = 10;
     private GoogleMap mMap;
     Button btnRequestAddress;
-    EditText editTextAddress;
-
+    EditText textAddress;
+    LatLng currentPosition;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -61,7 +65,7 @@ public class MapsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btnRequestAddress = view.findViewById(R.id.btn_requestWeather);
-        editTextAddress = view.findViewById(R.id.et_address);
+        textAddress = view.findViewById(R.id.et_address);
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -74,6 +78,7 @@ public class MapsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "нажали кнопку", Toast.LENGTH_SHORT).show();
+                getAddress(currentPosition);
             }
         });
     }
@@ -137,7 +142,7 @@ public class MapsFragment extends Fragment {
                     String longitude = Double.toString(lng);
                     Log.d("map", longitude);
 
-                    LatLng currentPosition = new LatLng(lat, lng);
+                    currentPosition = new LatLng(lat, lng);
                     mMap.addMarker(new MarkerOptions().position(currentPosition));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
                 }
@@ -155,6 +160,29 @@ public class MapsFragment extends Fragment {
                 }
             });
         }
+    }
+
+    // Получаем адрес по координатам
+    private void getAddress(final LatLng location){
+        final Geocoder geocoder = new Geocoder(getContext());
+        // Поскольку Geocoder работает по интернету, создаём отдельный поток
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
+                    textAddress.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textAddress.setText(addresses.get(0).getAddressLine(0));
+                        }
+                    });
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 
