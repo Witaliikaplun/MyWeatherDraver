@@ -10,6 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Setting</string>
     <string name="menu_slideshow">Favourites</string>
+    <string name="menu_map">Map</string>
 
     <string name="home_second">Home Second</string>
 
