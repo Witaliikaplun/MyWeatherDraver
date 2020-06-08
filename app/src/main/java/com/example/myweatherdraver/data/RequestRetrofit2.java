@@ -41,7 +41,7 @@ public class RequestRetrofit2 {
                     windSpeed = String.format("%d", response.body().getWind().getSpeed());
                     description = String.format("%s", response.body().getWeather()[0].getDescription());
                     img = response.body().getWeather()[0].getImg();
-                    //fh.requestAndUpdate();
+                    fh.requestAndUpdate2();
                 }
             }
 

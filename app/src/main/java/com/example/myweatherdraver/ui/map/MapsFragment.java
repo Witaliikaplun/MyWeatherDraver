@@ -84,9 +84,9 @@ public class MapsFragment extends Fragment {
                 Toast.makeText(getContext(), "нажали кнопку", Toast.LENGTH_SHORT).show();
                 getAddress(currentPosition);
 
-                Singleton.getSingleton().getRequestRetrofit2().setLat(String.format("%.2f", lat));
-                Singleton.getSingleton().getRequestRetrofit2().setLon(String.format("%.2f", lng));
-                Singleton.getSingleton().getRequestRetrofit2().request2();
+                Singleton.getSingleton().getRequestRetrofit().setLat(String.format("%.2f", lat));
+                Singleton.getSingleton().getRequestRetrofit().setLon(String.format("%.2f", lng));
+                Singleton.getSingleton().getRequestRetrofit().request2();
 
 
             }

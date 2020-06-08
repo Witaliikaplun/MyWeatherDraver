@@ -1,6 +1,7 @@
 package com.example.myweatherdraver.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,8 @@ public class FragmentHome extends Fragment {
         getRequestRetrofit().setCity(Singleton.getSingleton().getCityForRequest());
         Singleton.getSingleton().setRequestRetrofit(requestRetrofit);
         Singleton.getSingleton().setRequestRetrofit2(requestRetrofit2);
-        if(!Singleton.getSingleton().isErsteScan()) getRequestRetrofit().request();
+        Log.d("param2", "erste scan-" + String.valueOf(Singleton.getSingleton().isErsteScan()));
+        if (!Singleton.getSingleton().isErsteScan()) getRequestRetrofit().request();
 
 
         ICityFavDAO iCityFavDAO = App.getInstance().getICityFavDAO();
@@ -108,6 +110,10 @@ public class FragmentHome extends Fragment {
 
             setImage("https://openweathermap.org/img/wn/" + getRequestRetrofit().getImg() + "@2x.png", imageIcon);
 
+            Log.d("param2", getRequestRetrofit().getPressure());
+            Log.d("param2", getRequestRetrofit().getTemperature());
+            Log.d("param2", getRequestRetrofit().getWindSpeed());
+
             textHumi.setText(getRequestRetrofit().getHumidity());
             textDescription.setText(getRequestRetrofit().getDescription());
             String[] arayCity = getResources().getStringArray(R.array.arrayCity);
@@ -132,6 +138,49 @@ public class FragmentHome extends Fragment {
 
         }
     }
+
+    public void requestAndUpdate2() {
+        TextView textPress;
+        TextView textTemp;
+        TextView textSpeed;
+        TextView textCity;
+        TextView textHumi;
+
+
+        textPress = act.findViewById(R.id.textUnitPress);
+        textTemp = act.findViewById(R.id.tv_Temperature);
+        textSpeed = act.findViewById(R.id.textUnitSpeed);
+        textCity = act.findViewById(R.id.textCity);
+        textHumi = act.findViewById(R.id.tv_textUnitHumi);
+//            textDescription = act.findViewById(R.id.textDescript);
+//
+//            setImage("https://openweathermap.org/img/wn/" + getRequestRetrofit().getImg() + "@2x.png", imageIcon);
+
+//            textHumi.setText(getRequestRetrofit2().getHumidity());
+//            textDescription.setText(getRequestRetrofit2().getDescription());
+        //String[] arayCity = getResources().getStringArray(R.array.arrayCity);
+        //textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
+
+
+
+//            textPress.setText(new DataConversion(Double.parseDouble(getRequestRetrofit2().getPressure()),
+//                    Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
+//
+//            textTemp.setText(new DataConversion(Double.parseDouble(getRequestRetrofit2().getTemperature().replace(',', '.')),
+//                    Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
+//
+//            textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(getRequestRetrofit2().getWindSpeed()),
+//                    Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
+
+        Log.d("param", getRequestRetrofit2().getPressure());
+        Log.d("param", getRequestRetrofit2().getTemperature());
+        Log.d("param", getRequestRetrofit2().getWindSpeed());
+
+
+
+
+    }
+
 
     private void addCityFavourites(CityFavourites e) {
         cityFavSourceForDB.addCity(e);
@@ -180,6 +229,10 @@ public class FragmentHome extends Fragment {
 
     public RequestRetrofit getRequestRetrofit() {
         return requestRetrofit;
+    }
+
+    public RequestRetrofit2 getRequestRetrofit2() {
+        return requestRetrofit2;
     }
 
 }
