@@ -19,8 +19,10 @@ import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.data.DataConversion;
 import com.example.myweatherdraver.data.IOpenWeather;
+import com.example.myweatherdraver.data.IOpenWeather2;
 import com.example.myweatherdraver.data.NetworkService;
 import com.example.myweatherdraver.data.RequestRetrofit;
+import com.example.myweatherdraver.data.RequestRetrofit2;
 import com.example.myweatherdraver.db.App;
 import com.example.myweatherdraver.db.CityFavSourceForDB;
 import com.example.myweatherdraver.db.ICityFavDAO;
@@ -37,6 +39,8 @@ public class FragmentHome extends Fragment {
     MainActivity act;
     IOpenWeather iOpenWeather;
     private RequestRetrofit requestRetrofit;
+    IOpenWeather2 iOpenWeather2;
+    private RequestRetrofit2 requestRetrofit2;
     TextView textDescription;
     ImageView imageView;
     ImageView imageIcon;
@@ -54,9 +58,13 @@ public class FragmentHome extends Fragment {
         list = Singleton.getSingleton().getListFav();
 
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
+        iOpenWeather2 = NetworkService.getInstance().getiOpenWeather2();
+
         requestRetrofit = new RequestRetrofit(iOpenWeather, this);
+        requestRetrofit2 = new RequestRetrofit2(iOpenWeather2, this);
         getRequestRetrofit().setCity(Singleton.getSingleton().getCityForRequest());
         Singleton.getSingleton().setRequestRetrofit(requestRetrofit);
+        Singleton.getSingleton().setRequestRetrofit2(requestRetrofit2);
         if(!Singleton.getSingleton().isErsteScan()) getRequestRetrofit().request();
 
 

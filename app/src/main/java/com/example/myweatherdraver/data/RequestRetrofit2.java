@@ -9,28 +9,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RequestRetrofit {
-    private IOpenWeather iOpenWeather;
+public class RequestRetrofit2 {
 
+    private IOpenWeather2 iOpenWeather2;
     FragmentHome fh;
-    private String city;
+
     private String temperature;
     private String pressure;
     private String humidity;
     private String windSpeed;
     private String description;
     private String img;
+    private String lat;
+    private String lon;
 
 
-    public RequestRetrofit(IOpenWeather iOpenWeather, FragmentHome fh) {
-        this.iOpenWeather = iOpenWeather;
+
+    public RequestRetrofit2(IOpenWeather2 iOpenWeather2, FragmentHome fh) {
+        this.iOpenWeather2 = iOpenWeather2;
         this.fh = fh;
     }
 
 
 
-    public void request(){
-        iOpenWeather.loadWeather(city, "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
+    public void request2(){
+        iOpenWeather2.loadWeatherCoord("45.04", "38.97", "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
             @Override
             public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
 
@@ -41,7 +44,7 @@ public class RequestRetrofit {
                     windSpeed = String.format("%d", response.body().getWind().getSpeed());
                     description = String.format("%s", response.body().getWeather()[0].getDescription());
                     img = response.body().getWeather()[0].getImg();
-                    fh.requestAndUpdate();
+                    //fh.requestAndUpdate();
                 }
             }
 
@@ -51,8 +54,6 @@ public class RequestRetrofit {
             }
         });
     }
-
-
 
 
 
@@ -82,9 +83,14 @@ public class RequestRetrofit {
         return img;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+
+
+
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
-
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
 }

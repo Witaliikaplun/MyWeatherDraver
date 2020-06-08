@@ -9,5 +9,7 @@ public interface IOpenWeather {
     Call<WeatherRequest> loadWeather(@Query("q") String cityCountry, @Query("units") String metric,
                                      @Query("lang") String lan, @Query("appid" ) String keyApi);
 
+
+
 //https://api.openweathermap.org/data/2.5/weather?lat=45.04&lon=38.97&units=metric&appid=...
 }

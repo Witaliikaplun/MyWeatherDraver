@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myweatherdraver.R;
+import com.example.myweatherdraver.Singleton;
+import com.example.myweatherdraver.ui.home.FragmentHome;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,6 +43,8 @@ public class MapsFragment extends Fragment {
     Button btnRequestAddress;
     EditText textAddress;
     LatLng currentPosition;
+    private double lat;
+    private double lng;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -79,6 +83,12 @@ public class MapsFragment extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getContext(), "нажали кнопку", Toast.LENGTH_SHORT).show();
                 getAddress(currentPosition);
+
+                Singleton.getSingleton().getRequestRetrofit2().setLat(String.valueOf(lat));
+                Singleton.getSingleton().getRequestRetrofit2().setLon(String.valueOf(lng));
+                Singleton.getSingleton().getRequestRetrofit2().request2();
+
+
             }
         });
     }
@@ -134,11 +144,11 @@ public class MapsFragment extends Fragment {
             locationManager.requestLocationUpdates(provider, 20, 1, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    double lat = location.getLatitude(); // Широта
+                    lat = location.getLatitude(); // Широта
                     String latitude = Double.toString(lat);
                     Log.d("map", latitude);
 
-                    double lng = location.getLongitude(); // Долгота
+                    lng = location.getLongitude(); // Долгота
                     String longitude = Double.toString(lng);
                     Log.d("map", longitude);
 
@@ -175,6 +185,8 @@ public class MapsFragment extends Fragment {
                         @Override
                         public void run() {
                             textAddress.setText(addresses.get(0).getAddressLine(0));
+
+
                         }
                     });
 

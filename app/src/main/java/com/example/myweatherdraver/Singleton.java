@@ -1,6 +1,7 @@
 package com.example.myweatherdraver;
 
 import com.example.myweatherdraver.data.RequestRetrofit;
+import com.example.myweatherdraver.data.RequestRetrofit2;
 import com.example.myweatherdraver.db.CityFavSourceForDB;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 
@@ -22,6 +23,7 @@ public final class Singleton {
     private CityFavSourceForDB cityFavSourceForDB;
     private boolean ersteScan;
     private RequestRetrofit requestRetrofit;
+    private RequestRetrofit2 requestRetrofit2;
 
 
 
@@ -147,5 +149,13 @@ public final class Singleton {
 
     public void setRequestRetrofit(RequestRetrofit requestRetrofit) {
         this.requestRetrofit = requestRetrofit;
+    }
+
+    public RequestRetrofit2 getRequestRetrofit2() {
+        return requestRetrofit2;
+    }
+
+    public void setRequestRetrofit2(RequestRetrofit2 requestRetrofit2) {
+        this.requestRetrofit2 = requestRetrofit2;
     }
 }

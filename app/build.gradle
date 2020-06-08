@@ -21,10 +21,7 @@ android {
         def weatherApiKey = properties.getProperty("weather_api_key", "")
         it.buildConfigField "String", "WEATHER_API_KEY", weatherApiKey
 
-        Properties properties2 = new Properties()
-        properties2.load(project.rootProject.file("apikey.properties").newDataInputStream())
-        def weatherMapApiKey = properties2.getProperty("map_api_key", "")
-        it.buildConfigField "String", "MAP_API_KEY", weatherMapApiKey
+
     }
 
     buildTypes {
