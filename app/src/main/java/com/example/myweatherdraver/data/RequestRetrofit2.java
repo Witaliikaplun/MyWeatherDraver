@@ -23,17 +23,14 @@ public class RequestRetrofit2 {
     private String lat;
     private String lon;
 
-
-
     public RequestRetrofit2(IOpenWeather2 iOpenWeather2, FragmentHome fh) {
         this.iOpenWeather2 = iOpenWeather2;
         this.fh = fh;
     }
 
-
-
     public void request2(){
-        iOpenWeather2.loadWeatherCoord("45.04", "38.97", "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
+
+        iOpenWeather2.loadWeatherCoord(lat, lon, "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
             @Override
             public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
 
@@ -54,9 +51,6 @@ public class RequestRetrofit2 {
             }
         });
     }
-
-
-
 
 
     public String getTemperature() {
