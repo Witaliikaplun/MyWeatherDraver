@@ -9,7 +9,6 @@ public class NetworkService {
     private Retrofit mRetrofit;
     private Retrofit mRetrofit2;
     private IOpenWeather iOpenWeather;
-    private IOpenWeather2 iOpenWeather2;
 
     private NetworkService(){
         mRetrofit = new Retrofit.Builder()  //настройка ретрофита
@@ -24,8 +23,6 @@ public class NetworkService {
         iOpenWeather = mRetrofit.create(IOpenWeather.class); //Создаем объект, при помощи
                                                         // которого будем выполнять запросы
 
-        iOpenWeather2 = mRetrofit2.create(IOpenWeather2.class); //Создаем объект, при помощи
-        // которого будем выполнять запросы2
     }
 
     public static NetworkService getInstance(){
@@ -37,9 +34,5 @@ public class NetworkService {
 
     public IOpenWeather getiOpenWeather() {
         return iOpenWeather;
-    }
-
-    public IOpenWeather2 getiOpenWeather2() {
-        return iOpenWeather2;
     }
 }
