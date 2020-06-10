@@ -46,10 +46,17 @@ public class RequestRetrofit {
                     img = response.body().getWeather()[0].getImg();
                     name = response.body().getName();
 
-                    setActualParam();
+                    Log.d("param", "temp_actual---" + temperature);
+                    Log.d("param", "press_actual---" + pressure);
+                    Log.d("param", "humi_actual---" + humidity);
+                    Log.d("param", "wind_actual---" + windSpeed);
+                    Log.d("param", "desc_actual---" + description);
+                    Log.d("param", "name---" + name);
 
+                    setActualParam();
+                    fh.requestAndUpdate();
                     if(!Singleton.getSingleton().isErsteScan()) {
-                        fh.requestAndUpdate();
+
                         Singleton.getSingleton().setErsteScan(true);
                     }
                 } else setNullActualParam();
@@ -122,30 +129,6 @@ public class RequestRetrofit {
         DataParameters.getInstance().setDescript_actual(App.getInstance().getResources().getString(R.string.noData));
         DataParameters.getInstance().setImg_actual(App.getInstance().getResources().getString(R.string.noData));
         DataParameters.getInstance().setName(App.getInstance().getResources().getString(R.string.noData));
-    }
-
-    public String getTemperature() {
-        return temperature;
-    }
-
-    public String getPressure() {
-        return pressure;
-    }
-
-    public String getHumidity() {
-        return humidity;
-    }
-
-    public String getWindSpeed() {
-        return windSpeed;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImg() {
-        return img;
     }
 
     public void setCity(String city) {
