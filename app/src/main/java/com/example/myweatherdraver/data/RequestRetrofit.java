@@ -46,17 +46,9 @@ public class RequestRetrofit {
                     img = response.body().getWeather()[0].getImg();
                     name = response.body().getName();
 
-                    Log.d("param", "temp_actual---" + temperature);
-                    Log.d("param", "press_actual---" + pressure);
-                    Log.d("param", "humi_actual---" + humidity);
-                    Log.d("param", "wind_actual---" + windSpeed);
-                    Log.d("param", "desc_actual---" + description);
-                    Log.d("param", "name---" + name);
-
                     setActualParam();
                     fh.requestAndUpdate();
                     if(!Singleton.getSingleton().isErsteScan()) {
-
                         Singleton.getSingleton().setErsteScan(true);
                     }
                 } else setNullActualParam();
@@ -71,9 +63,6 @@ public class RequestRetrofit {
     }
 
     public void request2(){
-        Log.d("param", lat.replace(",", "."));
-        Log.d("param", lon.replace(",", "."));
-
         iOpenWeather.loadWeatherCoord(lat.replace(",", "."), lon.replace(",", "."), "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
             @Override
             public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
@@ -88,13 +77,6 @@ public class RequestRetrofit {
                     name = response.body().getName();
 
                     setActualParam();
-
-                    Log.d("param", temperature);
-                    Log.d("param", pressure);
-                    Log.d("param", humidity);
-                    Log.d("param", windSpeed);
-                    Log.d("param", description);
-                    Log.d("param", name);
 
                     if(!Singleton.getSingleton().isErsteScan()) {
                         fh.requestAndUpdate();

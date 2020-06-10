@@ -55,7 +55,7 @@ public class FragmentHome extends Fragment {
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
         requestRetrofit = new RequestRetrofit(iOpenWeather, this);
 
-        getRequestRetrofit().setCity(Singleton.getSingleton().getCityForRequest());
+        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
         Singleton.getSingleton().setRequestRetrofit(requestRetrofit);
 
         if (!Singleton.getSingleton().isErsteScan()){
@@ -101,13 +101,6 @@ public class FragmentHome extends Fragment {
         try {
 
             setImage("https://openweathermap.org/img/wn/" + DataParameters.getInstance().getImg_actual() + "@2x.png", imageIcon);
-            Log.d("param2", "внутри" );
-            Log.d("param2", "temp_actual---" + DataParameters.getInstance().getTemperature_actual());
-            Log.d("param2", "press_actual---" + DataParameters.getInstance().getPress_actual());
-            Log.d("param2", "humi_actual---" + DataParameters.getInstance().getHumi_actual());
-            Log.d("param2", "wind_actual---" + DataParameters.getInstance().getWindSpeed_actual());
-            Log.d("param2", "desc_actual---" + DataParameters.getInstance().getDescript_actual());
-            Log.d("param2", "name---" + DataParameters.getInstance().getName());
 
             textHumiActual.setText(DataParameters.getInstance().getHumi_actual());
             textDescriptActual.setText(DataParameters.getInstance().getDescript_actual());
