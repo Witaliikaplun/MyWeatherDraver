@@ -22,15 +22,13 @@ public class FragmentFavourites extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
-
         initRecycleFav(root);
-
         return root;
     }
 
     private void initRecycleFav(View root) {
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerViewFavourites);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         CityAdapter cityAdapter = new CityAdapter(Singleton.getSingleton().getCityFavSourceForDB().getListCity());
         recyclerView.setAdapter(cityAdapter);
     }

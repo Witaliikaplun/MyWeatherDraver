@@ -25,6 +25,7 @@ public final class Singleton {
 
 
 
+
     private Singleton(){
         switchPress = false;
         cityForRequest = "Krasnodar";
@@ -148,4 +149,5 @@ public final class Singleton {
     public void setRequestRetrofit(RequestRetrofit requestRetrofit) {
         this.requestRetrofit = requestRetrofit;
     }
+
 }

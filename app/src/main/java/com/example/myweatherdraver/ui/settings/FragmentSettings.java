@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ public class FragmentSettings extends Fragment {
     private IOpenWeather iOpenWeather;
     RequestRetrofit requestRetrofit;
     MainActivity act;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -270,19 +270,25 @@ public class FragmentSettings extends Fragment {
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(0);
                         Singleton.getSingleton().setCityForRequest("Krasnodar");
+                        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
                         requestRetrofit.request();
+                        Log.d("messs", "Краснодар");
                         break;
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(1);
                         Singleton.getSingleton().setCityForRequest("Moscow");
+                        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
                         requestRetrofit.request();
+                        Log.d("messs", "Москва");
                         break;
                     case 2:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(2);
                         Singleton.getSingleton().setCityForRequest("Saint Petersburg");
+                        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
                         requestRetrofit.request();
+                        Log.d("messs", "Санкт-Петербург");
                         break;
                     default:
                 }

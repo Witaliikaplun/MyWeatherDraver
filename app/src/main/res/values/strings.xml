@@ -10,6 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Setting</string>
     <string name="menu_slideshow">Favourites</string>
+    <string name="menu_map">Map</string>
 
     <string name="home_second">Home Second</string>
 
@@ -81,6 +82,7 @@
     <string name= "message2">изменить шкалу скорости</string>
     <string name="messge3">Переключить шкалу?</string>
     <string name="intError">Internet Error</string>
+    <string name="noData">no data</string>
 
 
 </resources>

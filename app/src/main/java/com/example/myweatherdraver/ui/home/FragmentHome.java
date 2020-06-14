@@ -1,6 +1,7 @@
 package com.example.myweatherdraver.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.myweatherdraver.MainActivity;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.data.DataConversion;
+import com.example.myweatherdraver.data.DataParameters;
 import com.example.myweatherdraver.data.IOpenWeather;
 import com.example.myweatherdraver.data.NetworkService;
 import com.example.myweatherdraver.data.RequestRetrofit;
@@ -33,43 +35,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentHome extends Fragment {
-    RecyclerView recyclerView;
-    MainActivity act;
-    IOpenWeather iOpenWeather;
+
+    private RecyclerView recyclerView;
+    private IOpenWeather iOpenWeather;
     private RequestRetrofit requestRetrofit;
-    TextView textDescription;
-    ImageView imageView;
-    ImageView imageIcon;
-    CityFavSourceForDB cityFavSourceForDB;
-    List list;
-    View root;
+    private ImageView imageView;
+    private ImageView imageIcon;
+    private CityFavSourceForDB cityFavSourceForDB;
+    private List list;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
-        act = (MainActivity) getContext();
         imageView = root.findViewById(R.id.imageView2);
         imageIcon = root.findViewById(R.id.imageTWeath);
         list = Singleton.getSingleton().getListFav();
-
         iOpenWeather = NetworkService.getInstance().getiOpenWeather();
         requestRetrofit = new RequestRetrofit(iOpenWeather, this);
-        getRequestRetrofit().setCity(Singleton.getSingleton().getCityForRequest());
+
+        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
         Singleton.getSingleton().setRequestRetrofit(requestRetrofit);
-        if(!Singleton.getSingleton().isErsteScan()) getRequestRetrofit().request();
 
-
-        ICityFavDAO iCityFavDAO = App.getInstance().getICityFavDAO();
-        cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
-        Singleton.getSingleton().setCityFavSourceForDB(cityFavSourceForDB);
+        if (!Singleton.getSingleton().isErsteScan()){
+            getRequestRetrofit().request();
+            ICityFavDAO iCityFavDAO = App.getInstance().getICityFavDAO();
+            cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
+            Singleton.getSingleton().setCityFavSourceForDB(cityFavSourceForDB);
+        }
+        else requestAndUpdate();
 
         setUnits();
         initRecycleWeather();
         viewTextPresSpeedHumi();
-
         setImage("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60", imageView);
-
         return root;
     }
 
@@ -84,49 +84,49 @@ public class FragmentHome extends Fragment {
     }
 
     public void requestAndUpdate() {
-        TextView textPress;
-        TextView textTemp;
-        TextView textSpeed;
-        TextView textCity;
-        TextView textHumi;
+        TextView textPressActual;
+        TextView textTempActual;
+        TextView textSpeedActual;
+        TextView textCityActual;
+        TextView textHumiActual;
+        TextView textDescriptActual;
+
+        textPressActual = root.findViewById(R.id.textUnitPress);
+        textTempActual = root.findViewById(R.id.tv_Temperature);
+        textSpeedActual = root.findViewById(R.id.textUnitSpeed);
+        textCityActual = root.findViewById(R.id.textCity);
+        textHumiActual = root.findViewById(R.id.tv_textUnitHumi);
+        textDescriptActual = root.findViewById(R.id.textDescript);
 
         try {
-            textPress = act.findViewById(R.id.textUnitPress);
-            textTemp = act.findViewById(R.id.tv_Temperature);
-            textSpeed = act.findViewById(R.id.textUnitSpeed);
-            textCity = act.findViewById(R.id.textCity);
-            textHumi = act.findViewById(R.id.tv_textUnitHumi);
-            textDescription = act.findViewById(R.id.textDescript);
 
-            setImage("https://openweathermap.org/img/wn/" + getRequestRetrofit().getImg() + "@2x.png", imageIcon);
+            setImage("https://openweathermap.org/img/wn/" + DataParameters.getInstance().getImg_actual() + "@2x.png", imageIcon);
 
-            textHumi.setText(getRequestRetrofit().getHumidity());
-            textDescription.setText(getRequestRetrofit().getDescription());
-            String[] arayCity = getResources().getStringArray(R.array.arrayCity);
-            textCity.setText(arayCity[Singleton.getSingleton().getPositionSpinner()]);
-
-            addCityFavourites(new CityFavourites(arayCity[Singleton.getSingleton().getPositionSpinner()],
-                    getRequestRetrofit().getTemperature()));
+            textHumiActual.setText(DataParameters.getInstance().getHumi_actual());
+            textDescriptActual.setText(DataParameters.getInstance().getDescript_actual());
+            textCityActual.setText(DataParameters.getInstance().getName());
             try {
-                textPress.setText(new DataConversion(Double.parseDouble(getRequestRetrofit().getPressure()),
+                textPressActual.setText(new DataConversion(Double.parseDouble(DataParameters.getInstance().getPress_actual()),
                         Singleton.getSingleton().getSwitchUnitsPres(), 0).conversion());
 
-                textTemp.setText(new DataConversion(Double.parseDouble(getRequestRetrofit().getTemperature().replace(',', '.')),
+                textTempActual.setText(new DataConversion(Double.parseDouble(DataParameters.getInstance().getTemperature_actual().replace(',', '.')),
                         Singleton.getSingleton().getSwitchUnitsCF(), 1).conversion());
 
-                textSpeed.setText(String.valueOf(new DataConversion(Double.parseDouble(getRequestRetrofit().getWindSpeed()),
+                textSpeedActual.setText(String.valueOf(new DataConversion(Double.parseDouble(DataParameters.getInstance().getWindSpeed_actual()),
                         Singleton.getSingleton().getSwitchUnitsSpeed(), 2).conversion()));
 
             } catch (NumberFormatException | NullPointerException ex) {
                 ex.printStackTrace();
             }
         } catch (RuntimeException ex) {
-
+            Log.d("param2", "эксепшн");
         }
+                    addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+                            DataParameters.getInstance().getTemperature_actual()));
     }
 
     private void addCityFavourites(CityFavourites e) {
-        cityFavSourceForDB.addCity(e);
+        Singleton.getSingleton().getCityFavSourceForDB().addCity(e);
     }
 
     private void setUnits() {
@@ -173,5 +173,4 @@ public class FragmentHome extends Fragment {
     public RequestRetrofit getRequestRetrofit() {
         return requestRetrofit;
     }
-
 }
