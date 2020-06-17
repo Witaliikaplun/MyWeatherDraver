@@ -24,6 +24,7 @@ public class RequestRetrofit {
     private String description;
     private String img;
     private String name;
+    private String dt_txt;
     private String lat;
     private String lon;
 
@@ -33,18 +34,20 @@ public class RequestRetrofit {
     }
 
     public void request(){
-        iOpenWeather.loadWeather(city, "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
+        iOpenWeather.loadWeather(city, "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherList>() {
             @Override
-            public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
+            public void onResponse(Call<WeatherList> call, Response<WeatherList> response) {
 
                 if (response.body() != null && response.isSuccessful()) {
-                    temperature = String.format("%.1f", response.body().getMain().getTemp());
-                    pressure = String.format("%d", response.body().getMain().getPressure());
-                    humidity = String.format("%d", response.body().getMain().getHumidity());
-                    windSpeed = String.format("%d", response.body().getWind().getSpeed());
-                    description = String.format("%s", response.body().getWeather()[0].getDescription());
-                    img = response.body().getWeather()[0].getImg();
-                    name = response.body().getName();
+                    temperature = String.format("%.1f", response.body().getList().get(0).getMain().getTemp());
+                    pressure = String.format("%d", response.body().getList().get(0).getMain().getPressure());
+                    humidity = String.format("%d", response.body().getList().get(0).getMain().getHumidity());
+                    windSpeed = String.format("%.1f", response.body().getList().get(0).getWind().getSpeed());
+                    description = String.format("%s", response.body().getList().get(0).getWeather()[0].getDescription());
+                    img = response.body().getList().get(0).getWeather()[0].getImg();
+                    name = String.format("%s", response.body().getCity().getNameCity());
+                    dt_txt = response.body().getList().get(0).getDt_txt();
+
 
                     setActualParam();
                     fh.requestAndUpdate();
@@ -55,7 +58,7 @@ public class RequestRetrofit {
             }
 
             @Override
-            public void onFailure(Call<WeatherRequest> call, Throwable t) {
+            public void onFailure(Call<WeatherList> call, Throwable t) {
                 Log.d("img", "error");
                 setNullActualParam();
             }
@@ -63,18 +66,20 @@ public class RequestRetrofit {
     }
 
     public void request2(){
-        iOpenWeather.loadWeatherCoord(lat.replace(",", "."), lon.replace(",", "."), "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherRequest>() {
+        iOpenWeather.loadWeatherCoord(lat.replace(",", "."), lon.replace(",", "."), "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherList>() {
             @Override
-            public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
+            public void onResponse(Call<WeatherList> call, Response<WeatherList> response) {
 
                 if (response.body() != null && response.isSuccessful()) {
-                    temperature = String.format("%.1f", response.body().getMain().getTemp());
-                    pressure = String.format("%d", response.body().getMain().getPressure());
-                    humidity = String.format("%d", response.body().getMain().getHumidity());
-                    windSpeed = String.format("%d", response.body().getWind().getSpeed());
-                    description = String.format("%s", response.body().getWeather()[0].getDescription());
-                    img = response.body().getWeather()[0].getImg();
-                    name = response.body().getName();
+                    temperature = String.format("%.1f", response.body().getList().get(0).getMain().getTemp());
+                    pressure = String.format("%d", response.body().getList().get(0).getMain().getPressure());
+                    humidity = String.format("%d", response.body().getList().get(0).getMain().getHumidity());
+                    windSpeed = String.format("%.1f", response.body().getList().get(0).getWind().getSpeed());
+                    description = String.format("%s", response.body().getList().get(0).getWeather()[0].getDescription());
+                    img = response.body().getList().get(0).getWeather()[0].getImg();
+                    name = String.format("%s", response.body().getCity().getNameCity());
+                    dt_txt = response.body().getList().get(0).getDt_txt();
+
 
                     setActualParam();
 
@@ -86,7 +91,7 @@ public class RequestRetrofit {
             }
 
             @Override
-            public void onFailure(Call<WeatherRequest> call, Throwable t) {
+            public void onFailure(Call<WeatherList> call, Throwable t) {
                 Log.d("img", "error");
                 setNullActualParam();
             }

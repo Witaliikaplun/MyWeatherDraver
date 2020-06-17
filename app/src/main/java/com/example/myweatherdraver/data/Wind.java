@@ -1,7 +1,11 @@
 package com.example.myweatherdraver.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Wind {
-    private int speed;
+    @SerializedName("speed")
+    private float speed;
+    @SerializedName("deg")
     private int deg;
 
     public int getDeg() {
@@ -12,11 +16,11 @@ public class Wind {
         this.deg = deg;
     }
 
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 }

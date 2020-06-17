@@ -7,7 +7,7 @@ public class NetworkService {
     private static NetworkService mInstance;
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
     private Retrofit mRetrofit;
-    private Retrofit mRetrofit2;
+
     private IOpenWeather iOpenWeather;
 
     private NetworkService(){
@@ -16,10 +16,6 @@ public class NetworkService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        mRetrofit2 = new Retrofit.Builder()  //настройка ретрофита
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         iOpenWeather = mRetrofit.create(IOpenWeather.class); //Создаем объект, при помощи
                                                         // которого будем выполнять запросы
 
