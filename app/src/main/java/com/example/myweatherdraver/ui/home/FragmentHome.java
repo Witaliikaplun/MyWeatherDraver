@@ -64,10 +64,13 @@ public class FragmentHome extends Fragment {
             cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
             Singleton.getSingleton().setCityFavSourceForDB(cityFavSourceForDB);
         }
-        else requestAndUpdate();
+        else {
+            requestAndUpdate();
+            initRecycleWeather();
+        }
 
         setUnits();
-        initRecycleWeather();
+
         viewTextPresSpeedHumi();
         setImage("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60", imageView);
         return root;
@@ -141,7 +144,7 @@ public class FragmentHome extends Fragment {
                 : R.string.unitsPress_Hg);
     }
 
-    private void initRecycleWeather() {
+    public void initRecycleWeather() {
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         WeatherSource ws = new WeatherSource(getResources());

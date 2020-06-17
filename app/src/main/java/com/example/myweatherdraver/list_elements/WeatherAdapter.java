@@ -8,6 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myweatherdraver.R;
+import com.example.myweatherdraver.data.DataParameters;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
@@ -18,9 +21,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     }
 
     public class WeatherViewHolder extends RecyclerView.ViewHolder{
-        ImageView img;
-        TextView desc;
 
+        TextView desc;
+        ImageView img;
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.image);
@@ -39,10 +42,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public void onBindViewHolder(@NonNull WeatherViewHolder weatherViewHolder, int position) {
         weatherViewHolder.desc.setText(weathers.get(position).getDescription());
         weatherViewHolder.img.setImageResource(weathers.get(position).getImg());
+
     }
 
     @Override
     public int getItemCount() {
         return weathers.size();
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.myweatherdraver.data;
 
+import java.util.ArrayList;
+
 public class DataParameters {
     private static DataParameters instance = null;
     private String temperature_actual;
@@ -9,9 +11,12 @@ public class DataParameters {
     private String descript_actual;
     private String img_actual;
     private String name;
+    private ArrayList<WeatherRequest> dataListRequest;
+
 
 
     private DataParameters(){
+        dataListRequest = new ArrayList<>();
 
     }
 
@@ -75,5 +80,13 @@ public class DataParameters {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<WeatherRequest> getDataListRequest() {
+        return dataListRequest;
+    }
+
+    public void setDataListRequest(ArrayList<WeatherRequest> dataListRequest) {
+        this.dataListRequest = dataListRequest;
     }
 }

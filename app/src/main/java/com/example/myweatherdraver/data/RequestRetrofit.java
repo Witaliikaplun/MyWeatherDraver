@@ -8,6 +8,8 @@ import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.db.App;
 import com.example.myweatherdraver.ui.home.FragmentHome;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,9 +49,11 @@ public class RequestRetrofit {
                     img = response.body().getList().get(0).getWeather()[0].getImg();
                     name = String.format("%s", response.body().getCity().getNameCity());
                     dt_txt = response.body().getList().get(0).getDt_txt();
+                    DataParameters.getInstance().getDataListRequest().addAll(response.body().getList());
 
 
                     setActualParam();
+                    fh.initRecycleWeather();
                     fh.requestAndUpdate();
                     if(!Singleton.getSingleton().isErsteScan()) {
                         Singleton.getSingleton().setErsteScan(true);
@@ -79,11 +83,12 @@ public class RequestRetrofit {
                     img = response.body().getList().get(0).getWeather()[0].getImg();
                     name = String.format("%s", response.body().getCity().getNameCity());
                     dt_txt = response.body().getList().get(0).getDt_txt();
-
+                    DataParameters.getInstance().getDataListRequest().addAll(response.body().getList());
 
                     setActualParam();
-
+                    fh.initRecycleWeather();
                     if(!Singleton.getSingleton().isErsteScan()) {
+
                         fh.requestAndUpdate();
                         Singleton.getSingleton().setErsteScan(true);
                     }
