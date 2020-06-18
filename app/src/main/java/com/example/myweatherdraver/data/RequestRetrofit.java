@@ -55,6 +55,7 @@ public class RequestRetrofit {
 
                     setActualParam();
                     fh.initRecycleWeather();
+                    fh.initRecycleWeatherDay();
                     fh.requestAndUpdate();
                     if(!Singleton.getSingleton().isErsteScan()) {
                         Singleton.getSingleton().setErsteScan(true);
@@ -89,6 +90,7 @@ public class RequestRetrofit {
 
                     setActualParam();
                     fh.initRecycleWeather();
+                    fh.initRecycleWeatherDay();
                     if(!Singleton.getSingleton().isErsteScan()) {
 
                         fh.requestAndUpdate();

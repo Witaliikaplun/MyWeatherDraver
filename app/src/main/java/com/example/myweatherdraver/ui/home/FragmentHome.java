@@ -28,7 +28,9 @@ import com.example.myweatherdraver.db.CityFavSourceForDB;
 import com.example.myweatherdraver.db.ICityFavDAO;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
+import com.example.myweatherdraver.list_elements.WeatherAdapterDay;
 import com.example.myweatherdraver.list_elements.WeatherSource;
+import com.example.myweatherdraver.list_elements.WeatherSourceDay;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ import java.util.List;
 public class FragmentHome extends Fragment {
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewDay;
     private IOpenWeather iOpenWeather;
     private RequestRetrofit requestRetrofit;
     private ImageView imageView;
@@ -67,6 +70,7 @@ public class FragmentHome extends Fragment {
         else {
             requestAndUpdate();
             initRecycleWeather();
+            initRecycleWeatherDay();
         }
 
         setUnits();
@@ -156,6 +160,15 @@ public class FragmentHome extends Fragment {
 //        itemDecoration.setDrawable(getActivity().getDrawable(R.drawable.separator));
 //        recyclerView.addItemDecoration(itemDecoration);
         //----------------------
+    }
+
+    public void initRecycleWeatherDay() {
+        recyclerViewDay = (RecyclerView) root.findViewById(R.id.recyclerViewDay);
+        recyclerViewDay.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        WeatherSourceDay wsDay = new WeatherSourceDay(getResources());
+        ArrayList listWeather = wsDay.build().getListWeatherDay();
+        WeatherAdapterDay weatherAdapterDay = new WeatherAdapterDay(listWeather);
+        recyclerViewDay.setAdapter(weatherAdapterDay);
     }
 
     private void viewTextPresSpeedHumi() {
