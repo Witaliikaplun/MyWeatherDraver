@@ -49,6 +49,7 @@ public class RequestRetrofit {
                     img = response.body().getList().get(0).getWeather()[0].getImg();
                     name = String.format("%s", response.body().getCity().getNameCity());
                     dt_txt = response.body().getList().get(0).getDt_txt();
+                    DataParameters.getInstance().getDataListRequest().clear();
                     DataParameters.getInstance().getDataListRequest().addAll(response.body().getList());
 
 
@@ -83,6 +84,7 @@ public class RequestRetrofit {
                     img = response.body().getList().get(0).getWeather()[0].getImg();
                     name = String.format("%s", response.body().getCity().getNameCity());
                     dt_txt = response.body().getList().get(0).getDt_txt();
+                    DataParameters.getInstance().getDataListRequest().clear();
                     DataParameters.getInstance().getDataListRequest().addAll(response.body().getList());
 
                     setActualParam();

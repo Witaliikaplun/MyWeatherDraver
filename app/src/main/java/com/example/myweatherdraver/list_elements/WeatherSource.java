@@ -31,7 +31,8 @@ public class WeatherSource {
         int[] pictures = getImageArray();
 
         for (int i = 0; i < 8; i++) {
-            listWeather.add(new WeatherForRecicle(pictures[getIndexPicters(DataParameters.getInstance().getDataListRequest().get(i).getWeather()[0].getImg())],
+            listWeather.add(new WeatherForRecicle(DataParameters.getInstance().getDataListRequest().get(i).getDt_txt().substring(11, 16),
+                    pictures[getIndexPicters(DataParameters.getInstance().getDataListRequest().get(i).getWeather()[0].getImg())],
                     String.format("%.1f", DataParameters.getInstance().getDataListRequest().get(i).
                     getMain().getTemp())));
 

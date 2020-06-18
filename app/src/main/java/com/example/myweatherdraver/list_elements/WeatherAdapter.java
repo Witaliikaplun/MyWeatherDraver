@@ -23,11 +23,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public class WeatherViewHolder extends RecyclerView.ViewHolder{
 
         TextView desc;
+        TextView tvTime;
         ImageView img;
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.image);
             desc = (TextView) itemView.findViewById(R.id.descript);
+            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
         }
     }
 
@@ -42,6 +44,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     public void onBindViewHolder(@NonNull WeatherViewHolder weatherViewHolder, int position) {
         weatherViewHolder.desc.setText(weathers.get(position).getDescription());
         weatherViewHolder.img.setImageResource(weathers.get(position).getImg());
+        weatherViewHolder.tvTime.setText(weathers.get(position).getTime());
 
     }
 

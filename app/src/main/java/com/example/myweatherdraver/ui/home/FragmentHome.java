@@ -152,9 +152,9 @@ public class FragmentHome extends Fragment {
         WeatherAdapter weatherAdapter = new WeatherAdapter(listWeather);
         recyclerView.setAdapter(weatherAdapter);
         //декоратор-------------
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
-        itemDecoration.setDrawable(getActivity().getDrawable(R.drawable.separator));
-        recyclerView.addItemDecoration(itemDecoration);
+//        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
+//        itemDecoration.setDrawable(getActivity().getDrawable(R.drawable.separator));
+//        recyclerView.addItemDecoration(itemDecoration);
         //----------------------
     }
 

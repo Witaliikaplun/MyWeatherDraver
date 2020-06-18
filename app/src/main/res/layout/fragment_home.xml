@@ -188,11 +188,11 @@
             android:shadowColor="#FFFFFF"
             android:textAlignment="center"
             android:textColor="#2F2E2E"
-            android:textSize="45sp" />
+            android:textSize="32sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="119dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
@@ -200,7 +200,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
         </LinearLayout>
