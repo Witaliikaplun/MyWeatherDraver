@@ -2,11 +2,17 @@ package com.example.myweatherdraver.list_elements;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.util.Log;
 
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.data.DataParameters;
+import com.example.myweatherdraver.data.WeatherRequest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class WeatherSourceDay {
     private ArrayList<WeatherForRecicleDay> listWeatherDay;
@@ -20,12 +26,29 @@ public class WeatherSourceDay {
     }
 
     public WeatherSourceDay build(){
+
+        ArrayList<WeatherRequest> list = DataParameters.getInstance().getDataListRequest();
+
+        Calendar calendar = new GregorianCalendar();
+        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        DateFormat dateFormatTemp = new SimpleDateFormat("dd MMM");
+        String actDate = dateFormat.format(calendar.getTime());
+
+        Log.d("date", "date format: " + actDate);
+
         int[] pictures = getImageArray();
-        for (int i = 0; i < 4; i++) {
-            listWeatherDay.add(new WeatherForRecicleDay(DataParameters.getInstance().getDataListRequest().get(i).getDt_txt().substring(11, 16),
-                    pictures[getIndexPictersDay(DataParameters.getInstance().getDataListRequest().get(i).getWeather()[0].getImg())],
-                    String.format("%.1f", DataParameters.getInstance().getDataListRequest().get(i).
-                    getMain().getTemp())));
+        for (int i = 0; i < list.size(); i++) {
+            Calendar calendarTemp = new GregorianCalendar(Integer.parseInt(list.get(i).getDt_txt().substring(0, 4)), Integer.parseInt(list.get(i).getDt_txt().substring(5, 7)),
+                    Integer.parseInt(list.get(i).getDt_txt().substring(8, 10)));
+            String day_mon = dateFormatTemp.format(calendarTemp.getTime());
+
+            if(!actDate.equals(list.get(i).getDt_txt().substring(0, 10)) && list.get(i).getDt_txt().substring(11, 16).equals("12:00")){
+                listWeatherDay.add(new WeatherForRecicleDay(day_mon,
+                        pictures[getIndexPictersDay(list.get(i).getWeather()[0].getImg())],
+                        String.format("%.1f", list.get(i).
+                                getMain().getTemp())));
+            }
+
 
         }
         return this;
