@@ -31,19 +31,18 @@ public class WeatherSourceDay {
 
         Calendar calendar = new GregorianCalendar();
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-        DateFormat dateFormatTemp = new SimpleDateFormat("dd MMM");
+        DateFormat dateFormatTemp = new SimpleDateFormat("dd MMMM");
+        DateFormat dateFormatWeek = new SimpleDateFormat("EEEE");
         String actDate = dateFormat.format(calendar.getTime());
-
-        Log.d("date", "date format: " + actDate);
 
         int[] pictures = getImageArray();
         for (int i = 0; i < list.size(); i++) {
-            Calendar calendarTemp = new GregorianCalendar(Integer.parseInt(list.get(i).getDt_txt().substring(0, 4)), Integer.parseInt(list.get(i).getDt_txt().substring(5, 7)),
+            Calendar calendarTemp = new GregorianCalendar(Integer.parseInt(list.get(i).getDt_txt().substring(0, 4)), Integer.parseInt(list.get(i).getDt_txt().substring(5, 7))-1,
                     Integer.parseInt(list.get(i).getDt_txt().substring(8, 10)));
             String day_mon = dateFormatTemp.format(calendarTemp.getTime());
-
+            String day_week = dateFormatWeek.format(calendarTemp.getTime());
             if(!actDate.equals(list.get(i).getDt_txt().substring(0, 10)) && list.get(i).getDt_txt().substring(11, 16).equals("12:00")){
-                listWeatherDay.add(new WeatherForRecicleDay(day_mon,
+                listWeatherDay.add(new WeatherForRecicleDay(day_mon, day_week,
                         pictures[getIndexPictersDay(list.get(i).getWeather()[0].getImg())],
                         String.format("%.1f", list.get(i).
                                 getMain().getTemp())));

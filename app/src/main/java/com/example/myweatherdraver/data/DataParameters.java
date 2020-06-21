@@ -12,6 +12,7 @@ public class DataParameters {
     private String img_actual;
     private String name;
     private ArrayList<WeatherRequest> dataListRequest;
+    private String urlImage;
 
 
 
@@ -88,5 +89,13 @@ public class DataParameters {
 
     public void setDataListRequest(ArrayList<WeatherRequest> dataListRequest) {
         this.dataListRequest = dataListRequest;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 }

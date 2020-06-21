@@ -42,6 +42,7 @@ public class FragmentHome extends Fragment {
     private RecyclerView recyclerViewDay;
     private IOpenWeather iOpenWeather;
     private RequestRetrofit requestRetrofit;
+
     private ImageView imageView;
     private ImageView imageIcon;
     private CityFavSourceForDB cityFavSourceForDB;
@@ -71,16 +72,17 @@ public class FragmentHome extends Fragment {
             requestAndUpdate();
             initRecycleWeather();
             initRecycleWeatherDay();
+            setImage(DataParameters.getInstance().getUrlImage(), imageView);
         }
 
         setUnits();
 
         viewTextPresSpeedHumi();
-        setImage("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60", imageView);
+
         return root;
     }
 
-    private void setImage(String pach, ImageView iv) {
+    public void setImage(String pach, ImageView iv) {
         try {
             Picasso.get().load(pach)
                     .fit()  //подогнать изображение под целевую imageView
@@ -88,6 +90,10 @@ public class FragmentHome extends Fragment {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 
     public void requestAndUpdate() {

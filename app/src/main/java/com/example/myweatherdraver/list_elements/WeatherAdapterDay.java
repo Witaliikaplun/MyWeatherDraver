@@ -23,12 +23,14 @@ public class WeatherAdapterDay extends RecyclerView.Adapter<WeatherAdapterDay.We
     public class WeatherViewHolderDay extends RecyclerView.ViewHolder{
 
         TextView day;
+        TextView dayWeek;
         TextView temperature;
         ImageView img;
         public WeatherViewHolderDay(@NonNull View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.iv_day_image);
             day = (TextView) itemView.findViewById(R.id.tv_day);
+            dayWeek = (TextView) itemView.findViewById(R.id.tv_day_of_week);
             temperature = (TextView) itemView.findViewById(R.id.tv_day_temp);
         }
     }
@@ -43,6 +45,7 @@ public class WeatherAdapterDay extends RecyclerView.Adapter<WeatherAdapterDay.We
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolderDay weatherViewHolder, int position) {
         weatherViewHolder.day.setText(weathersDay.get(position).getDay());
+        weatherViewHolder.dayWeek.setText(weathersDay.get(position).getDayWeek());
         weatherViewHolder.img.setImageResource(weathersDay.get(position).getImgDay());
         weatherViewHolder.temperature.setText(weathersDay.get(position).getTemperatureDay());
 
