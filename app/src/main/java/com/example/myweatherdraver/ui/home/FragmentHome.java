@@ -133,11 +133,9 @@ public class FragmentHome extends Fragment {
         } catch (RuntimeException ex) {
             Log.d("param2", "эксепшн");
         }
-                    addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
-                            DataParameters.getInstance().getTemperature_actual()));
     }
 
-    private void addCityFavourites(CityFavourites e) {
+    public void addCityFavourites(CityFavourites e) {
         Singleton.getSingleton().getCityFavSourceForDB().addCity(e);
     }
 

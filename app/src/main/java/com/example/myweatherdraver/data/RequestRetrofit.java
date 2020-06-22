@@ -6,6 +6,7 @@ import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.db.App;
+import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.ui.home.FragmentHome;
 
 import java.util.ArrayList;
@@ -58,6 +59,10 @@ public class RequestRetrofit {
                     fh.initRecycleWeather();
                     fh.initRecycleWeatherDay();
                     fh.requestAndUpdate();
+
+                    fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+                            DataParameters.getInstance().getTemperature_actual()));
+
                     if (!Singleton.getSingleton().isErsteScan()) {
                         Singleton.getSingleton().setErsteScan(true);
                     }

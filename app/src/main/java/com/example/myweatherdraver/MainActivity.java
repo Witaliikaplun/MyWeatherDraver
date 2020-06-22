@@ -49,7 +49,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity {
     private GoogleMap mMap;
-    private NavigationView navigationView;
+
 
     public static final String TOKEN = "TOKEN";
     private AppBarConfiguration mAppBarConfiguration;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.nav_view);
+
 
         initSettings();
 
@@ -90,13 +90,7 @@ public class MainActivity extends AppCompatActivity {
         initGetToken();
         initNotificationChannel();
 
-        navigationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Singleton.getSingleton().getRequestRetrofit().setCity(Singleton.getSingleton().getCityForRequest());
-                Singleton.getSingleton().getRequestRetrofit().request();
-            }
-        });
+
     }
 
     private void initGetToken() {

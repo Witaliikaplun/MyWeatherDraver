@@ -69,11 +69,9 @@ public class FragmentSettings extends Fragment {
         TextView textCity = root.findViewById(R.id.textView6);
         etSearch = root.findViewById(R.id.et_search);
 
-
         String[] arrayCity = getResources().getStringArray(R.array.arrayCity);
 
         spinner = (Spinner) root.findViewById(R.id.spiner);
-        //spinerMethod(textCity, arrayCity, spinner);
 
         if (Singleton.getSingleton().getSwitchPress()) sPress.setChecked(true);
         else sPress.setChecked(false);
@@ -216,10 +214,13 @@ public class FragmentSettings extends Fragment {
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Singleton.getSingleton().setCityForRequest(etSearch.getText().toString());
+                if(event.getAction() == KeyEvent.ACTION_UP){
+                    Singleton.getSingleton().setCityForRequest(etSearch.getText().toString());
+                    requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
+                    requestRetrofit.request();
+                }
 
-                requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
-                requestRetrofit.request();
+
                 return false;
             }
         });
@@ -268,54 +269,5 @@ public class FragmentSettings extends Fragment {
         alertDialog.show();
     }
 
-    private void spinerMethod(final TextView textCity, final String[] arrayCity, Spinner spinner) {
-        //адаптер----------------------------------------------------
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayCity);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-        // заголовок--------------------------------------------------
-        spinner.setPrompt("Title");
-        // выделяем элемент ------------------------------
-        spinner.setSelection(Singleton.getSingleton().getPositionSpinner());
-
-        // устанавливаем обработчик нажатия---------------------------
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                // показываем позиция нажатого элемента
-                switch (position) {
-                    case 0:
-                        textCity.setText(arrayCity[position]);
-                        Singleton.getSingleton().setPositionSpinner(0);
-                        Singleton.getSingleton().setCityForRequest("Краснодар");
-                        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
-                        requestRetrofit.request();
-                        break;
-                    case 1:
-                        textCity.setText(arrayCity[position]);
-                        Singleton.getSingleton().setPositionSpinner(1);
-                        Singleton.getSingleton().setCityForRequest("Москва");
-                        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
-                        requestRetrofit.request();
-                        break;
-                    case 2:
-                        textCity.setText(arrayCity[position]);
-                        Singleton.getSingleton().setPositionSpinner(2);
-                        Singleton.getSingleton().setCityForRequest("Saint Petersburg");
-                        requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
-                        requestRetrofit.request();
-                        break;
-                    default:
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-    }
 }
 
