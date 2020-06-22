@@ -35,7 +35,7 @@ public class RequestRetrofit {
         this.fh = fh;
     }
 
-    public void request(){
+    public void request() {
         iOpenWeather.loadWeather(city, "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherList>() {
             @Override
             public void onResponse(Call<WeatherList> call, Response<WeatherList> response) {
@@ -52,14 +52,13 @@ public class RequestRetrofit {
                     DataParameters.getInstance().getDataListRequest().clear();
                     DataParameters.getInstance().getDataListRequest().addAll(response.body().getList());
 
-
                     DataParameters.getInstance().setUrlImage(getUrlPicters(DataParameters.getInstance().getDataListRequest().get(0).getWeather()[0].getImg()));
                     fh.setImage(DataParameters.getInstance().getUrlImage(), fh.getImageView());
                     setActualParam();
                     fh.initRecycleWeather();
                     fh.initRecycleWeatherDay();
                     fh.requestAndUpdate();
-                    if(!Singleton.getSingleton().isErsteScan()) {
+                    if (!Singleton.getSingleton().isErsteScan()) {
                         Singleton.getSingleton().setErsteScan(true);
                     }
                 } else setNullActualParam();
@@ -72,7 +71,7 @@ public class RequestRetrofit {
         });
     }
 
-    public void request2(){
+    public void request2() {
         iOpenWeather.loadWeatherCoord(lat.replace(",", "."), lon.replace(",", "."), "metric", "ru", BuildConfig.WEATHER_API_KEY).enqueue(new Callback<WeatherList>() {
             @Override
             public void onResponse(Call<WeatherList> call, Response<WeatherList> response) {
@@ -94,8 +93,7 @@ public class RequestRetrofit {
                     setActualParam();
                     fh.initRecycleWeather();
                     fh.initRecycleWeatherDay();
-                    if(!Singleton.getSingleton().isErsteScan()) {
-
+                    if (!Singleton.getSingleton().isErsteScan()) {
                         fh.requestAndUpdate();
                         Singleton.getSingleton().setErsteScan(true);
                     }
@@ -129,25 +127,32 @@ public class RequestRetrofit {
         DataParameters.getInstance().setName(App.getInstance().getResources().getString(R.string.noData));
     }
 
-    private String getUrlPicters(String icon){
+    private String getUrlPicters(String icon) {
         String url = "";
-        switch (icon){
-            case "01d": url = "https://images.unsplash.com/photo-1588335454770-03cf8c42b5b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            case "02d": url = "https://images.unsplash.com/photo-1547536509-063d743a7a96?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            case "03d": url = "https://images.unsplash.com/photo-1558486012-817176f84c6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            case "04d": url = "https://images.unsplash.com/photo-1567939924343-ac94b141a220?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            case "09d": url = "https://images.unsplash.com/photo-1573979223706-f901c44cd3d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            case "10d": url = "https://images.unsplash.com/photo-1573979223706-f901c44cd3d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            case "11d": url = "https://images.unsplash.com/photo-1511289081-d06dda19034d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-            break;
-            default: url =  "https://images.unsplash.com/photo-1482977036925-e8fcaa643657?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
-
+        switch (icon) {
+            case "01d":
+                url = "https://images.unsplash.com/photo-1588335454770-03cf8c42b5b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "02d":
+                url = "https://images.unsplash.com/photo-1547536509-063d743a7a96?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "03d":
+                url = "https://images.unsplash.com/photo-1558486012-817176f84c6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "04d":
+                url = "https://images.unsplash.com/photo-1567939924343-ac94b141a220?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "09d":
+                url = "https://images.unsplash.com/photo-1573979223706-f901c44cd3d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "10d":
+                url = "https://images.unsplash.com/photo-1573979223706-f901c44cd3d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "11d":
+                url = "https://images.unsplash.com/photo-1511289081-d06dda19034d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            default:
+                url = "https://images.unsplash.com/photo-1482977036925-e8fcaa643657?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
         }
         return url;
     }

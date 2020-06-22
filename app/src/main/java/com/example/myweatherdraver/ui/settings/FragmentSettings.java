@@ -5,11 +5,14 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ public class FragmentSettings extends Fragment {
     private Switch sHumi;
     private Switch sTheme;
     Spinner spinner;
+    private EditText etSearch;
+
     private ToggleButton tbCF;
     private ToggleButton tb_m_km;
     private ToggleButton tb_mm_gPa;
@@ -62,11 +67,13 @@ public class FragmentSettings extends Fragment {
         dialogCustomFragment = new DialogCustomFragment(tb_mm_gPa);
         requestRetrofit = Singleton.getSingleton().getRequestRetrofit();
         TextView textCity = root.findViewById(R.id.textView6);
+        etSearch = root.findViewById(R.id.et_search);
+
 
         String[] arrayCity = getResources().getStringArray(R.array.arrayCity);
 
         spinner = (Spinner) root.findViewById(R.id.spiner);
-        spinerMethod(textCity, arrayCity, spinner);
+        //spinerMethod(textCity, arrayCity, spinner);
 
         if (Singleton.getSingleton().getSwitchPress()) sPress.setChecked(true);
         else sPress.setChecked(false);
@@ -205,6 +212,20 @@ public class FragmentSettings extends Fragment {
                         "dialogCustom");
             }
         });
+
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Singleton.getSingleton().setCityForRequest(etSearch.getText().toString());
+
+                requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
+                requestRetrofit.request();
+                return false;
+            }
+        });
+
+
+
         return root;
     }
 
@@ -269,18 +290,16 @@ public class FragmentSettings extends Fragment {
                     case 0:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(0);
-                        Singleton.getSingleton().setCityForRequest("Krasnodar");
+                        Singleton.getSingleton().setCityForRequest("Краснодар");
                         requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
                         requestRetrofit.request();
-                        Log.d("messs", "Краснодар");
                         break;
                     case 1:
                         textCity.setText(arrayCity[position]);
                         Singleton.getSingleton().setPositionSpinner(1);
-                        Singleton.getSingleton().setCityForRequest("Moscow");
+                        Singleton.getSingleton().setCityForRequest("Москва");
                         requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
                         requestRetrofit.request();
-                        Log.d("messs", "Москва");
                         break;
                     case 2:
                         textCity.setText(arrayCity[position]);
@@ -288,7 +307,6 @@ public class FragmentSettings extends Fragment {
                         Singleton.getSingleton().setCityForRequest("Saint Petersburg");
                         requestRetrofit.setCity(Singleton.getSingleton().getCityForRequest());
                         requestRetrofit.request();
-                        Log.d("messs", "Санкт-Петербург");
                         break;
                     default:
                 }

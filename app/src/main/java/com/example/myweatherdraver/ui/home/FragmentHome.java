@@ -74,7 +74,6 @@ public class FragmentHome extends Fragment {
             initRecycleWeatherDay();
             setImage(DataParameters.getInstance().getUrlImage(), imageView);
         }
-
         setUnits();
 
         viewTextPresSpeedHumi();
@@ -155,26 +154,27 @@ public class FragmentHome extends Fragment {
     }
 
     public void initRecycleWeather() {
-        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
-        WeatherSource ws = new WeatherSource(getResources());
-        ArrayList listWeather = ws.build().getListWeather();
-        WeatherAdapter weatherAdapter = new WeatherAdapter(listWeather);
-        recyclerView.setAdapter(weatherAdapter);
-        //декоратор-------------
-//        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
-//        itemDecoration.setDrawable(getActivity().getDrawable(R.drawable.separator));
-//        recyclerView.addItemDecoration(itemDecoration);
-        //----------------------
+        try {
+            recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+            WeatherSource ws = new WeatherSource(getResources());
+            ArrayList listWeather = ws.build().getListWeather();
+            WeatherAdapter weatherAdapter = new WeatherAdapter(listWeather);
+            recyclerView.setAdapter(weatherAdapter);
+        } catch (IllegalStateException e){
+        }
     }
 
     public void initRecycleWeatherDay() {
-        recyclerViewDay = (RecyclerView) root.findViewById(R.id.recyclerViewDay);
-        recyclerViewDay.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        WeatherSourceDay wsDay = new WeatherSourceDay(getResources());
-        ArrayList listWeather = wsDay.build().getListWeatherDay();
-        WeatherAdapterDay weatherAdapterDay = new WeatherAdapterDay(listWeather);
-        recyclerViewDay.setAdapter(weatherAdapterDay);
+        try {
+            recyclerViewDay = (RecyclerView) root.findViewById(R.id.recyclerViewDay);
+            recyclerViewDay.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+            WeatherSourceDay wsDay = new WeatherSourceDay(getResources());
+            ArrayList listWeather = wsDay.build().getListWeatherDay();
+            WeatherAdapterDay weatherAdapterDay = new WeatherAdapterDay(listWeather);
+            recyclerViewDay.setAdapter(weatherAdapterDay);
+        } catch (IllegalStateException e){
+    }
     }
 
     private void viewTextPresSpeedHumi() {

@@ -49,7 +49,6 @@
                     android:layout_weight="1"
                     android:text="@string/cityNname"
                     android:textAlignment="center"
-                    android:textColor="#2F2E2E"
                     android:textSize="30dp" />
             </LinearLayout>
 
@@ -57,10 +56,15 @@
                 android:id="@+id/spiner"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-
                 android:textSize="100dp">
 
             </Spinner>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/et_search"
+                android:inputType="text"/>
 
             <Switch
                 android:id="@+id/switchSpeed"
