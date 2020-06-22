@@ -46,6 +46,9 @@
     <string name="unitsPress_gPa">гПа</string>
     <string name="noData">нет данных</string>
 
+    <string name="remove">Удалить</string>
+    <string name="clear">Очистить</string>
+
 
     <string-array name="arrayCity">
         <item>Краснодар</item>

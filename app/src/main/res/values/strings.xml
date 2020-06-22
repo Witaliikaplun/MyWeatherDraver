@@ -84,5 +84,8 @@
     <string name="intError">Internet Error</string>
     <string name="noData">no data</string>
 
+    <string name="remove">Remove</string>
+    <string name="clear">Clear</string>
+
 
 </resources>
