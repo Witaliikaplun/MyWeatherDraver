@@ -37,8 +37,13 @@ public class CityFavSourceForDB {
         iCityFavDAO.insertCityFav(cityFavourites);
         // После изменения БД надо повторно прочесть данные из БД и загрузить в буфер
         loadCity();
+    }
 
-        Log.d("city", String.valueOf(listCity));
+    // Удаляем город
+    public void delCity(CityFavourites cityFavourites){
+        iCityFavDAO.deleteCityFav(cityFavourites);
+        // После изменения БД надо повторно прочесть данные из БД и загрузить в буфер
+        loadCity();
     }
 
 

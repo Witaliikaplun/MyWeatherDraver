@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,16 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
+import com.example.myweatherdraver.db.App;
 import com.example.myweatherdraver.list_elements.CityAdapter;
 
 public class FragmentFavourites extends Fragment {
     RecyclerView recyclerView;
+    View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
         initRecycleFav(root);
+        view = root;
         return root;
     }
 
@@ -50,6 +54,9 @@ public class FragmentFavourites extends Fragment {
         switch (id) {
             case R.id.remove_context:
                 //adapter.removeItem(adapter.getMenuPosition());
+                Singleton.getSingleton().getCityFavSourceForDB().delCity(App.getInstance().getICityFavDAO().getAllCityFav().get(0));
+                initRecycleFav(view);
+                Toast.makeText(getContext(), "нажали удалить меню", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.clear_context:
                 //adapter.clearItems();
