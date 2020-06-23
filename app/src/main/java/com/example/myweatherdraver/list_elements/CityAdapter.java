@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.myweatherdraver.R;
+import com.example.myweatherdraver.Singleton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityFavViewHol
             @Override
             public boolean onLongClick(View view) {
                 menuPosition = position;
+                Singleton.getSingleton().setMenuPosition(menuPosition);
                 return false;
             }
         });

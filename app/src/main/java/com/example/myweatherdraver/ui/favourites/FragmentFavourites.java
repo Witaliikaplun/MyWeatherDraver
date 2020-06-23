@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,12 +53,15 @@ public class FragmentFavourites extends Fragment {
         switch (id) {
             case R.id.remove_context:
                 //adapter.removeItem(adapter.getMenuPosition());
-                Singleton.getSingleton().getCityFavSourceForDB().delCity(App.getInstance().getICityFavDAO().getAllCityFav().get(0));
+                Singleton.getSingleton().getCityFavSourceForDB().delCity(App.getInstance().getICityFavDAO().getAllCityFav().get(Singleton.getSingleton().getMenuPosition()));
                 initRecycleFav(view);
                 Toast.makeText(getContext(), "нажали удалить меню", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.clear_context:
+            case R.id.request_context:
                 //adapter.clearItems();
+                Singleton.getSingleton().setCityForRequest(Singleton.getSingleton().getCityFavSourceForDB().getListCity().get(Singleton.getSingleton().getMenuPosition()).getCity());
+                Singleton.getSingleton().getRequestRetrofit().request();
+                Toast.makeText(getContext(), "нажали обновить данные", Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onContextItemSelected(item);

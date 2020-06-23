@@ -22,6 +22,7 @@ public final class Singleton {
     private CityFavSourceForDB cityFavSourceForDB;
     private boolean ersteScan;
     private RequestRetrofit requestRetrofit;
+    private int menuPosition;
 
 
 
@@ -149,5 +150,13 @@ public final class Singleton {
 
     public void setRequestRetrofit(RequestRetrofit requestRetrofit) {
         this.requestRetrofit = requestRetrofit;
+    }
+
+    public int getMenuPosition() {
+        return menuPosition;
+    }
+
+    public void setMenuPosition(int menuPosition) {
+        this.menuPosition = menuPosition;
     }
 }
