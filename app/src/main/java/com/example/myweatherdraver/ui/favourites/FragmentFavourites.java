@@ -59,7 +59,7 @@ public class FragmentFavourites extends Fragment {
                 return true;
             case R.id.request_context:
                 //adapter.clearItems();
-                Singleton.getSingleton().setCityForRequest(Singleton.getSingleton().getCityFavSourceForDB().getListCity().get(Singleton.getSingleton().getMenuPosition()).getCity());
+                Singleton.getSingleton().getRequestRetrofit().setCity(Singleton.getSingleton().getCityFavSourceForDB().getListCity().get(Singleton.getSingleton().getMenuPosition()).getCity());
                 Singleton.getSingleton().getRequestRetrofit().request();
                 Toast.makeText(getContext(), "нажали обновить данные", Toast.LENGTH_SHORT).show();
                 return true;
