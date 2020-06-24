@@ -93,6 +93,10 @@ public class RequestRetrofit {
                     setActualParam();
                     fh.initRecycleWeather();
                     fh.initRecycleWeatherDay();
+
+                    fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+                            DataParameters.getInstance().getTemperature_actual()));
+
                     if (!Singleton.getSingleton().isErsteScan()) {
                         fh.requestAndUpdate();
                         Singleton.getSingleton().setErsteScan(true);
@@ -151,6 +155,28 @@ public class RequestRetrofit {
             case "11d":
                 url = "https://images.unsplash.com/photo-1511289081-d06dda19034d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
                 break;
+            case "01n":
+                url = "https://images.unsplash.com/photo-1516690553959-71a414d6b9b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "02n":
+                url = "https://images.unsplash.com/photo-1509722932567-3d977df2e0ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "03n":
+                url = "https://images.unsplash.com/photo-1558486012-817176f84c6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "04n":
+                url = "https://images.unsplash.com/photo-1567939924343-ac94b141a220?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "09n":
+                url = "https://images.unsplash.com/photo-1573979223706-f901c44cd3d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "10n":
+                url = "https://images.unsplash.com/photo-1573979223706-f901c44cd3d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+            case "11n":
+                url = "https://images.unsplash.com/photo-1511289081-d06dda19034d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+                break;
+
             default:
                 url = "https://images.unsplash.com/photo-1482977036925-e8fcaa643657?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
         }

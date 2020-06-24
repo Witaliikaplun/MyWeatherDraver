@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">погода</string>
-
-
     <string name="textView2" translatable="false">Город</string>
     <string name="speed" translatable="false">м/с</string>
-
     <string name="cityNname">Краснодар</string>
     <string name="switchtextSpeed">Скорость ветра</string>
     <string name="switchtextPress">Давление</string>
     <string name="switchtextHumi">Влажность</string>
-
     <string name="CRD">Краснодар</string>
     <string name="MSK">Москва</string>
     <string name="SPB">Санкт-Петербург</string>
@@ -18,7 +14,6 @@
     <string name="setting">настройки</string>
     <string name="back">назад</string>
     <string name="brov">браузер</string>
-
     <string name="loginName">Логин</string>
     <string name="password">Пароль</string>
     <string name="ok">Ок</string>
@@ -33,22 +28,21 @@
     <string name="rem_speed">Убрать скорость ветра?</string>
     <string name="show_speed">Показать скорость ветра?</string>
     <string name="rem_pres">Убрать</string>
-
     <string name="menu_home">Главная</string>
     <string name="menu_gallery">Настройки</string>
     <string name="menu_slideshow">Избранное</string>
     <string name="menu_map">Карта</string>
     <string name="nav_header_title">Погода</string>
-
     <string name="unitsSpeed_m_sec">м/с</string>
     <string name="unitsSpeed_km_h">км/ч</string>
     <string name="unitsPress_Hg">мм Hg</string>
     <string name="unitsPress_gPa">гПа</string>
     <string name="noData">нет данных</string>
-
     <string name="remove">Удалить</string>
     <string name="request">Загрузить данные</string>
-
+    <string name="low_bat_lewel">Низкий уровень заряда батареи</string>
+    <string name="no_connect_wifi">Нет подключения к сети Wi-Fi</string>
+    <string name="weather_map">Погода текущего местоположения</string>
 
     <string-array name="arrayCity">
         <item>Краснодар</item>

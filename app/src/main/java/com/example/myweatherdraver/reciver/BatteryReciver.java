@@ -23,11 +23,9 @@ public class BatteryReciver extends BroadcastReceiver {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(TITLE_BAT_RECIVER)
-                    .setContentText("Низкий уровень заряда батареи");
+                    .setContentText(context.getString(R.string.low_bat_lewel));
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(messageId, builder.build());
         }
-
-
     }
 }

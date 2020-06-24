@@ -6,20 +6,14 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Setting</string>
     <string name="menu_slideshow">Favourites</string>
     <string name="menu_map">Map</string>
-
     <string name="home_second">Home Second</string>
-
-
     <string name="textView2" translatable="false">City</string>
-
     <string name="image1" translatable="false">image1</string>
     <string name="image2" translatable="false">image2</string>
-
     <string name="image3" translatable="false">image3</string>
     <string name="speed" translatable="false">m/s</string>
     <string name="F">\u2109</string>
@@ -29,12 +23,10 @@
     <string name="unitsPress_Hg">mm Hg</string>
     <string name="unitsPress_gPa">gPa</string>
     <string name="unitsHumi">%</string>
-
     <string name="cityNname">Krasnodar</string>
     <string name="switchtextSpeed">Wind speed</string>
     <string name="switchtextPress">Pressure</string>
     <string name="switchtextHumi">Humidity</string>
-
     <string name="CRD">Krasnodar</string>
     <string name="MSK">Moskow</string>
     <string name="SPB">Saint Petersburg</string>
@@ -42,7 +34,6 @@
     <string name="setting">setting</string>
     <string name="back">back</string>
     <string name="brov">browser</string>
-
 
     <string-array name="arrayCity">
         <item>Krasnodar</item>
@@ -61,31 +52,26 @@
     <string name="textchengPress_2">remove the pressure?</string>
     <string name="textshowHumi">show the humidity?</string>
     <string name="textremiveHumi">remove the humidity?</string>
-
     <string name="show_button">Show</string>
     <string name="remove_but">Remove</string>
-
     <string name="rem_speed">remove the speed?</string>
     <string name="show_speed">show the speed?</string>
     <string name="rem_pres">Remove</string>
-
     <string name= "alert_dialog_1" >Alert Dialog с двумя кнопками</string>
     <string name= "message">изменить шкалу температуры?</string>
     <string name= "button_yes">Да</string>
     <string name= "button_no">Нет</string>
-
     <string name="tv_tbText">Температура</string>
     <string name="tv_tbTextspeed">Скорость ветра</string>
     <string name="tv_tbTextPress">Давление</string>
-
     <string name= "alert_dialog_2" >Alert Dialog с фрагментом</string>
     <string name= "message2">изменить шкалу скорости</string>
     <string name="messge3">Переключить шкалу?</string>
     <string name="intError">Internet Error</string>
     <string name="noData">no data</string>
-
     <string name="remove">Remove</string>
     <string name="request">Request info</string>
-
-
+    <string name="low_bat_lewel">Low battery level</string>
+    <string name="no_connect_wifi">No Wi-Fi connection</string>
+    <string name="weather_map">Current location weather</string>
 </resources>
