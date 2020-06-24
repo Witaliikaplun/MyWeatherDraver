@@ -61,8 +61,6 @@ public class MapsFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_maps_my, container, false);
-
-
     }
 
     @Override
@@ -87,8 +85,6 @@ public class MapsFragment extends Fragment {
                 Singleton.getSingleton().getRequestRetrofit().setLat(String.format("%.2f", lat));
                 Singleton.getSingleton().getRequestRetrofit().setLon(String.format("%.2f", lng));
                 Singleton.getSingleton().getRequestRetrofit().request2();
-
-
             }
         });
     }
@@ -187,13 +183,10 @@ public class MapsFragment extends Fragment {
                             textAddress.setText(addresses.get(0).getAddressLine(0));
                         }
                     });
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
-
-
 }

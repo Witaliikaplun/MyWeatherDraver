@@ -74,4 +74,5 @@
     <string name="low_bat_lewel">Low battery level</string>
     <string name="no_connect_wifi">No Wi-Fi connection</string>
     <string name="weather_map">Current location weather</string>
+    <string name="et_hint">enter your city</string>
 </resources>

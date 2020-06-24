@@ -43,6 +43,7 @@
     <string name="low_bat_lewel">Низкий уровень заряда батареи</string>
     <string name="no_connect_wifi">Нет подключения к сети Wi-Fi</string>
     <string name="weather_map">Погода текущего местоположения</string>
+    <string name="et_hint">введите город</string>
 
     <string-array name="arrayCity">
         <item>Краснодар</item>

@@ -19,11 +19,9 @@ public class WeatherSource {
     private ArrayList<WeatherForRecicle> listWeather;
     private Resources resources;
 
-
     public WeatherSource(Resources resources) {
         this.listWeather = new ArrayList<>();
         this.resources = resources; //чтобы вытащить данные из ресурсов
-
     }
 
     public WeatherSource build(){
@@ -34,7 +32,6 @@ public class WeatherSource {
                     pictures[getIndexPicters(DataParameters.getInstance().getDataListRequest().get(i).getWeather()[0].getImg())],
                     String.format("%.1f", DataParameters.getInstance().getDataListRequest().get(i).
                     getMain().getTemp())));
-
         }
         return this;
     }
@@ -45,8 +42,6 @@ public class WeatherSource {
         int[] answer = new int[picters.length()];
         for (int i = 0; i < picters.length(); i++) {
             answer[i] = picters.getResourceId(i, 0);
-
-
         }
         return answer;
     }
@@ -64,10 +59,7 @@ public class WeatherSource {
         }
         return index;
     }
-
     public ArrayList<WeatherForRecicle> getListWeather() {
         return listWeather;
     }
-
-
 }

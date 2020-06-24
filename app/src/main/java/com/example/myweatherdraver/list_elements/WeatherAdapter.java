@@ -45,13 +45,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         weatherViewHolder.desc.setText(weathers.get(position).getDescription());
         weatherViewHolder.img.setImageResource(weathers.get(position).getImg());
         weatherViewHolder.tvTime.setText(weathers.get(position).getTime());
-
     }
 
     @Override
     public int getItemCount() {
         return weathers.size();
     }
-
-
 }

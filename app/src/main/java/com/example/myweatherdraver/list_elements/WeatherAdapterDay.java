@@ -48,13 +48,10 @@ public class WeatherAdapterDay extends RecyclerView.Adapter<WeatherAdapterDay.We
         weatherViewHolder.dayWeek.setText(weathersDay.get(position).getDayWeek());
         weatherViewHolder.img.setImageResource(weathersDay.get(position).getImgDay());
         weatherViewHolder.temperature.setText(weathersDay.get(position).getTemperatureDay());
-
     }
 
     @Override
     public int getItemCount() {
         return weathersDay.size();
     }
-
-
 }

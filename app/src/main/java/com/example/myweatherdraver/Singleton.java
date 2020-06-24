@@ -24,10 +24,6 @@ public final class Singleton {
     private RequestRetrofit requestRetrofit;
     private int menuPosition;
 
-
-
-
-
     private Singleton(){
         switchPress = false;
         cityForRequest = "Krasnodar";
@@ -41,7 +37,6 @@ public final class Singleton {
     public void setSwitchTheme(boolean switchTeme) {
         this.switchTheme = switchTeme;
     }
-
 
     public ArrayList<CityFavourites> getListFav() {
         return listFav;
@@ -134,7 +129,6 @@ public final class Singleton {
         this.cityFavSourceForDB = cityFavSourceForDB;
     }
 
-
     public boolean isErsteScan() {
         return ersteScan;
     }
@@ -142,7 +136,6 @@ public final class Singleton {
     public void setErsteScan(boolean ersteScan) {
         this.ersteScan = ersteScan;
     }
-
 
     public RequestRetrofit getRequestRetrofit() {
         return requestRetrofit;

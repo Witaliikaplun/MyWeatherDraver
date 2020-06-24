@@ -37,7 +37,6 @@ public class FragmentSettings extends Fragment {
     private Switch sSpeed;
     private Switch sHumi;
     private Switch sTheme;
-    Spinner spinner;
     private EditText etSearch;
 
     private ToggleButton tbCF;
@@ -45,7 +44,6 @@ public class FragmentSettings extends Fragment {
     private ToggleButton tb_mm_gPa;
     private DialogBuilderFragment dialogBuilderFragment;
     private DialogCustomFragment dialogCustomFragment;
-    private IOpenWeather iOpenWeather;
     RequestRetrofit requestRetrofit;
     MainActivity act;
 
@@ -70,7 +68,6 @@ public class FragmentSettings extends Fragment {
 
         String[] arrayCity = getResources().getStringArray(R.array.arrayCity);
 
-        spinner = (Spinner) root.findViewById(R.id.spiner);
 
         if (Singleton.getSingleton().getSwitchPress()) sPress.setChecked(true);
         else sPress.setChecked(false);

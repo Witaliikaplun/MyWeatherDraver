@@ -75,7 +75,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityFavViewHol
             citiFavTemp = (TextView) itemView.findViewById(R.id.cityFavtemp);
             citiFavTime = (TextView) itemView.findViewById(R.id.timeFav);
         }
-
         public TextView getTextElement() {
             return textElement;
         }
