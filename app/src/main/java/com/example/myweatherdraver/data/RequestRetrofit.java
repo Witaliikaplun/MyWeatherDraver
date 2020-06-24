@@ -1,16 +1,11 @@
 package com.example.myweatherdraver.data;
 
-import android.util.Log;
-
 import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.db.App;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.ui.home.FragmentHome;
-
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

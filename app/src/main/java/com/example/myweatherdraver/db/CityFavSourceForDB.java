@@ -1,9 +1,6 @@
 package com.example.myweatherdraver.db;
 
-import android.util.Log;
-
 import com.example.myweatherdraver.list_elements.CityFavourites;
-
 import java.util.List;
 
 //Класс CityFavSourceForDB будет связующим звеном между библиотекой Room и RecyclerView

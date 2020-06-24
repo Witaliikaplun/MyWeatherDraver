@@ -52,16 +52,12 @@ public class FragmentFavourites extends Fragment {
         int id = item.getItemId();
         switch (id) {
             case R.id.remove_context:
-                //adapter.removeItem(adapter.getMenuPosition());
                 Singleton.getSingleton().getCityFavSourceForDB().delCity(App.getInstance().getICityFavDAO().getAllCityFav().get(Singleton.getSingleton().getMenuPosition()));
                 initRecycleFav(view);
-                Toast.makeText(getContext(), "нажали удалить меню", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.request_context:
-                //adapter.clearItems();
                 Singleton.getSingleton().getRequestRetrofit().setCity(Singleton.getSingleton().getCityFavSourceForDB().getListCity().get(Singleton.getSingleton().getMenuPosition()).getCity());
                 Singleton.getSingleton().getRequestRetrofit().request();
-                Toast.makeText(getContext(), "нажали обновить данные", Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onContextItemSelected(item);

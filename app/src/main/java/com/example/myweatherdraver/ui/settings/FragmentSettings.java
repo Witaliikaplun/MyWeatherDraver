@@ -66,7 +66,6 @@ public class FragmentSettings extends Fragment {
         dialogBuilderFragment = new DialogBuilderFragment(tb_m_km);
         dialogCustomFragment = new DialogCustomFragment(tb_mm_gPa);
         requestRetrofit = Singleton.getSingleton().getRequestRetrofit();
-        TextView textCity = root.findViewById(R.id.textView6);
         etSearch = root.findViewById(R.id.et_search);
 
         String[] arrayCity = getResources().getStringArray(R.array.arrayCity);
