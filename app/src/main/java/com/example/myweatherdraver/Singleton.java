@@ -22,9 +22,7 @@ public final class Singleton {
     private CityFavSourceForDB cityFavSourceForDB;
     private boolean ersteScan;
     private RequestRetrofit requestRetrofit;
-
-
-
+    private int menuPosition;
 
     private Singleton(){
         switchPress = false;
@@ -39,7 +37,6 @@ public final class Singleton {
     public void setSwitchTheme(boolean switchTeme) {
         this.switchTheme = switchTeme;
     }
-
 
     public ArrayList<CityFavourites> getListFav() {
         return listFav;
@@ -132,7 +129,6 @@ public final class Singleton {
         this.cityFavSourceForDB = cityFavSourceForDB;
     }
 
-
     public boolean isErsteScan() {
         return ersteScan;
     }
@@ -140,7 +136,6 @@ public final class Singleton {
     public void setErsteScan(boolean ersteScan) {
         this.ersteScan = ersteScan;
     }
-
 
     public RequestRetrofit getRequestRetrofit() {
         return requestRetrofit;
@@ -150,4 +145,11 @@ public final class Singleton {
         this.requestRetrofit = requestRetrofit;
     }
 
+    public int getMenuPosition() {
+        return menuPosition;
+    }
+
+    public void setMenuPosition(int menuPosition) {
+        this.menuPosition = menuPosition;
+    }
 }

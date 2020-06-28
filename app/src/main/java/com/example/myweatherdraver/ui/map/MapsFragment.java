@@ -61,8 +61,6 @@ public class MapsFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_maps_my, container, false);
-
-
     }
 
     @Override
@@ -87,8 +85,6 @@ public class MapsFragment extends Fragment {
                 Singleton.getSingleton().getRequestRetrofit().setLat(String.format("%.2f", lat));
                 Singleton.getSingleton().getRequestRetrofit().setLon(String.format("%.2f", lng));
                 Singleton.getSingleton().getRequestRetrofit().request2();
-
-
             }
         });
     }
@@ -139,18 +135,18 @@ public class MapsFragment extends Fragment {
         // пассивном режиме
         String provider = locationManager.getBestProvider(criteria, true);
         if (provider != null) {
-            // Будем получать геоположение через каждые 10 секунд или каждые
-            // 10 метров
+            // Будем получать геоположение через каждые 20 секунд или каждые
+            // 1 метр
             locationManager.requestLocationUpdates(provider, 20, 1, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
+                    lat = 0.0;
+                    lng = 0.0;
                     lat = location.getLatitude(); // Широта
-                    String latitude = Double.toString(lat);
-                    Log.d("map", latitude);
-
                     lng = location.getLongitude(); // Долгота
                     String longitude = Double.toString(lng);
-                    Log.d("map", longitude);
+                    String latitude = Double.toString(lat);
+                    if(lat != 0.0 && lng != 0.0) btnRequestAddress.setEnabled(true);
 
                     currentPosition = new LatLng(lat, lng);
                     mMap.addMarker(new MarkerOptions().position(currentPosition));
@@ -187,13 +183,10 @@ public class MapsFragment extends Fragment {
                             textAddress.setText(addresses.get(0).getAddressLine(0));
                         }
                     });
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
-
-
 }

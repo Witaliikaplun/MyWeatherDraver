@@ -28,7 +28,9 @@ import com.example.myweatherdraver.db.CityFavSourceForDB;
 import com.example.myweatherdraver.db.ICityFavDAO;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.list_elements.WeatherAdapter;
+import com.example.myweatherdraver.list_elements.WeatherAdapterDay;
 import com.example.myweatherdraver.list_elements.WeatherSource;
+import com.example.myweatherdraver.list_elements.WeatherSourceDay;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,8 +39,10 @@ import java.util.List;
 public class FragmentHome extends Fragment {
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewDay;
     private IOpenWeather iOpenWeather;
     private RequestRetrofit requestRetrofit;
+
     private ImageView imageView;
     private ImageView imageIcon;
     private CityFavSourceForDB cityFavSourceForDB;
@@ -64,16 +68,20 @@ public class FragmentHome extends Fragment {
             cityFavSourceForDB = new CityFavSourceForDB(iCityFavDAO, list);
             Singleton.getSingleton().setCityFavSourceForDB(cityFavSourceForDB);
         }
-        else requestAndUpdate();
-
+        else {
+            requestAndUpdate();
+            initRecycleWeather();
+            initRecycleWeatherDay();
+            setImage(DataParameters.getInstance().getUrlImage(), imageView);
+        }
         setUnits();
-        initRecycleWeather();
+
         viewTextPresSpeedHumi();
-        setImage("https://images.unsplash.com/photo-1564085398485-e17e00205e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60", imageView);
+
         return root;
     }
 
-    private void setImage(String pach, ImageView iv) {
+    public void setImage(String pach, ImageView iv) {
         try {
             Picasso.get().load(pach)
                     .fit()  //подогнать изображение под целевую imageView
@@ -81,6 +89,10 @@ public class FragmentHome extends Fragment {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 
     public void requestAndUpdate() {
@@ -121,11 +133,9 @@ public class FragmentHome extends Fragment {
         } catch (RuntimeException ex) {
             Log.d("param2", "эксепшн");
         }
-                    addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
-                            DataParameters.getInstance().getTemperature_actual()));
     }
 
-    private void addCityFavourites(CityFavourites e) {
+    public void addCityFavourites(CityFavourites e) {
         Singleton.getSingleton().getCityFavSourceForDB().addCity(e);
     }
 
@@ -141,18 +151,28 @@ public class FragmentHome extends Fragment {
                 : R.string.unitsPress_Hg);
     }
 
-    private void initRecycleWeather() {
-        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
-        WeatherSource ws = new WeatherSource(getResources());
-        ArrayList listWeather = ws.build().getListWeather();
-        WeatherAdapter weatherAdapter = new WeatherAdapter(listWeather);
-        recyclerView.setAdapter(weatherAdapter);
-        //декоратор-------------
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
-        itemDecoration.setDrawable(getActivity().getDrawable(R.drawable.separator));
-        recyclerView.addItemDecoration(itemDecoration);
-        //----------------------
+    public void initRecycleWeather() {
+        try {
+            recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+            WeatherSource ws = new WeatherSource(getResources());
+            ArrayList listWeather = ws.build().getListWeather();
+            WeatherAdapter weatherAdapter = new WeatherAdapter(listWeather);
+            recyclerView.setAdapter(weatherAdapter);
+        } catch (IllegalStateException e){
+        }
+    }
+
+    public void initRecycleWeatherDay() {
+        try {
+            recyclerViewDay = (RecyclerView) root.findViewById(R.id.recyclerViewDay);
+            recyclerViewDay.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+            WeatherSourceDay wsDay = new WeatherSourceDay(getResources());
+            ArrayList listWeather = wsDay.build().getListWeatherDay();
+            WeatherAdapterDay weatherAdapterDay = new WeatherAdapterDay(listWeather);
+            recyclerViewDay.setAdapter(weatherAdapterDay);
+        } catch (IllegalStateException e){
+    }
     }
 
     private void viewTextPresSpeedHumi() {

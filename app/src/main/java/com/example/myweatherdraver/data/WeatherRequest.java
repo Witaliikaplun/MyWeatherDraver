@@ -5,23 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class WeatherRequest {
-    private Coord coord;
     private Weather[] weather;
     private Main main;
     private Wind wind;
     private Clouds clouds;
-    private String name;
 
-    @SerializedName("id")
-    private int id;
-
-    public Coord getCoord() {
-        return coord;
-    }
-
-    public void setCoord(Coord coord) {
-        this.coord = coord;
-    }
+    private String dt_txt;
 
     public Weather[] getWeather() {
         return weather;
@@ -55,19 +44,13 @@ public class WeatherRequest {
         this.clouds = clouds;
     }
 
-    public String getName() {
-        return name;
+    public String getDt_txt() {
+        return dt_txt;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDt_txt(String dt_txt) {
+        this.dt_txt = dt_txt;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

@@ -22,11 +22,9 @@ public class WiFiReciver extends BroadcastReceiver {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(TITLE_WIFI_RECIVER)
-                        .setContentText("Нет подключения к сети Wi-Fi");
+                        .setContentText(context.getString(R.string.no_connect_wifi));
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(messageId++, builder.build());
             }
-
-
     }
 }

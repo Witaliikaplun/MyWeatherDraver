@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends AppCompatActivity {
     private GoogleMap mMap;
 
+
     public static final String TOKEN = "TOKEN";
     private AppBarConfiguration mAppBarConfiguration;
     private SharedPreferences sPref;
@@ -64,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
-
-
 
 
         initSettings();
@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
         initGetToken();
         initNotificationChannel();
+
+
     }
 
     private void initGetToken() {
@@ -175,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
+
+
 
     
 }

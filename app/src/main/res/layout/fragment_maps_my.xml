@@ -12,8 +12,9 @@
             android:id="@+id/btn_requestWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Погода текущего местоположения"
-            android:layout_gravity="center"/>
+            android:text="@string/weather_map"
+            android:layout_gravity="center"
+            android:enabled="false"/>
     </FrameLayout>
     <EditText
         android:id="@+id/et_address"
