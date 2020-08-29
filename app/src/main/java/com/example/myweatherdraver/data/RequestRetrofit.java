@@ -1,11 +1,19 @@
 package com.example.myweatherdraver.data;
 
+import android.util.Log;
+
 import com.example.myweatherdraver.BuildConfig;
 import com.example.myweatherdraver.R;
 import com.example.myweatherdraver.Singleton;
 import com.example.myweatherdraver.db.App;
 import com.example.myweatherdraver.list_elements.CityFavourites;
 import com.example.myweatherdraver.ui.home.FragmentHome;
+
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,8 +63,26 @@ public class RequestRetrofit {
                     fh.initRecycleWeatherDay();
                     fh.requestAndUpdate();
 
-                    fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
-                            DataParameters.getInstance().getTemperature_actual()));
+//                    fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+//                            DataParameters.getInstance().getTemperature_actual()));
+
+                    Completable.fromAction(() -> fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+                    DataParameters.getInstance().getTemperature_actual()))).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Log.d("rx", "onComplete");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d("rx", "onError");
+                        }
+                    });
 
                     if (!Singleton.getSingleton().isErsteScan()) {
                         Singleton.getSingleton().setErsteScan(true);
@@ -94,8 +120,26 @@ public class RequestRetrofit {
                     fh.initRecycleWeather();
                     fh.initRecycleWeatherDay();
 
-                    fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
-                            DataParameters.getInstance().getTemperature_actual()));
+//                    fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+//                            DataParameters.getInstance().getTemperature_actual()));
+
+                    Completable.fromAction(() -> fh.addCityFavourites(new CityFavourites(DataParameters.getInstance().getName(),
+                            DataParameters.getInstance().getTemperature_actual()))).subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Log.d("rx", "onComplete");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d("rx", "onError");
+                        }
+                    });
 
                     if (!Singleton.getSingleton().isErsteScan()) {
                         fh.requestAndUpdate();
